@@ -1,0 +1,3306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proyectos — XOTX.Studio</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #0a0a0a;
+      --paper: #f4f0e8;
+      --accent: #e84d1c;
+      --mid: #c8c2b4;
+      --white: #ffffff;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--font-body);
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ── CURSOR ── */
+    #cursor {
+      position: fixed; width: 12px; height: 12px;
+      background: var(--accent); border-radius: 50%;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%, -50%);
+    }
+    #cursor-ring {
+      position: fixed; width: 36px; height: 36px;
+      border: 1px solid var(--accent); border-radius: 50%;
+      pointer-events: none; z-index: 9998;
+      transform: translate(-50%, -50%); opacity: .5;
+    }
+    #cursor-label {
+      position: fixed; pointer-events: none; z-index: 9997;
+      transform: translate(-50%, -50%);
+      font-size: .6rem; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--white); background: var(--accent);
+      padding: .3rem .6rem; opacity: 0; white-space: nowrap;
+    }
+    @media (hover: none) {
+      #cursor, #cursor-ring, #cursor-label { display: none; }
+      body { cursor: auto; }
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 200; padding: 1.5rem 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+      mix-blend-mode: difference;
+    }
+    .nav-logo {
+      font-family: var(--font-display); font-size: 1.6rem;
+      letter-spacing: .12em; color: var(--paper); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--paper); text-decoration: none; font-size: .8rem;
+      letter-spacing: .12em; text-transform: uppercase;
+      opacity: .6; transition: opacity .2s;
+    }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; }
+    @media (max-width: 600px) {
+      .nav-links { gap: 1.2rem; }
+      .nav-links a { font-size: .65rem; }
+    }
+
+    /* ── PAGE HEADER ── */
+    #page-header {
+      min-height: 52vh; display: flex; flex-direction: column;
+      justify-content: flex-end; padding: 0 2rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .header-noise {
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      z-index: 1; opacity: .6; pointer-events: none;
+    }
+    .header-line {
+      position: absolute; top: 0; left: 50%;
+      width: 1px; height: 100%;
+      background: linear-gradient(to bottom, transparent, var(--accent));
+      transform: translateX(-50%); z-index: 2; opacity: .2;
+    }
+    .header-content { position: relative; z-index: 3; }
+    .header-tag {
+      font-size: .7rem; letter-spacing: .25em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .header-tag::before {
+      content: ''; display: block;
+      width: 2.5rem; height: 1px; background: var(--accent);
+    }
+    .header-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 10vw, 9rem);
+      line-height: .92; letter-spacing: -.01em; color: var(--paper);
+    }
+    .header-title .outline {
+      -webkit-text-stroke: 1px var(--paper); color: transparent;
+    }
+    .header-sub {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-top: 2rem; gap: 2rem; flex-wrap: wrap;
+    }
+    .header-desc {
+      max-width: 380px; font-size: .9rem; line-height: 1.7; color: var(--mid);
+    }
+
+    /* ── CATEGORY SELECTOR ── */
+    #cat-selector {
+      padding: 0;
+      position: relative;
+    }
+
+    .cat-intro {
+      padding: 5rem 2rem 3rem;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .cat-intro-label {
+      font-size: .65rem; letter-spacing: .3em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .cat-intro-label::before {
+      content: ''; display: block;
+      width: 1.5rem; height: 1px; background: var(--accent);
+    }
+    .cat-intro-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      color: var(--mid); font-weight: 400;
+      letter-spacing: .04em;
+    }
+
+    /* Big category list */
+    .cat-list {
+      list-style: none;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .cat-item {
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      overflow: hidden;
+    }
+    .cat-btn {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; padding: 2.2rem 2rem;
+      background: none; border: none; cursor: pointer;
+      text-align: left;
+      transition: background .3s;
+      position: relative;
+    }
+    .cat-btn::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .5s cubic-bezier(.76,0,.24,1);
+      z-index: 0;
+    }
+    .cat-btn:hover::before { transform: scaleX(1); }
+
+    .cat-btn-inner {
+      display: flex; align-items: center; gap: 2rem;
+      position: relative; z-index: 1;
+      flex: 1;
+    }
+    .cat-num {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      color: rgba(232,77,28,.4);
+      letter-spacing: .1em;
+      min-width: 2.5rem;
+      transition: color .3s;
+    }
+    .cat-btn:hover .cat-num { color: rgba(255,255,255,.5); }
+
+    .cat-name {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 7.5rem);
+      line-height: .9;
+      color: var(--paper);
+      letter-spacing: .02em;
+      transition: color .3s;
+    }
+    .cat-btn:hover .cat-name { color: var(--white); }
+
+    .cat-desc {
+      font-size: .8rem; line-height: 1.6; color: var(--mid);
+      max-width: 280px; margin-left: auto;
+      transition: color .3s;
+      text-align: right;
+    }
+    .cat-btn:hover .cat-desc { color: rgba(255,255,255,.7); }
+
+    .cat-arrow {
+      font-size: 2rem; color: var(--paper);
+      transition: transform .3s, color .3s;
+      position: relative; z-index: 1;
+      margin-left: 2rem;
+    }
+    .cat-btn:hover .cat-arrow {
+      transform: translateX(8px);
+      color: var(--white);
+    }
+
+    @media (max-width: 768px) {
+      .cat-btn { padding: 1.5rem 1.25rem; }
+      .cat-desc { display: none; }
+      .cat-arrow { margin-left: 1rem; font-size: 1.5rem; }
+      .cat-btn-inner { gap: 1rem; }
+    }
+
+    /* ── CATEGORY VIEW (full overlay) ── */
+    #cat-view {
+      position: fixed; inset: 0;
+      background: var(--ink);
+      z-index: 300;
+      display: flex; flex-direction: column;
+      opacity: 0; pointer-events: none;
+      transition: opacity .4s;
+    }
+    #cat-view.open {
+      opacity: 1; pointer-events: all;
+    }
+
+    /* View header */
+    .view-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      flex-shrink: 0;
+      position: relative; z-index: 10;
+    }
+    .view-back {
+      display: flex; align-items: center; gap: .75rem;
+      background: none; border: none; color: var(--paper);
+      font-family: var(--font-body); font-size: .75rem;
+      letter-spacing: .18em; text-transform: uppercase;
+      cursor: pointer; opacity: .6; transition: opacity .2s;
+    }
+    .view-back:hover { opacity: 1; }
+    .view-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 5vw, 3.5rem);
+      letter-spacing: .04em; color: var(--paper);
+    }
+    .view-format-tabs {
+      display: flex; gap: .5rem;
+    }
+    .fmt-tab {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,.15);
+      color: var(--mid); font-family: var(--font-body);
+      font-size: .65rem; letter-spacing: .15em; text-transform: uppercase;
+      padding: .4rem .9rem; cursor: pointer; transition: all .2s;
+    }
+    .fmt-tab.active, .fmt-tab:hover {
+      background: var(--accent); border-color: var(--accent); color: var(--white);
+    }
+    @media (max-width: 600px) {
+      .view-header { padding: 1rem 1.25rem; flex-wrap: wrap; gap: .75rem; }
+      .view-format-tabs { order: 3; width: 100%; }
+    }
+
+    /* Hint */
+    .drag-hint {
+      padding: .75rem 2rem;
+      font-size: .65rem; letter-spacing: .18em; text-transform: uppercase;
+      color: rgba(255,255,255,.25); flex-shrink: 0;
+      display: flex; align-items: center; gap: .6rem;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+    }
+    .drag-hint svg { opacity: .4; }
+
+    /* ── MESA / TABLE AREA ── */
+    .mesa-wrap {
+      flex: 1; overflow: hidden; position: relative;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(232,77,28,.04) 0%, transparent 60%),
+        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,.025) 39px, rgba(255,255,255,.025) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,.025) 39px, rgba(255,255,255,.025) 40px);
+      cursor: grab;
+    }
+    .mesa-wrap.grabbing { cursor: grabbing; }
+
+    .mesa {
+      position: relative;
+      width: 4000px; height: 2400px;
+      transform-origin: 0 0;
+    }
+
+    /* ── PAPER SHEET ── */
+    .sheet {
+      position: absolute;
+      background: var(--paper);
+      box-shadow:
+        0 4px 12px rgba(0,0,0,.5),
+        0 20px 60px rgba(0,0,0,.4),
+        inset 0 0 0 1px rgba(0,0,0,.08);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      overflow: hidden;
+      transition: box-shadow .3s, transform .3s;
+      cursor: pointer;
+      user-select: none;
+    }
+    .sheet:hover {
+      box-shadow:
+        0 8px 24px rgba(0,0,0,.6),
+        0 30px 80px rgba(0,0,0,.5),
+        inset 0 0 0 1px rgba(0,0,0,.08);
+    }
+    .sheet.is-dragging {
+      box-shadow:
+        0 20px 60px rgba(0,0,0,.8),
+        0 40px 100px rgba(0,0,0,.6),
+        inset 0 0 0 2px rgba(232,77,28,.3);
+      z-index: 50 !important;
+      cursor: grabbing !important;
+    }
+
+    /* A2 = 420×594mm → scaled to px (1mm = 2.5px approx) */
+    .sheet-a2 { width: 370px; height: 524px; }
+    /* 40×50cm → 400×500mm */
+    .sheet-40x50 { width: 330px; height: 415px; }
+
+    /* Sheet inner design */
+    .sheet-inner {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      position: relative; overflow: hidden;
+    }
+
+    /* Paper texture */
+    .sheet-inner::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 10;
+    }
+
+    .sheet-format-badge {
+      position: absolute; top: .8rem; right: .8rem;
+      font-family: var(--font-display);
+      font-size: .55rem; letter-spacing: .18em;
+      color: rgba(0,0,0,.25); z-index: 5;
+    }
+    .sheet-margin {
+      position: absolute; inset: 20px;
+      border: 1px solid rgba(0,0,0,.06);
+      pointer-events: none; z-index: 4;
+    }
+
+    /* Design areas inside sheets */
+    .sheet-design {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      position: relative;
+    }
+
+    /* Different design styles per sheet */
+    .sd-1 {
+      background: linear-gradient(160deg, #0a0a0a 0%, #1a0a05 100%);
+    }
+    .sd-1 .sd-accent { background: var(--accent); position: absolute; left: 0; top: 0; width: 8px; height: 100%; }
+    .sd-1 .sd-title {
+      font-family: var(--font-display); font-size: 3.5rem; line-height: .9;
+      color: var(--paper); letter-spacing: .02em;
+      position: absolute; bottom: 3rem; left: 2rem; right: 2rem;
+    }
+    .sd-1 .sd-sub {
+      font-family: var(--font-body); font-size: .5rem; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--accent);
+      position: absolute; bottom: 1.5rem; left: 2rem;
+    }
+    .sd-1 .sd-img {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        -45deg, transparent, transparent 20px,
+        rgba(232,77,28,.04) 20px, rgba(232,77,28,.04) 21px
+      );
+    }
+    .sd-1 .sd-xotx {
+      position: absolute; top: 2rem; left: 2rem;
+      font-family: var(--font-display); font-size: .9rem;
+      color: rgba(255,255,255,.15); letter-spacing: .2em;
+    }
+
+    .sd-2 {
+      background: var(--paper);
+    }
+    .sd-2 .sd-top-bar { position: absolute; top: 0; left: 0; right: 0; height: 45%; background: var(--ink); }
+    .sd-2 .sd-title {
+      font-family: var(--font-display); font-size: 2.8rem; line-height: .9;
+      color: var(--paper); letter-spacing: .02em;
+      position: absolute; top: calc(45% - 5rem); left: 2rem; right: 2rem;
+      z-index: 2;
+    }
+    .sd-2 .sd-title span { -webkit-text-stroke: 1px var(--paper); color: transparent; }
+    .sd-2 .sd-dot {
+      position: absolute; right: 2rem; top: 2rem;
+      width: 40px; height: 40px; background: var(--accent); border-radius: 50%;
+    }
+    .sd-2 .sd-body {
+      position: absolute; bottom: 2rem; left: 2rem; right: 2rem;
+      font-family: var(--font-body); font-size: .45rem; line-height: 1.6;
+      color: rgba(0,0,0,.4); z-index: 2;
+    }
+    .sd-2 .sd-line {
+      position: absolute; bottom: 4.5rem; left: 2rem; right: 2rem;
+      height: 1px; background: rgba(0,0,0,.12); z-index: 2;
+    }
+
+    .sd-3 {
+      background: #f9f5ed;
+    }
+    .sd-3 .sd-grid {
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 18px, rgba(0,0,0,.04) 18px, rgba(0,0,0,.04) 19px),
+                        repeating-linear-gradient(90deg, transparent, transparent 18px, rgba(0,0,0,.04) 18px, rgba(0,0,0,.04) 19px);
+    }
+    .sd-3 .sd-circle {
+      position: absolute; top: 50%; left: 50%;
+      width: 200px; height: 200px;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(0,0,0,.08); border-radius: 50%;
+    }
+    .sd-3 .sd-circle2 {
+      position: absolute; top: 50%; left: 50%;
+      width: 140px; height: 140px;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(0,0,0,.06); border-radius: 50%;
+    }
+    .sd-3 .sd-title {
+      font-family: var(--font-display); font-size: 3rem; line-height: .9;
+      color: var(--ink); letter-spacing: .06em;
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center; z-index: 2; white-space: nowrap;
+    }
+    .sd-3 .sd-accent-bar {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 6px;
+      background: var(--accent);
+    }
+    .sd-3 .sd-tag {
+      position: absolute; top: 1.5rem; left: 50%; transform: translateX(-50%);
+      font-size: .45rem; letter-spacing: .25em; text-transform: uppercase;
+      color: rgba(0,0,0,.3); white-space: nowrap;
+    }
+
+    .sd-4 {
+      background: var(--accent);
+    }
+    .sd-4 .sd-title {
+      font-family: var(--font-display); font-size: 4.5rem; line-height: .85;
+      color: var(--white); letter-spacing: -.01em;
+      position: absolute; bottom: 2rem; left: 1.5rem; right: 1.5rem;
+    }
+    .sd-4 .sd-outline {
+      -webkit-text-stroke: 1px rgba(255,255,255,.4); color: transparent;
+    }
+    .sd-4 .sd-slash {
+      position: absolute; top: 0; right: 4rem;
+      width: 1px; height: 100%; background: rgba(255,255,255,.15);
+      transform: skewX(-8deg);
+    }
+    .sd-4 .sd-slash2 {
+      position: absolute; top: 0; right: 5.5rem;
+      width: 1px; height: 100%; background: rgba(255,255,255,.08);
+      transform: skewX(-8deg);
+    }
+    .sd-4 .sd-tag {
+      position: absolute; top: 1.5rem; left: 1.5rem;
+      font-size: .45rem; letter-spacing: .25em; text-transform: uppercase;
+      color: rgba(255,255,255,.6);
+    }
+    .sd-4 .sd-num {
+      position: absolute; top: 1rem; right: 1rem;
+      font-family: var(--font-display); font-size: 4rem;
+      color: rgba(255,255,255,.1); letter-spacing: .05em;
+    }
+
+    .sd-5 {
+      background: var(--ink);
+    }
+    .sd-5 .sd-photo {
+      position: absolute; top: 0; left: 0; right: 0; height: 60%;
+      background: linear-gradient(135deg, #1a1208 0%, #2d1f0a 100%);
+      overflow: hidden;
+    }
+    .sd-5 .sd-photo-lines {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        90deg, transparent, transparent 24px,
+        rgba(232,77,28,.06) 24px, rgba(232,77,28,.06) 25px
+      );
+    }
+    .sd-5 .sd-title {
+      font-family: var(--font-display); font-size: 2.2rem; line-height: .9;
+      color: var(--paper); letter-spacing: .04em;
+      position: absolute; bottom: 4rem; left: 1.5rem; right: 1.5rem;
+    }
+    .sd-5 .sd-footer {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2.5rem; background: var(--accent);
+      display: flex; align-items: center; padding: 0 1.5rem;
+    }
+    .sd-5 .sd-footer span {
+      font-family: var(--font-display); font-size: .6rem;
+      letter-spacing: .2em; color: var(--white);
+    }
+
+    .sd-6 {
+      background: #f0ece4;
+    }
+    .sd-6 .sd-half {
+      position: absolute; top: 0; left: 0; bottom: 0; right: 50%;
+      background: var(--ink);
+    }
+    .sd-6 .sd-title {
+      font-family: var(--font-display); font-size: 2.2rem; line-height: .88;
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-52%, -50%);
+      z-index: 2; text-align: left;
+    }
+    .sd-6 .sd-title .t-white { color: var(--white); display: block; }
+    .sd-6 .sd-title .t-dark { color: var(--ink); display: block; }
+    .sd-6 .sd-year {
+      position: absolute; bottom: 1.5rem; right: 1.5rem;
+      font-family: var(--font-display); font-size: 2rem;
+      color: rgba(0,0,0,.08); letter-spacing: .1em;
+    }
+    .sd-6 .sd-dot2 {
+      position: absolute; top: 1.5rem; left: 1.5rem;
+      width: 8px; height: 8px;
+      background: var(--accent); border-radius: 50%;
+    }
+
+    /* Sheet info overlay on hover */
+    .sheet-overlay {
+      position: absolute; inset: 0;
+      background: rgba(232,77,28,.0);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: .5rem; z-index: 20;
+      opacity: 0; transition: opacity .3s, background .3s;
+    }
+    .sheet:hover .sheet-overlay { opacity: 1; background: rgba(232,77,28,.12); }
+    .sheet-overlay-title {
+      font-family: var(--font-display);
+      font-size: 1rem; letter-spacing: .1em;
+      color: var(--white); text-align: center;
+      background: var(--accent); padding: .4rem .9rem;
+      text-shadow: none;
+    }
+    .sheet-overlay-sub {
+      font-size: .55rem; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--paper); opacity: .7;
+    }
+
+    /* ── MINI MAP ── */
+    .mesa-minimap {
+      position: absolute; bottom: 1.5rem; right: 1.5rem;
+      width: 120px; height: 72px;
+      background: rgba(10,10,10,.8);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 2px; overflow: hidden;
+      pointer-events: none; z-index: 20;
+    }
+    .minimap-viewport {
+      position: absolute;
+      background: rgba(232,77,28,.25);
+      border: 1px solid var(--accent);
+      pointer-events: none;
+    }
+
+    /* ── ZOOM CONTROLS ── */
+    .zoom-controls {
+      position: absolute; bottom: 1.5rem; left: 1.5rem;
+      display: flex; gap: .5rem; z-index: 20;
+    }
+    .zoom-btn {
+      width: 36px; height: 36px;
+      background: rgba(10,10,10,.8); border: 1px solid rgba(255,255,255,.15);
+      color: var(--paper); font-size: 1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s, border-color .2s;
+      font-family: var(--font-body);
+    }
+    .zoom-btn:hover { background: var(--accent); border-color: var(--accent); }
+    .zoom-label {
+      display: flex; align-items: center; padding: 0 .75rem;
+      background: rgba(10,10,10,.8); border: 1px solid rgba(255,255,255,.1);
+      font-size: .6rem; letter-spacing: .15em; color: var(--mid);
+    }
+
+    /* ── CTA SECTION ── */
+    #cta-section {
+      background: var(--paper); padding: 7rem 0;
+      position: relative; overflow: hidden;
+    }
+    .cta-bg-text {
+      position: absolute; bottom: -2rem; right: -1rem;
+      font-family: var(--font-display);
+      font-size: clamp(6rem, 18vw, 16rem);
+      line-height: 1; color: rgba(0,0,0,.05);
+      pointer-events: none; user-select: none; letter-spacing: -.02em;
+    }
+    .cta-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 5.5rem);
+      line-height: .95; color: var(--ink); margin-bottom: 1.5rem;
+    }
+    .cta-title .outline-dark {
+      -webkit-text-stroke: 1px var(--ink); color: transparent;
+    }
+    .cta-sub {
+      font-size: .9rem; line-height: 1.7; color: #666;
+      max-width: 380px; margin-bottom: 2.5rem;
+    }
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: .75rem;
+      background: var(--accent); color: var(--white);
+      font-size: .75rem; letter-spacing: .18em; text-transform: uppercase;
+      text-decoration: none; padding: 1rem 2.25rem;
+      font-family: var(--font-body); transition: background .25s;
+    }
+    .cta-btn:hover { background: #c83d0c; color: white; }
+    .cta-btn .arrow { transition: transform .2s; }
+    .cta-btn:hover .arrow { transform: translateX(4px); }
+    .cta-links { display: flex; gap: 2rem; margin-top: 1.5rem; flex-wrap: wrap; }
+    .cta-link {
+      font-size: .75rem; letter-spacing: .12em; text-transform: uppercase;
+      color: #999; text-decoration: none;
+      border-bottom: 1px solid rgba(0,0,0,.15);
+      padding-bottom: .2rem; transition: color .2s, border-color .2s;
+    }
+    .cta-link:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #050505; padding: 2.5rem 0;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .footer-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo {
+      font-family: var(--font-display); font-size: 1.4rem;
+      letter-spacing: .12em; color: var(--paper);
+    }
+    .footer-copy {
+      font-size: .7rem; letter-spacing: .1em; color: rgba(255,255,255,.3);
+    }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a {
+      font-size: .7rem; letter-spacing: .12em;
+      color: rgba(255,255,255,.3); text-decoration: none;
+      text-transform: uppercase; transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(40px); }
+
+    /* Vinilos section placeholder */
+    .coming-soon-area {
+      padding: 6rem 2rem; text-align: center;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .cs-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 6vw, 5rem);
+      color: rgba(255,255,255,.08); letter-spacing: .06em;
+      margin-bottom: 1rem;
+    }
+    .cs-sub {
+      font-size: .75rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<div id="cursor-label"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">XOTX.Studio</a>
+  <ul class="nav-links">
+    <li><a href="index.html#servicios">Servicios</a></li>
+    <li><a href="xotx-proyectos.html" class="active">Proyectos</a></li>
+    <li><a href="index.html#sobre">Nosotros</a></li>
+    <li><a href="index.html#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<div id="page-header">
+  <div class="header-noise"></div>
+  <div class="header-line"></div>
+  <div class="header-content container-fluid px-0">
+    <div class="header-tag" id="h-tag">Portfolio · XOTX.Studio</div>
+    <div class="header-title">
+      <span id="h-line1">Nuestros</span><br>
+      <span id="h-line2" class="outline">Proyectos</span>
+    </div>
+    <div class="header-sub">
+      <p class="header-desc" id="h-desc">
+        Elige una categoría para explorar el trabajo que hacemos. Cartelería, vinilos, identidades y más.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORY SELECTOR -->
+<section id="cat-selector">
+  <div class="cat-intro px-2">
+    <div class="cat-intro-label">Explorar por tipo</div>
+    <div class="cat-intro-title">¿Qué tipo de proyecto buscas?</div>
+  </div>
+
+  <ul class="cat-list" id="cat-list">
+
+    <li class="cat-item">
+      <button class="cat-btn" data-cat="carteleria" aria-label="Ver proyectos de Cartelería">
+        <div class="cat-btn-inner">
+          <span class="cat-num">01</span>
+          <span class="cat-name">Cartelería</span>
+          <span class="cat-desc">Carteles en formatos A2, 40×50cm, lonas y soportes gráficos de gran impacto visual.</span>
+        </div>
+        <span class="cat-arrow">→</span>
+      </button>
+    </li>
+
+    <li class="cat-item">
+      <button class="cat-btn" data-cat="vinilos" aria-label="Ver proyectos de Vinilos">
+        <div class="cat-btn-inner">
+          <span class="cat-num">02</span>
+          <span class="cat-name">Vinilos</span>
+          <span class="cat-desc">Rotulación de vehículos, escaparates, vinilos decorativos y señalética de espacios.</span>
+        </div>
+        <span class="cat-arrow">→</span>
+      </button>
+    </li>
+
+    <li class="cat-item">
+      <button class="cat-btn" data-cat="logotipos" aria-label="Ver proyectos de Logotipos">
+        <div class="cat-btn-inner">
+          <span class="cat-num">03</span>
+          <span class="cat-name">Logotipos</span>
+          <span class="cat-desc">Diseño de marcas únicas que comunican la identidad y los valores de cada negocio.</span>
+        </div>
+        <span class="cat-arrow">→</span>
+      </button>
+    </li>
+
+    <li class="cat-item">
+      <button class="cat-btn" data-cat="imagen" aria-label="Ver proyectos de Imagen Corporativa">
+        <div class="cat-btn-inner">
+          <span class="cat-num">04</span>
+          <span class="cat-name">Imagen Corporativa</span>
+          <span class="cat-desc">Identidades visuales completas: sistema de marca, papelería y manual de identidad.</span>
+        </div>
+        <span class="cat-arrow">→</span>
+      </button>
+    </li>
+
+    <li class="cat-item">
+      <button class="cat-btn" data-cat="rrss" aria-label="Ver proyectos de Redes Sociales">
+        <div class="cat-btn-inner">
+          <span class="cat-num">05</span>
+          <span class="cat-name">Redes Sociales</span>
+          <span class="cat-desc">Sistemas de plantillas y piezas gráficas para Instagram, Facebook y LinkedIn.</span>
+        </div>
+        <span class="cat-arrow">→</span>
+      </button>
+    </li>
+
+  </ul>
+</section>
+
+<!-- CTA -->
+<section id="cta-section">
+  <div class="cta-bg-text">HOLA</div>
+  <div class="container position-relative">
+    <div class="row">
+      <div class="col-lg-5 mb-5 mb-lg-0">
+        <h2 class="cta-title reveal">¿Tu proyecto<br>es el <span class="outline-dark">siguiente</span>?</h2>
+        <p class="cta-sub reveal">Cuéntanos qué necesitas. Trabajamos con negocios de todos los tamaños que quieren destacar visualmente.</p>
+        <a href="index.html#contacto" class="cta-btn reveal">
+          Empezar un proyecto <span class="arrow">→</span>
+        </a>
+        <div class="cta-links reveal">
+          <a href="index.html#servicios" class="cta-link">Ver servicios</a>
+          <a href="index.html#sobre" class="cta-link">Sobre nosotros</a>
+          <a href="mailto:hola@xotx.studio" class="cta-link">hola@xotx.studio</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-logo">XOTX.Studio</span>
+      <span class="footer-copy">© 2025 XOTX.Studio — Todos los derechos reservados</span>
+      <div class="footer-links">
+        <a href="index.html#servicios">Servicios</a>
+        <a href="xotx-proyectos.html">Proyectos</a>
+        <a href="index.html#contacto">Contacto</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- CATEGORY FULL-SCREEN VIEW -->
+<div id="cat-view">
+
+  <!-- Header -->
+  <div class="view-header">
+    <button class="view-back" id="view-back-btn">
+      ← Volver
+    </button>
+    <div class="view-title" id="view-title">Cartelería</div>
+    <div class="view-format-tabs" id="fmt-tabs">
+      <button class="fmt-tab active" data-fmt="all">Todos</button>
+      <button class="fmt-tab" data-fmt="a2">A2 (420×594mm)</button>
+      <button class="fmt-tab" data-fmt="40x50">40×50 cm</button>
+    </div>
+  </div>
+
+  <!-- Drag hint -->
+  <div class="drag-hint" id="drag-hint">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M5 5L2 8l3 3M11 5l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Arrastra para explorar · Rueda para hacer zoom · Pincha en un cartel para ampliar
+  </div>
+
+  <!-- Mesa -->
+  <div class="mesa-wrap" id="mesa-wrap">
+    <div class="mesa" id="mesa">
+
+      <!-- CARTELERÍA sheets -->
+     <div class="sheet sheet-a2" style="left:500; top:100px; transform:rotate(-1.5deg)" data-format="a2" data-cat="carteleria" data-title="I. Rallysprint Erniope 2026" data-desc="I. Rallysprint Erniope 2026" data-open="1">
+     <div class="sheet sheet-a2" style="left:500; top:100px; transform:rotate(-1.5deg)" data-format="a2" data-cat="carteleria" data-title="I. Rallysprint Erniope 2026" data-desc="I. Rallysprint Erniope 2026" data-open="1">
+  <div class="sheet-inner">
+    <div class="sd-1 sheet-design">
+      
+      <div class="sd-accent"></div>
+
+      <!-- IMAGEN AJUSTADA -->
+      <div class="sd-img" style="width:100%; height:100%; overflow:hidden;">
+        <img src="imgs/cartel_erniope.png" 
+             style="width:100%; height:100%; object-fit:cover; object-position:center;">
+      </div>
+    </div>
+
+    <div class="sheet-format-badge">A2</div>
+    <div class="sheet-margin"></div>
+
+    <div class="sheet-overlay">
+      <div class="sheet-overlay-title">I. Rallysprint Erniope 2026</div>
+      <div class="sheet-overlay-sub">A2 · 420×594mm</div>
+    </div>
+
+  </div>
+</div>
+
+     <div class="sheet sheet-a2" style="left:600px; top:100px; transform:rotate(-1.5deg)" data-format="a2" data-cat="carteleria" data-title="[Propuesta] Cartel Subida AIA 2026" data-desc="[Propuesta] Cartel Subida AIA 2026" data-open="2">
+  <div class="sheet-inner">
+    <div class="sd-1 sheet-design">
+      
+      <div class="sd-accent"></div>
+
+      <!-- IMAGEN AJUSTADA -->
+      <div class="sd-img" style="width:100%; height:100%; overflow:hidden;">
+        <img src="imgs/cartel_propuesta_aia.png" 
+             style="width:100%; height:100%; object-fit:cover; object-position:center;">
+      </div>
+    </div>
+
+    <div class="sheet-format-badge">A2</div>
+    <div class="sheet-margin"></div>
+
+    <div class="sheet-overlay">
+      <div class="sheet-overlay-title">[Propuesta] Cartel Subida AIA 2026</div>
+      <div class="sheet-overlay-sub">A2 · 420×594mm</div>
+    </div>
+
+  </div>
+</div>
+
+     <div class="sheet sheet-a2" style="left:1020px; top:100px; transform:rotate(-1.5deg)" data-format="a2" data-cat="carteleria" data-title="[FINALISTA] Cartel Travesía Don Bosco 2026" data-desc="[FINALISTA] Cartel Travesía Don Bosco 2026" data-open="3">
+  <div class="sheet-inner">
+    <div class="sd-1 sheet-design">
+      
+      <div class="sd-accent"></div>
+
+      <!-- IMAGEN AJUSTADA -->
+      <div class="sd-img" style="width:100%; height:100%; overflow:hidden;">
+        <img src="imgs/cartel_finalista_travesia_donbosco.png" 
+             style="width:100%; height:100%; object-fit:cover; object-position:center;">
+      </div>
+    </div>
+
+    <div class="sheet-format-badge">A2</div>
+    <div class="sheet-margin"></div>
+
+    <div class="sheet-overlay">
+      <div class="sheet-overlay-title">[FINALISTA] Cartel Travesía Don Bosco 2026</div>
+      <div class="sheet-overlay-sub">A2 · 420×594mm</div>
+    </div>
+
+  </div>
+</div>
+      <div class="sheet sheet-40x50" style="left:1460px; top:60px; transform:rotate(-2deg)" data-format="40x50" data-cat="carteleria" data-title="Mercado Artesanal" data-desc="Cartel 40×50cm — Mercado artesanal navideño" data-open="4">
+        <div class="sheet-inner">
+          <div class="sd-3 sheet-design">
+            <div class="sd-grid"></div>
+            <div class="sd-circle"></div>
+            <div class="sd-circle2"></div>
+            <div class="sd-tag">Artisan Market · Diciembre 2025</div>
+            <div class="sd-title">MERKA<br>DO</div>
+            <div class="sd-accent-bar"></div>
+          </div>
+          <div class="sheet-format-badge">40×50</div>
+          <div class="sheet-margin"></div>
+          <div class="sheet-overlay">
+            <div class="sheet-overlay-title">Mercado Artesanal</div>
+            <div class="sheet-overlay-sub">40×50cm</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet sheet-a2" style="left:1860px; top:130px; transform:rotate(-1deg)" data-format="a2" data-cat="carteleria" data-title="Exposición Zubía Arquitectura" data-desc="Cartel A2 — Exposición de proyectos de arquitectura" data-open="5">
+        <div class="sheet-inner">
+          <div class="sd-6 sheet-design">
+            <div class="sd-half"></div>
+            <div class="sd-dot2"></div>
+            <div class="sd-title">
+              <span class="t-white">ZUBÍA</span>
+              <span class="t-dark">ARCHI</span>
+            </div>
+            <div class="sd-year">25</div>
+          </div>
+          <div class="sheet-format-badge">A2</div>
+          <div class="sheet-margin"></div>
+          <div class="sheet-overlay">
+            <div class="sheet-overlay-title">Exposición Zubía</div>
+            <div class="sheet-overlay-sub">A2 · 420×594mm</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEGUNDA FILA -->
+      <div class="sheet sheet-40x50" style="left:260px; top:700px; transform:rotate(2deg)" data-format="40x50" data-cat="carteleria" data-title="Peluquería Ane — Promoción" data-desc="Cartel 40×50cm — Oferta especial de temporada" data-open="6">
+        <div class="sheet-inner">
+          <div class="sd-5 sheet-design">
+            <div class="sd-photo"><div class="sd-photo-lines"></div></div>
+            <div class="sd-title">ANE<br>STUDIO</div>
+            <div class="sd-footer"><span>Peluquería · Bilbao</span></div>
+          </div>
+          <div class="sheet-format-badge">40×50</div>
+          <div class="sheet-margin"></div>
+          <div class="sheet-overlay">
+            <div class="sheet-overlay-title">Peluquería Ane</div>
+            <div class="sheet-overlay-sub">40×50cm</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet sheet-a2" style="left:680px; top:680px; transform:rotate(-1.2deg)" data-format="a2" data-cat="carteleria" data-title="Clínica Dental Dent — Campaña" data-desc="Cartel A2 — Campaña de captación de pacientes" data-open="7">
+        <div class="sheet-inner">
+          <div class="sd-2 sheet-design" style="background:#fff">
+            <div class="sd-top-bar" style="background:#1a2d1a; height:50%"></div>
+            <div class="sd-dot" style="background:#4caf50"></div>
+            <div class="sd-title" style="color:var(--white)">DENT<br><span style="-webkit-text-stroke:1px rgba(255,255,255,.4);color:transparent">CLINIC</span></div>
+            <div class="sd-line"></div>
+            <div class="sd-body">Tu sonrisa, nuestro compromiso · Bilbao · Cita previa: 944 111 222</div>
+          </div>
+          <div class="sheet-format-badge">A2</div>
+          <div class="sheet-margin"></div>
+          <div class="sheet-overlay">
+            <div class="sheet-overlay-title">Clínica Dent</div>
+            <div class="sheet-overlay-sub">A2 · 420×594mm</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet sheet-40x50" style="left:1130px; top:720px; transform:rotate(.6deg)" data-format="40x50" data-cat="carteleria" data-title="Logística Norte — Lanzamiento" data-desc="Cartel 40×50cm — Presentación de nueva flota" data-open="8">
+        <div class="sheet-inner">
+          <div class="sd-4 sheet-design" style="background:#0f1a2d">
+            <div class="sd-slash" style="background:rgba(28,106,232,.3)"></div>
+            <div class="sd-slash2" style="background:rgba(28,106,232,.15)"></div>
+            <div class="sd-tag" style="color:rgba(100,160,255,.6)">Logística · Euskadi</div>
+            <div class="sd-num">12</div>
+            <div class="sd-title" style="">
+              NORTE<br>
+              <span style="-webkit-text-stroke:1px rgba(100,160,255,.4);color:transparent">FLEET</span>
+            </div>
+          </div>
+          <div class="sheet-format-badge">40×50</div>
+          <div class="sheet-margin"></div>
+          <div class="sheet-overlay">
+            <div class="sheet-overlay-title">Logística Norte</div>
+            <div class="sheet-overlay-sub">40×50cm</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet sheet-a2" style="left:1540px; top:700px; transform:rotate(-1.8deg)" data-format="a2" data-cat="carteleria" data-title="Pop-Up Moda Urbana" data-desc="Cartel A2 — Tienda temporal de moda" data-open="9">
+        <div class="sheet-inner">
+          <div class="sd-3 sheet-design" style="background:#0a0a0a">
+            <div class="sd-grid" style="background-image: repeating-linear-gradient(0deg,transparent,transparent 18px,rgba(255,255,255,.04) 18px,rgba(255,255,255,.04) 19px),repeating-linear-gradient(90deg,transparent,transparent 18px,rgba(255,255,255,.04) 18px,rgba(255,255,255,.04) 19px)"></div>
+            <div class="sd-circle" style="border-color:rgba(255,255,255,.06)"></div>
+            <div class="sd-circle2" style="border-color:rgba(255,255,255,.04)"></div>
+            <div class="sd-tag" style="color:rgba(255,255,255,.25)">Pop-Up Store · Bilbao</div>
+            <div class="sd-title" style="color:var(--paper)">POP<br>UP</div>
+            <div class="sd-accent-bar"></div>
+          </div>
+          <div class="sheet-format-badge">A2</div>
+          <div class="sheet-margin"></div>
+          <div class="sheet-overlay">
+            <div class="sheet-overlay-title">Pop-Up Moda</div>
+            <div class="sheet-overlay-sub">A2 · 420×594mm</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet sheet-40x50" style="left:1990px; top:680px; transform:rotate(1.4deg)" data-format="40x50" data-cat="carteleria" data-title="Concierto Jazz Otoño" data-desc="Cartel 40×50cm — Ciclo de jazz en el Kafe Antzokia" data-open="10">
+        <div class="sheet-inner">
+          <div class="sd-1 sheet-design" style="background:linear-gradient(160deg,#100a18 0%,#1f0a2d 100%)">
+            <div class="sd-accent" style="background:#9c27b0"></div>
+            <div class="sd-img" style="background:repeating-linear-gradient(-45deg,transparent,transparent 20px,rgba(156,39,176,.04) 20px,rgba(156,39,176,.04) 21px)"></div>
+            <div class="sd-xotx" style="color:rgba(156,39,176,.15)">XOTX</div>
+            <div class="sd-title" style="color:var(--paper)">JAZZ<br>OTOÑO<br><span style="-webkit-text-stroke:1px var(--paper);color:transparent">24</span></div>
+            <div class="sd-sub" style="color:#9c27b0">Kafe Antzokia · Bilbao</div>
+          </div>
+          <div class="sheet-format-badge">40×50</div>
+          <div class="sheet-margin"></div>
+          <div class="sheet-overlay">
+            <div class="sheet-overlay-title">Jazz Otoño</div>
+            <div class="sheet-overlay-sub">40×50cm</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TERCERA FILA -->
+      <div class="sheet sheet-a2" style="left:120px; top:1280px; transform:rotate(.5deg)" data-format="a2" data-cat="carteleria" data-title="Semana Grande Bilbao" data-desc="Cartel A2 — Programa de fiestas" data-open="11">
+        <div class="sheet-inner">
+          <div class="sd-4 sheet-design" style="background:#c8880e">
+            <div class="sd-slash" style="background:rgba(0,0,0,.15)"></div>
+            <div class="sd-slash2" style="background:rgba(0,0,0,.08)"></div>
+            <div class="sd-tag" style="color:rgba(0,0,0,.4)">Bilbao · Agosto 2025</div>
+            <div class="sd-num" style="color:rgba(0,0,0,.08)">25</div>
+            <div class="sd-title" style="color:#fff">
+              SEMANA<br>
+              <span style="-webkit-text-stroke:1px rgba(0,0,0,.3);color:transparent">GRANDE</span>
+            </div>
+          </div>
+          <div class="sheet-format-badge">A2</div>
+          <div class="sheet-margin"></div>
+          <div class="sheet-overlay">
+            <div class="sheet-overlay-title">Semana Grande</div>
+            <div class="sheet-overlay-sub">A2 · 420×594mm</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet sheet-40x50" style="left:580px; top:1320px; transform:rotate(-2.2deg)" data-format="40x50" data-cat="carteleria" data-title="Tienda Ekoa — Apertura" data-desc="Cartel 40×50cm — Eco-tienda local" data-open="12">
+        <div class="sheet-inner">
+          <div class="sd-3 sheet-design" style="background:#f0f5e8">
+            <div class="sd-grid" style="background-image:repeating-linear-gradient(0deg,transparent,transparent 18px,rgba(0,60,0,.04) 18px,rgba(0,60,0,.04) 19px),repeating-linear-gradient(90deg,transparent,transparent 18px,rgba(0,60,0,.04) 18px,rgba(0,60,0,.04) 19px)"></div>
+            <div class="sd-circle" style="border-color:rgba(0,80,0,.08)"></div>
+            <div class="sd-circle2" style="border-color:rgba(0,80,0,.06)"></div>
+            <div class="sd-tag" style="color:rgba(0,60,0,.3)">Eco Store · Bilbao</div>
+            <div class="sd-title" style="color:#1a3d1a">EKOA<br>SHOP</div>
+            <div class="sd-accent-bar" style="background:#4caf50"></div>
+          </div>
+          <div class="sheet-format-badge">40×50</div>
+          <div class="sheet-margin"></div>
+          <div class="sheet-overlay">
+            <div class="sheet-overlay-title">Tienda Ekoa</div>
+            <div class="sheet-overlay-sub">40×50cm</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet sheet-a2" style="left:990px; top:1300px; transform:rotate(1.6deg)" data-format="a2" data-cat="carteleria" data-title="Maratón Euskadi 2025" data-desc="Cartel A2 — Inscripción maratón popular" data-open="13">
+        <div class="sheet-inner">
+          <div class="sd-5 sheet-design" style="background:#0a0a14">
+            <div class="sd-photo" style="background:linear-gradient(135deg,#0a0a18 0%,#14143d 100%)"><div class="sd-photo-lines" style="background:repeating-linear-gradient(90deg,transparent,transparent 24px,rgba(60,60,232,.08) 24px,rgba(60,60,232,.08) 25px)"></div></div>
+            <div class="sd-title" style="color:var(--paper)">MARA<br>TON</div>
+            <div class="sd-footer" style="background:#1c6ae8"><span>Euskadi · 2025</span></div>
+          </div>
+          <div class="sheet-format-badge">A2</div>
+          <div class="sheet-margin"></div>
+          <div class="sheet-overlay">
+            <div class="sheet-overlay-title">Maratón Euskadi</div>
+            <div class="sheet-overlay-sub">A2 · 420×594mm</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Minimap -->
+    <div class="mesa-minimap" id="minimap">
+      <div class="minimap-viewport" id="minimap-vp"></div>
+    </div>
+
+    <!-- Zoom controls -->
+    <div class="zoom-controls">
+      <button class="zoom-btn" id="zoom-out">−</button>
+      <div class="zoom-label" id="zoom-label">75%</div>
+      <button class="zoom-btn" id="zoom-in">+</button>
+    </div>
+
+  </div><!-- /mesa-wrap -->
+
+  <!-- Vinilos & otros placeholders (hidden, shown by cat) -->
+  <div id="cat-placeholder" style="display:none; flex:1; align-items:center; justify-content:center; flex-direction:column; gap:1rem;">
+    <div class="cs-title" id="placeholder-cat-name">VINILOS</div>
+    <div class="cs-sub">Proyectos próximamente</div>
+  </div>
+
+</div><!-- /cat-view -->
+
+<!-- LIGHTBOX — full sheet viewer -->
+<div id="lightbox">
+  <div id="lb-backdrop"></div>
+  <button id="lb-close">✕ Cerrar</button>
+  <button id="lb-prev" class="lb-nav">←</button>
+  <button id="lb-next" class="lb-nav">→</button>
+  <div id="lb-stage">
+    <div id="lb-sheet-wrap"></div>
+    <div id="lb-info">
+      <div id="lb-format-badge"></div>
+      <div id="lb-title"></div>
+      <div id="lb-desc"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+#lightbox {
+  position: fixed; inset: 0; z-index: 500;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; padding: 1.5rem;
+}
+#lb-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(5,5,5,.96); backdrop-filter: blur(12px);
+}
+#lb-close {
+  position: absolute; top: 1.5rem; right: 1.5rem; z-index: 10;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+  color: var(--paper); font-family: var(--font-body);
+  font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
+  padding: .5rem 1.1rem; cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+#lb-close:hover { background: var(--accent); border-color: var(--accent); }
+.lb-nav {
+  position: absolute; top: 50%; z-index: 10;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+  color: var(--paper); font-family: var(--font-display);
+  font-size: 1.4rem; width: 48px; height: 48px;
+  cursor: pointer; transition: background .2s, border-color .2s;
+  display: flex; align-items: center; justify-content: center;
+}
+.lb-nav:hover { background: var(--accent); border-color: var(--accent); }
+#lb-prev { left: 1.5rem; }
+#lb-next { right: 1.5rem; }
+#lb-stage {
+  position: relative; z-index: 5;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 1.75rem; width: 100%; max-height: 100vh;
+}
+#lb-sheet-wrap {
+  position: relative;
+  transform-origin: center center;
+  flex-shrink: 0;
+}
+#lb-sheet-wrap .sheet {
+  position: relative !important;
+  left: auto !important; top: auto !important;
+  transform: none !important;
+  width: 100% !important; height: 100% !important;
+  pointer-events: none;
+  box-shadow: 0 30px 80px rgba(0,0,0,.8), 0 60px 140px rgba(0,0,0,.6), inset 0 0 0 1px rgba(0,0,0,.1);
+}
+#lb-info { text-align: center; z-index: 5; }
+#lb-format-badge {
+  font-size: .6rem; letter-spacing: .25em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: .5rem;
+}
+#lb-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  letter-spacing: .05em; color: var(--paper); margin-bottom: .35rem;
+}
+#lb-desc { font-size: .8rem; line-height: 1.7; color: var(--mid); }
+@media (max-width: 600px) {
+  #lb-prev { left: .5rem; }
+  #lb-next { right: .5rem; }
+  #lb-close { top: .75rem; right: .75rem; font-size: .6rem; padding: .4rem .8rem; }
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ─── CURSOR ─── */
+const cursor      = document.getElementById('cursor');
+const ring        = document.getElementById('cursor-ring');
+const cursorLabel = document.getElementById('cursor-label');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+if (cursor) {
+  gsap.ticker.add(() => {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    gsap.set(cursor,      { x: mx, y: my });
+    gsap.set(ring,        { x: rx, y: ry });
+    gsap.set(cursorLabel, { x: mx + 20, y: my + 20 });
+  });
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      gsap.to(cursor, { width: 6, height: 6, duration: .2 });
+      gsap.to(ring,   { width: 56, height: 56, opacity: .8, duration: .3 });
+    });
+    el.addEventListener('mouseleave', () => {
+      gsap.to(cursor, { width: 12, height: 12, duration: .2 });
+      gsap.to(ring,   { width: 36, height: 36, opacity: .5, duration: .3 });
+    });
+  });
+}
+
+/* ─── HERO ENTRANCE ─── */
+const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+tl.from('#h-tag',   { opacity: 0, x: -20, duration: .8 }, .3)
+  .from('#h-line1', { y: '110%', duration: 1 }, .4)
+  .from('#h-line2', { y: '110%', duration: 1 }, .55)
+  .from('#h-desc',  { opacity: 0, y: 20, duration: .8 }, .9);
+
+gsap.from('.header-line', { scaleY: 0, transformOrigin: 'top center', duration: 1.5, ease: 'power2.inOut', delay: .2 });
+
+gsap.utils.toArray('.cat-item').forEach((el, i) => {
+  gsap.from(el, {
+    opacity: 0, x: -40, duration: .7, ease: 'power3.out',
+    scrollTrigger: { trigger: el, start: 'top 88%' },
+    delay: i * 0.06
+  });
+});
+
+gsap.utils.toArray('.reveal').forEach(el => {
+  gsap.to(el, {
+    opacity: 1, y: 0, duration: .9, ease: 'power3.out',
+    scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
+  });
+});
+
+/* ════════════════════════════════════════
+   CATEGORY VIEW LOGIC
+════════════════════════════════════════ */
+const catView   = document.getElementById('cat-view');
+const viewTitle = document.getElementById('view-title');
+const mesaWrap  = document.getElementById('mesa-wrap');
+const mesa      = document.getElementById('mesa');
+const fmtTabs   = document.querySelectorAll('.fmt-tab');
+const catPlaceholder = document.getElementById('cat-placeholder');
+const placeholderCatName = document.getElementById('placeholder-cat-name');
+
+const catNames = {
+  carteleria: 'Cartelería', vinilos: 'Vinilos',
+  logotipos: 'Logotipos', imagen: 'Imagen Corporativa', rrss: 'Redes Sociales'
+};
+const hasTable = ['carteleria'];
+
+document.querySelectorAll('.cat-btn').forEach(btn => {
+  btn.addEventListener('click', () => openCatView(btn.dataset.cat));
+});
+
+function openCatView(cat) {
+  viewTitle.textContent = catNames[cat] || cat;
+  if (hasTable.includes(cat)) {
+    mesaWrap.style.display = '';
+    document.querySelector('.drag-hint').style.display = '';
+    document.getElementById('fmt-tabs').style.display = '';
+    catPlaceholder.style.display = 'none';
+    initMesa();
+    filterSheets('all');
+    fmtTabs.forEach(t => t.classList.remove('active'));
+    fmtTabs[0].classList.add('active');
+  } else {
+    mesaWrap.style.display = 'none';
+    document.querySelector('.drag-hint').style.display = 'none';
+    document.getElementById('fmt-tabs').style.display = 'none';
+    catPlaceholder.style.display = 'flex';
+    placeholderCatName.textContent = (catNames[cat] || cat).toUpperCase();
+  }
+  catView.classList.add('open');
+  gsap.from('#cat-view .view-header', { y: -20, opacity: 0, duration: .5, ease: 'power3.out' });
+  document.body.style.overflow = 'hidden';
+}
+
+document.getElementById('view-back-btn').addEventListener('click', () => {
+  gsap.to(catView, { opacity: 0, duration: .3, ease: 'power2.in', onComplete: () => {
+    catView.classList.remove('open');
+    gsap.set(catView, { opacity: 1 });
+  }});
+  document.body.style.overflow = '';
+});
+
+fmtTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    fmtTabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    filterSheets(tab.dataset.fmt);
+  });
+});
+
+function filterSheets(fmt) {
+  mesa.querySelectorAll('.sheet').forEach(sheet => {
+    const match = fmt === 'all' || sheet.dataset.format === fmt;
+    gsap.to(sheet, { opacity: match ? 1 : 0.07, duration: .35, ease: 'power2.out' });
+    sheet.style.pointerEvents = match ? 'auto' : 'none';
+  });
+}
+
+/* ════════════════════════════════════════
+   MESA — PAN & ZOOM (canvas drag)
+════════════════════════════════════════ */
+let panX = 0, panY = 0;
+let scale = 0.75;
+const MIN_SCALE = 0.25, MAX_SCALE = 1.6;
+let isCanvasDragging = false;
+let canvasStartX, canvasStartY, lastPanX, lastPanY;
+let mesaInited = false;
+
+/* per-sheet drag state */
+let sheetDragging = null;
+let sheetStartX, sheetStartY;
+let sheetOrigLeft, sheetOrigTop;
+let dragMoved = false;
+
+function initMesa() {
+  if (mesaInited) { updateMesa(); return; }
+  mesaInited = true;
+
+  panX = window.innerWidth * 0.08;
+  panY = 40;
+  updateMesa();
+
+  /* ── Canvas mouse pan ── */
+  mesaWrap.addEventListener('mousedown', onCanvasMouseDown);
+  window.addEventListener('mousemove',  onMouseMove);
+  window.addEventListener('mouseup',    onMouseUp);
+
+  /* ── Canvas touch pan ── */
+  let touchCanvasStartX, touchCanvasStartY, lastTouchPanX, lastTouchPanY;
+  let touchSheetEl = null, touchSheetOrigLeft, touchSheetOrigTop, touchMoved = false;
+  let touchStartClientX, touchStartClientY;
+
+  mesaWrap.addEventListener('touchstart', e => {
+    if (e.touches.length !== 1) return;
+    const t = e.touches[0];
+    touchStartClientX = t.clientX;
+    touchStartClientY = t.clientY;
+    touchMoved = false;
+
+    const sheetEl = e.target.closest('.sheet');
+    if (sheetEl && sheetEl.style.pointerEvents !== 'none') {
+      touchSheetEl = sheetEl;
+      touchSheetOrigLeft = parseInt(sheetEl.style.left) || 0;
+      touchSheetOrigTop  = parseInt(sheetEl.style.top)  || 0;
+    } else {
+      touchSheetEl = null;
+      lastTouchPanX = panX; lastTouchPanY = panY;
+      touchCanvasStartX = t.clientX; touchCanvasStartY = t.clientY;
+    }
+  }, { passive: true });
+
+  window.addEventListener('touchmove', e => {
+    if (e.touches.length !== 1) return;
+    e.preventDefault();
+    const t = e.touches[0];
+    const dx = t.clientX - touchStartClientX;
+    const dy = t.clientY - touchStartClientY;
+    if (Math.abs(dx) > 4 || Math.abs(dy) > 4) touchMoved = true;
+
+    if (touchSheetEl) {
+      touchSheetEl.style.left = (touchSheetOrigLeft + dx / scale) + 'px';
+      touchSheetEl.style.top  = (touchSheetOrigTop  + dy / scale) + 'px';
+      touchSheetEl.classList.add('is-dragging');
+    } else {
+      panX = lastTouchPanX + (t.clientX - touchCanvasStartX);
+      panY = lastTouchPanY + (t.clientY - touchCanvasStartY);
+      updateMesa();
+    }
+  }, { passive: false });
+
+  window.addEventListener('touchend', e => {
+    if (touchSheetEl) {
+      touchSheetEl.classList.remove('is-dragging');
+      if (!touchMoved) {
+        // tap = open lightbox
+        openLightbox(touchSheetEl);
+      }
+      touchSheetEl = null;
+    }
+    touchMoved = false;
+  });
+
+  /* ── Wheel zoom ── */
+  mesaWrap.addEventListener('wheel', e => {
+    e.preventDefault();
+    const delta = -e.deltaY * 0.001;
+    const rect = mesaWrap.getBoundingClientRect();
+    const cx = e.clientX - rect.left;
+    const cy = e.clientY - rect.top;
+    const newScale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, scale + delta));
+    panX = cx - (cx - panX) * (newScale / scale);
+    panY = cy - (cy - panY) * (newScale / scale);
+    scale = newScale;
+    updateMesa();
+  }, { passive: false });
+
+  /* ── Zoom buttons ── */
+  document.getElementById('zoom-in').addEventListener('click', () => {
+    const cx = mesaWrap.offsetWidth / 2, cy = mesaWrap.offsetHeight / 2;
+    const ns = Math.min(MAX_SCALE, scale + 0.1);
+    panX = cx - (cx - panX) * (ns / scale);
+    panY = cy - (cy - panY) * (ns / scale);
+    scale = ns; updateMesa();
+  });
+  document.getElementById('zoom-out').addEventListener('click', () => {
+    const cx = mesaWrap.offsetWidth / 2, cy = mesaWrap.offsetHeight / 2;
+    const ns = Math.max(MIN_SCALE, scale - 0.1);
+    panX = cx - (cx - panX) * (ns / scale);
+    panY = cy - (cy - panY) * (ns / scale);
+    scale = ns; updateMesa();
+  });
+}
+
+/* ── Canvas mousedown: decides canvas drag vs sheet drag ── */
+function onCanvasMouseDown(e) {
+  if (e.button !== 0) return;
+  const sheetEl = e.target.closest('.sheet');
+
+  if (sheetEl && sheetEl.style.pointerEvents !== 'none') {
+    // Start sheet drag
+    sheetDragging = sheetEl;
+    sheetStartX = e.clientX;
+    sheetStartY = e.clientY;
+    sheetOrigLeft = parseInt(sheetEl.style.left) || 0;
+    sheetOrigTop  = parseInt(sheetEl.style.top)  || 0;
+    dragMoved = false;
+    sheetEl.style.zIndex = 99;
+    e.preventDefault();
+  } else if (!e.target.closest('button, .zoom-controls, .mesa-minimap')) {
+    // Canvas pan
+    isCanvasDragging = true;
+    canvasStartX = e.clientX; canvasStartY = e.clientY;
+    lastPanX = panX; lastPanY = panY;
+    mesaWrap.classList.add('grabbing');
+    e.preventDefault();
+  }
+}
+
+function onMouseMove(e) {
+  if (sheetDragging) {
+    const dx = (e.clientX - sheetStartX) / scale;
+    const dy = (e.clientY - sheetStartY) / scale;
+    if (Math.abs(e.clientX - sheetStartX) > 3 || Math.abs(e.clientY - sheetStartY) > 3) {
+      dragMoved = true;
+    }
+    sheetDragging.style.left = (sheetOrigLeft + dx) + 'px';
+    sheetDragging.style.top  = (sheetOrigTop  + dy) + 'px';
+    sheetDragging.classList.add('is-dragging');
+    return;
+  }
+  if (!isCanvasDragging) return;
+  panX = lastPanX + (e.clientX - canvasStartX);
+  panY = lastPanY + (e.clientY - canvasStartY);
+  updateMesa();
+}
+
+function onMouseUp(e) {
+  if (sheetDragging) {
+    sheetDragging.classList.remove('is-dragging');
+    sheetDragging.style.zIndex = '';
+    if (!dragMoved) {
+      // click (no drag) → open lightbox
+      openLightbox(sheetDragging);
+    }
+    sheetDragging = null;
+    dragMoved = false;
+    return;
+  }
+  if (isCanvasDragging) {
+    isCanvasDragging = false;
+    mesaWrap.classList.remove('grabbing');
+  }
+}
+
+function updateMesa() {
+  mesa.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+  document.getElementById('zoom-label').textContent = Math.round(scale * 100) + '%';
+  updateMinimap();
+}
+
+function updateMinimap() {
+  const mm = document.getElementById('minimap');
+  const vp = document.getElementById('minimap-vp');
+  if (!mm || !vp) return;
+  const mesaW = 4000, mesaH = 2400;
+  const mmW = mm.offsetWidth, mmH = mm.offsetHeight;
+  const ratio = mmW / mesaW;
+  const vpLeft   = -panX / scale, vpTop = -panY / scale;
+  const vpWidth  = mesaWrap.offsetWidth / scale;
+  const vpHeight = mesaWrap.offsetHeight / scale;
+  vp.style.left   = Math.max(0, vpLeft  * ratio) + 'px';
+  vp.style.top    = Math.max(0, vpTop   * (mmH / mesaH)) + 'px';
+  vp.style.width  = Math.min(mmW, vpWidth  * ratio) + 'px';
+  vp.style.height = Math.min(mmH, vpHeight * (mmH / mesaH)) + 'px';
+}
+
+/* ════════════════════════════════════════
+   LIGHTBOX — clones real sheet design
+════════════════════════════════════════ */
+const lightbox    = document.getElementById('lightbox');
+const lbSheetWrap = document.getElementById('lb-sheet-wrap');
+const lbTitle     = document.getElementById('lb-title');
+const lbDesc      = document.getElementById('lb-desc');
+const lbFmtBadge  = document.getElementById('lb-format-badge');
+
+// Build ordered list of visible sheets for prev/next
+let lbSheets = [];
+let lbIdx    = 0;
+
+function getVisibleSheets() {
+  return [...mesa.querySelectorAll('.sheet')].filter(s => s.style.pointerEvents !== 'none');
+}
+
+function openLightbox(sheetEl) {
+  lbSheets = getVisibleSheets();
+  lbIdx = lbSheets.indexOf(sheetEl);
+  renderLightboxSheet(lbIdx);
+  lightbox.style.pointerEvents = 'all';
+  gsap.to(lightbox, { opacity: 1, duration: .35, ease: 'power2.out' });
+  gsap.from('#lb-stage', { y: 40, opacity: 0, duration: .4, ease: 'power3.out' });
+}
+
+function renderLightboxSheet(idx) {
+  const sheet = lbSheets[idx];
+  if (!sheet) return;
+
+  // Clone the sheet-inner (the design itself)
+  const innerClone = sheet.querySelector('.sheet-inner').cloneNode(true);
+  // Remove overlay hint from clone
+  const ov = innerClone.querySelector('.sheet-overlay');
+  if (ov) ov.remove();
+
+  // Create a wrapper sheet div
+  lbSheetWrap.innerHTML = '';
+  const wrapDiv = document.createElement('div');
+  wrapDiv.className = 'sheet ' + (sheet.classList.contains('sheet-a2') ? 'sheet-a2' : 'sheet-40x50');
+  wrapDiv.appendChild(innerClone);
+  lbSheetWrap.appendChild(wrapDiv);
+
+  // Scale the sheet to fit viewport
+  const isA2 = sheet.classList.contains('sheet-a2');
+  const nativeW = isA2 ? 370 : 330;
+  const nativeH = isA2 ? 524 : 415;
+
+  // Available space (leave room for info + padding + nav buttons)
+  const availW = Math.min(window.innerWidth  - 160, 700);
+  const availH = Math.min(window.innerHeight - 200, 600);
+  const fitScale = Math.min(availW / nativeW, availH / nativeH, 1.4);
+
+  lbSheetWrap.style.width  = nativeW + 'px';
+  lbSheetWrap.style.height = nativeH + 'px';
+  lbSheetWrap.style.transform = `scale(${fitScale})`;
+  // Compensate for scale so it doesn't take up native space
+  lbSheetWrap.style.marginBottom = `-${nativeH * (1 - fitScale)}px`;
+  // Also compensate top margin from transform
+  lbSheetWrap.style.marginTop = `${(nativeH * (fitScale - 1)) / 2}px`;
+
+  lbTitle.textContent    = sheet.dataset.title || '';
+  lbDesc.textContent     = sheet.dataset.desc  || '';
+  lbFmtBadge.textContent = isA2 ? 'Formato A2 · 420 × 594 mm' : 'Formato 40 × 50 cm';
+}
+
+function closeLightbox() {
+  gsap.to(lightbox, { opacity: 0, duration: .25, ease: 'power2.in', onComplete: () => {
+    lightbox.style.pointerEvents = 'none';
+    lbSheetWrap.innerHTML = '';
+  }});
+}
+
+document.getElementById('lb-close').addEventListener('click', closeLightbox);
+document.getElementById('lb-backdrop').addEventListener('click', closeLightbox);
+
+document.getElementById('lb-prev').addEventListener('click', () => {
+  lbIdx = (lbIdx - 1 + lbSheets.length) % lbSheets.length;
+  gsap.from('#lb-stage', { x: -30, opacity: 0, duration: .3, ease: 'power3.out' });
+  renderLightboxSheet(lbIdx);
+});
+document.getElementById('lb-next').addEventListener('click', () => {
+  lbIdx = (lbIdx + 1) % lbSheets.length;
+  gsap.from('#lb-stage', { x: 30, opacity: 0, duration: .3, ease: 'power3.out' });
+  renderLightboxSheet(lbIdx);
+});
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  if (lightbox.style.pointerEvents !== 'all') return;
+  if (e.key === 'Escape')      closeLightbox();
+  if (e.key === 'ArrowLeft')   document.getElementById('lb-prev').click();
+  if (e.key === 'ArrowRight')  document.getElementById('lb-next').click();
+});
+</script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proyectos — XOTX.Studio</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #0a0a0a;
+      --paper: #f4f0e8;
+      --accent: #e84d1c;
+      --mid: #c8c2b4;
+      --white: #ffffff;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--font-body);
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ── CURSOR ── */
+    #cursor {
+      position: fixed; width: 12px; height: 12px;
+      background: var(--accent); border-radius: 50%;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%, -50%);
+    }
+    #cursor-ring {
+      position: fixed; width: 36px; height: 36px;
+      border: 1px solid var(--accent); border-radius: 50%;
+      pointer-events: none; z-index: 9998;
+      transform: translate(-50%, -50%); opacity: .5;
+    }
+    #cursor-label {
+      position: fixed; pointer-events: none; z-index: 9997;
+      transform: translate(-50%, -50%);
+      font-size: .6rem; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--white); background: var(--accent);
+      padding: .3rem .6rem; opacity: 0; white-space: nowrap;
+    }
+    @media (hover: none) {
+      #cursor, #cursor-ring, #cursor-label { display: none; }
+      body { cursor: auto; }
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 200; padding: 1.5rem 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+      mix-blend-mode: difference;
+    }
+    .nav-logo {
+      font-family: var(--font-display); font-size: 1.6rem;
+      letter-spacing: .12em; color: var(--paper); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--paper); text-decoration: none; font-size: .8rem;
+      letter-spacing: .12em; text-transform: uppercase;
+      opacity: .6; transition: opacity .2s;
+    }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; }
+    @media (max-width: 600px) {
+      .nav-links { gap: 1.2rem; }
+      .nav-links a { font-size: .65rem; }
+    }
+
+    /* ── PAGE HEADER ── */
+    #page-header {
+      min-height: 52vh; display: flex; flex-direction: column;
+      justify-content: flex-end; padding: 0 2rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .header-noise {
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      z-index: 1; opacity: .6; pointer-events: none;
+    }
+    .header-line {
+      position: absolute; top: 0; left: 50%;
+      width: 1px; height: 100%;
+      background: linear-gradient(to bottom, transparent, var(--accent));
+      transform: translateX(-50%); z-index: 2; opacity: .2;
+    }
+    .header-content { position: relative; z-index: 3; }
+    .header-tag {
+      font-size: .7rem; letter-spacing: .25em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .header-tag::before {
+      content: ''; display: block;
+      width: 2.5rem; height: 1px; background: var(--accent);
+    }
+    .header-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 10vw, 9rem);
+      line-height: .92; letter-spacing: -.01em; color: var(--paper);
+    }
+    .header-title .outline {
+      -webkit-text-stroke: 1px var(--paper); color: transparent;
+    }
+    .header-sub {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-top: 2rem; gap: 2rem; flex-wrap: wrap;
+    }
+    .header-desc {
+      max-width: 380px; font-size: .9rem; line-height: 1.7; color: var(--mid);
+    }
+
+    /* ── CATEGORY SELECTOR ── */
+    #cat-selector {
+      padding: 0;
+      position: relative;
+    }
+
+    .cat-intro {
+      padding: 5rem 2rem 3rem;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .cat-intro-label {
+      font-size: .65rem; letter-spacing: .3em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .cat-intro-label::before {
+      content: ''; display: block;
+      width: 1.5rem; height: 1px; background: var(--accent);
+    }
+    .cat-intro-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      color: var(--mid); font-weight: 400;
+      letter-spacing: .04em;
+    }
+
+    /* Big category list */
+    .cat-list {
+      list-style: none;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .cat-item {
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      overflow: hidden;
+    }
+    .cat-btn {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; padding: 2.2rem 2rem;
+      background: none; border: none; cursor: pointer;
+      text-align: left;
+      transition: background .3s;
+      position: relative;
+    }
+    .cat-btn::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .5s cubic-bezier(.76,0,.24,1);
+      z-index: 0;
+    }
+    .cat-btn:hover::before { transform: scaleX(1); }
+
+    .cat-btn-inner {
+      display: flex; align-items: center; gap: 2rem;
+      position: relative; z-index: 1;
+      flex: 1;
+    }
+    .cat-num {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      color: rgba(232,77,28,.4);
+      letter-spacing: .1em;
+      min-width: 2.5rem;
+      transition: color .3s;
+    }
+    .cat-btn:hover .cat-num { color: rgba(255,255,255,.5); }
+
+    .cat-name {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 7.5rem);
+      line-height: .9;
+      color: var(--paper);
+      letter-spacing: .02em;
+      transition: color .3s;
+    }
+    .cat-btn:hover .cat-name { color: var(--white); }
+
+    .cat-desc {
+      font-size: .8rem; line-height: 1.6; color: var(--mid);
+      max-width: 280px; margin-left: auto;
+      transition: color .3s;
+      text-align: right;
+    }
+    .cat-btn:hover .cat-desc { color: rgba(255,255,255,.7); }
+
+    .cat-arrow {
+      font-size: 2rem; color: var(--paper);
+      transition: transform .3s, color .3s;
+      position: relative; z-index: 1;
+      margin-left: 2rem;
+    }
+    .cat-btn:hover .cat-arrow {
+      transform: translateX(8px);
+      color: var(--white);
+    }
+
+    @media (max-width: 768px) {
+      .cat-btn { padding: 1.5rem 1.25rem; }
+      .cat-desc { display: none; }
+      .cat-arrow { margin-left: 1rem; font-size: 1.5rem; }
+      .cat-btn-inner { gap: 1rem; }
+    }
+
+    /* ── CATEGORY VIEW (full overlay) ── */
+    #cat-view {
+      position: fixed; inset: 0;
+      background: var(--ink);
+      z-index: 300;
+      display: flex; flex-direction: column;
+      opacity: 0; pointer-events: none;
+      transition: opacity .4s;
+    }
+    #cat-view.open {
+      opacity: 1; pointer-events: all;
+    }
+
+    /* View header */
+    .view-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      flex-shrink: 0;
+      position: relative; z-index: 10;
+    }
+    .view-back {
+      display: flex; align-items: center; gap: .75rem;
+      background: none; border: none; color: var(--paper);
+      font-family: var(--font-body); font-size: .75rem;
+      letter-spacing: .18em; text-transform: uppercase;
+      cursor: pointer; opacity: .6; transition: opacity .2s;
+    }
+    .view-back:hover { opacity: 1; }
+    .view-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 5vw, 3.5rem);
+      letter-spacing: .04em; color: var(--paper);
+    }
+    .view-format-tabs {
+      display: flex; gap: .5rem;
+    }
+    .fmt-tab {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,.15);
+      color: var(--mid); font-family: var(--font-body);
+      font-size: .65rem; letter-spacing: .15em; text-transform: uppercase;
+      padding: .4rem .9rem; cursor: pointer; transition: all .2s;
+    }
+    .fmt-tab.active, .fmt-tab:hover {
+      background: var(--accent); border-color: var(--accent); color: var(--white);
+    }
+    @media (max-width: 600px) {
+      .view-header { padding: 1rem 1.25rem; flex-wrap: wrap; gap: .75rem; }
+      .view-format-tabs { order: 3; width: 100%; }
+    }
+
+    /* Hint */
+    .drag-hint {
+      padding: .75rem 2rem;
+      font-size: .65rem; letter-spacing: .18em; text-transform: uppercase;
+      color: rgba(255,255,255,.25); flex-shrink: 0;
+      display: flex; align-items: center; gap: .6rem;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+    }
+    .drag-hint svg { opacity: .4; }
+
+    /* ── MESA / TABLE AREA ── */
+    .mesa-wrap {
+      flex: 1; overflow: hidden; position: relative;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(232,77,28,.04) 0%, transparent 60%),
+        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,.025) 39px, rgba(255,255,255,.025) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,.025) 39px, rgba(255,255,255,.025) 40px);
+      cursor: grab;
+    }
+    .mesa-wrap.grabbing { cursor: grabbing; }
+
+    .mesa {
+      position: relative;
+      width: 4000px; height: 2400px;
+      transform-origin: 0 0;
+    }
+
+    /* ── PAPER SHEET ── */
+    .sheet {
+      position: absolute;
+      background: var(--paper);
+      box-shadow:
+        0 4px 12px rgba(0,0,0,.5),
+        0 20px 60px rgba(0,0,0,.4),
+        inset 0 0 0 1px rgba(0,0,0,.08);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      overflow: hidden;
+      transition: box-shadow .3s, transform .3s;
+      cursor: pointer;
+      user-select: none;
+    }
+    .sheet:hover {
+      box-shadow:
+        0 8px 24px rgba(0,0,0,.6),
+        0 30px 80px rgba(0,0,0,.5),
+        inset 0 0 0 1px rgba(0,0,0,.08);
+    }
+    .sheet.is-dragging {
+      box-shadow:
+        0 20px 60px rgba(0,0,0,.8),
+        0 40px 100px rgba(0,0,0,.6),
+        inset 0 0 0 2px rgba(232,77,28,.3);
+      z-index: 50 !important;
+      cursor: grabbing !important;
+    }
+
+    /* A2 = 420×594mm → scaled to px (1mm = 2.5px approx) */
+    .sheet-a2 { width: 370px; height: 524px; }
+    /* 40×50cm → 400×500mm */
+    .sheet-40x50 { width: 330px; height: 415px; }
+
+    /* Sheet inner design */
+    .sheet-inner {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      position: relative; overflow: hidden;
+    }
+
+    /* Paper texture */
+    .sheet-inner::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 10;
+    }
+
+    .sheet-format-badge {
+      position: absolute; top: .8rem; right: .8rem;
+      font-family: var(--font-display);
+      font-size: .55rem; letter-spacing: .18em;
+      color: rgba(0,0,0,.25); z-index: 5;
+    }
+    .sheet-margin {
+      position: absolute; inset: 20px;
+      border: 1px solid rgba(0,0,0,.06);
+      pointer-events: none; z-index: 4;
+    }
+
+    /* Design areas inside sheets */
+    .sheet-design {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      position: relative;
+    }
+
+    /* Different design styles per sheet */
+    .sd-1 {
+      background: linear-gradient(160deg, #0a0a0a 0%, #1a0a05 100%);
+    }
+    .sd-1 .sd-accent { background: var(--accent); position: absolute; left: 0; top: 0; width: 8px; height: 100%; }
+    .sd-1 .sd-title {
+      font-family: var(--font-display); font-size: 3.5rem; line-height: .9;
+      color: var(--paper); letter-spacing: .02em;
+      position: absolute; bottom: 3rem; left: 2rem; right: 2rem;
+    }
+    .sd-1 .sd-sub {
+      font-family: var(--font-body); font-size: .5rem; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--accent);
+      position: absolute; bottom: 1.5rem; left: 2rem;
+    }
+    .sd-1 .sd-img {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        -45deg, transparent, transparent 20px,
+        rgba(232,77,28,.04) 20px, rgba(232,77,28,.04) 21px
+      );
+    }
+    .sd-1 .sd-xotx {
+      position: absolute; top: 2rem; left: 2rem;
+      font-family: var(--font-display); font-size: .9rem;
+      color: rgba(255,255,255,.15); letter-spacing: .2em;
+    }
+
+    .sd-2 {
+      background: var(--paper);
+    }
+    .sd-2 .sd-top-bar { position: absolute; top: 0; left: 0; right: 0; height: 45%; background: var(--ink); }
+    .sd-2 .sd-title {
+      font-family: var(--font-display); font-size: 2.8rem; line-height: .9;
+      color: var(--paper); letter-spacing: .02em;
+      position: absolute; top: calc(45% - 5rem); left: 2rem; right: 2rem;
+      z-index: 2;
+    }
+    .sd-2 .sd-title span { -webkit-text-stroke: 1px var(--paper); color: transparent; }
+    .sd-2 .sd-dot {
+      position: absolute; right: 2rem; top: 2rem;
+      width: 40px; height: 40px; background: var(--accent); border-radius: 50%;
+    }
+    .sd-2 .sd-body {
+      position: absolute; bottom: 2rem; left: 2rem; right: 2rem;
+      font-family: var(--font-body); font-size: .45rem; line-height: 1.6;
+      color: rgba(0,0,0,.4); z-index: 2;
+    }
+    .sd-2 .sd-line {
+      position: absolute; bottom: 4.5rem; left: 2rem; right: 2rem;
+      height: 1px; background: rgba(0,0,0,.12); z-index: 2;
+    }
+
+    .sd-3 {
+      background: #f9f5ed;
+    }
+    .sd-3 .sd-grid {
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 18px, rgba(0,0,0,.04) 18px, rgba(0,0,0,.04) 19px),
+                        repeating-linear-gradient(90deg, transparent, transparent 18px, rgba(0,0,0,.04) 18px, rgba(0,0,0,.04) 19px);
+    }
+    .sd-3 .sd-circle {
+      position: absolute; top: 50%; left: 50%;
+      width: 200px; height: 200px;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(0,0,0,.08); border-radius: 50%;
+    }
+    .sd-3 .sd-circle2 {
+      position: absolute; top: 50%; left: 50%;
+      width: 140px; height: 140px;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(0,0,0,.06); border-radius: 50%;
+    }
+    .sd-3 .sd-title {
+      font-family: var(--font-display); font-size: 3rem; line-height: .9;
+      color: var(--ink); letter-spacing: .06em;
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center; z-index: 2; white-space: nowrap;
+    }
+    .sd-3 .sd-accent-bar {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 6px;
+      background: var(--accent);
+    }
+    .sd-3 .sd-tag {
+      position: absolute; top: 1.5rem; left: 50%; transform: translateX(-50%);
+      font-size: .45rem; letter-spacing: .25em; text-transform: uppercase;
+      color: rgba(0,0,0,.3); white-space: nowrap;
+    }
+
+    .sd-4 {
+      background: var(--accent);
+    }
+    .sd-4 .sd-title {
+      font-family: var(--font-display); font-size: 4.5rem; line-height: .85;
+      color: var(--white); letter-spacing: -.01em;
+      position: absolute; bottom: 2rem; left: 1.5rem; right: 1.5rem;
+    }
+    .sd-4 .sd-outline {
+      -webkit-text-stroke: 1px rgba(255,255,255,.4); color: transparent;
+    }
+    .sd-4 .sd-slash {
+      position: absolute; top: 0; right: 4rem;
+      width: 1px; height: 100%; background: rgba(255,255,255,.15);
+      transform: skewX(-8deg);
+    }
+    .sd-4 .sd-slash2 {
+      position: absolute; top: 0; right: 5.5rem;
+      width: 1px; height: 100%; background: rgba(255,255,255,.08);
+      transform: skewX(-8deg);
+    }
+    .sd-4 .sd-tag {
+      position: absolute; top: 1.5rem; left: 1.5rem;
+      font-size: .45rem; letter-spacing: .25em; text-transform: uppercase;
+      color: rgba(255,255,255,.6);
+    }
+    .sd-4 .sd-num {
+      position: absolute; top: 1rem; right: 1rem;
+      font-family: var(--font-display); font-size: 4rem;
+      color: rgba(255,255,255,.1); letter-spacing: .05em;
+    }
+
+    .sd-5 {
+      background: var(--ink);
+    }
+    .sd-5 .sd-photo {
+      position: absolute; top: 0; left: 0; right: 0; height: 60%;
+      background: linear-gradient(135deg, #1a1208 0%, #2d1f0a 100%);
+      overflow: hidden;
+    }
+    .sd-5 .sd-photo-lines {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        90deg, transparent, transparent 24px,
+        rgba(232,77,28,.06) 24px, rgba(232,77,28,.06) 25px
+      );
+    }
+    .sd-5 .sd-title {
+      font-family: var(--font-display); font-size: 2.2rem; line-height: .9;
+      color: var(--paper); letter-spacing: .04em;
+      position: absolute; bottom: 4rem; left: 1.5rem; right: 1.5rem;
+    }
+    .sd-5 .sd-footer {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2.5rem; background: var(--accent);
+      display: flex; align-items: center; padding: 0 1.5rem;
+    }
+    .sd-5 .sd-footer span {
+      font-family: var(--font-display); font-size: .6rem;
+      letter-spacing: .2em; color: var(--white);
+    }
+
+    .sd-6 {
+      background: #f0ece4;
+    }
+    .sd-6 .sd-half {
+      position: absolute; top: 0; left: 0; bottom: 0; right: 50%;
+      background: var(--ink);
+    }
+    .sd-6 .sd-title {
+      font-family: var(--font-display); font-size: 2.2rem; line-height: .88;
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-52%, -50%);
+      z-index: 2; text-align: left;
+    }
+    .sd-6 .sd-title .t-white { color: var(--white); display: block; }
+    .sd-6 .sd-title .t-dark { color: var(--ink); display: block; }
+    .sd-6 .sd-year {
+      position: absolute; bottom: 1.5rem; right: 1.5rem;
+      font-family: var(--font-display); font-size: 2rem;
+      color: rgba(0,0,0,.08); letter-spacing: .1em;
+    }
+    .sd-6 .sd-dot2 {
+      position: absolute; top: 1.5rem; left: 1.5rem;
+      width: 8px; height: 8px;
+      background: var(--accent); border-radius: 50%;
+    }
+
+    /* Sheet info overlay on hover */
+    .sheet-overlay {
+      position: absolute; inset: 0;
+      background: rgba(232,77,28,.0);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: .5rem; z-index: 20;
+      opacity: 0; transition: opacity .3s, background .3s;
+    }
+    .sheet:hover .sheet-overlay { opacity: 1; background: rgba(232,77,28,.12); }
+    .sheet-overlay-title {
+      font-family: var(--font-display);
+      font-size: 1rem; letter-spacing: .1em;
+      color: var(--white); text-align: center;
+      background: var(--accent); padding: .4rem .9rem;
+      text-shadow: none;
+    }
+    .sheet-overlay-sub {
+      font-size: .55rem; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--paper); opacity: .7;
+    }
+
+    /* ── MINI MAP ── */
+    .mesa-minimap {
+      position: absolute; bottom: 1.5rem; right: 1.5rem;
+      width: 120px; height: 72px;
+      background: rgba(10,10,10,.8);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 2px; overflow: hidden;
+      pointer-events: none; z-index: 20;
+    }
+    .minimap-viewport {
+      position: absolute;
+      background: rgba(232,77,28,.25);
+      border: 1px solid var(--accent);
+      pointer-events: none;
+    }
+
+    /* ── ZOOM CONTROLS ── */
+    .zoom-controls {
+      position: absolute; bottom: 1.5rem; left: 1.5rem;
+      display: flex; gap: .5rem; z-index: 20;
+    }
+    .zoom-btn {
+      width: 36px; height: 36px;
+      background: rgba(10,10,10,.8); border: 1px solid rgba(255,255,255,.15);
+      color: var(--paper); font-size: 1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s, border-color .2s;
+      font-family: var(--font-body);
+    }
+    .zoom-btn:hover { background: var(--accent); border-color: var(--accent); }
+    .zoom-label {
+      display: flex; align-items: center; padding: 0 .75rem;
+      background: rgba(10,10,10,.8); border: 1px solid rgba(255,255,255,.1);
+      font-size: .6rem; letter-spacing: .15em; color: var(--mid);
+    }
+
+    /* ── CTA SECTION ── */
+    #cta-section {
+      background: var(--paper); padding: 7rem 0;
+      position: relative; overflow: hidden;
+    }
+    .cta-bg-text {
+      position: absolute; bottom: -2rem; right: -1rem;
+      font-family: var(--font-display);
+      font-size: clamp(6rem, 18vw, 16rem);
+      line-height: 1; color: rgba(0,0,0,.05);
+      pointer-events: none; user-select: none; letter-spacing: -.02em;
+    }
+    .cta-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 5.5rem);
+      line-height: .95; color: var(--ink); margin-bottom: 1.5rem;
+    }
+    .cta-title .outline-dark {
+      -webkit-text-stroke: 1px var(--ink); color: transparent;
+    }
+    .cta-sub {
+      font-size: .9rem; line-height: 1.7; color: #666;
+      max-width: 380px; margin-bottom: 2.5rem;
+    }
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: .75rem;
+      background: var(--accent); color: var(--white);
+      font-size: .75rem; letter-spacing: .18em; text-transform: uppercase;
+      text-decoration: none; padding: 1rem 2.25rem;
+      font-family: var(--font-body); transition: background .25s;
+    }
+    .cta-btn:hover { background: #c83d0c; color: white; }
+    .cta-btn .arrow { transition: transform .2s; }
+    .cta-btn:hover .arrow { transform: translateX(4px); }
+    .cta-links { display: flex; gap: 2rem; margin-top: 1.5rem; flex-wrap: wrap; }
+    .cta-link {
+      font-size: .75rem; letter-spacing: .12em; text-transform: uppercase;
+      color: #999; text-decoration: none;
+      border-bottom: 1px solid rgba(0,0,0,.15);
+      padding-bottom: .2rem; transition: color .2s, border-color .2s;
+    }
+    .cta-link:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #050505; padding: 2.5rem 0;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .footer-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo {
+      font-family: var(--font-display); font-size: 1.4rem;
+      letter-spacing: .12em; color: var(--paper);
+    }
+    .footer-copy {
+      font-size: .7rem; letter-spacing: .1em; color: rgba(255,255,255,.3);
+    }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a {
+      font-size: .7rem; letter-spacing: .12em;
+      color: rgba(255,255,255,.3); text-decoration: none;
+      text-transform: uppercase; transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(40px); }
+
+    /* Vinilos section placeholder */
+    .coming-soon-area {
+      padding: 6rem 2rem; text-align: center;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .cs-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 6vw, 5rem);
+      color: rgba(255,255,255,.08); letter-spacing: .06em;
+      margin-bottom: 1rem;
+    }
+    .cs-sub {
+      font-size: .75rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<div id="cursor-label"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">XOTX.Studio</a>
+  <ul class="nav-links">
+    <li><a href="index.html#servicios">Servicios</a></li>
+    <li><a href="xotx-proyectos.html" class="active">Proyectos</a></li>
+    <li><a href="index.html#sobre">Nosotros</a></li>
+    <li><a href="index.html#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<div id="page-header">
+  <div class="header-noise"></div>
+  <div class="header-line"></div>
+  <div class="header-content container-fluid px-0">
+    <div class="header-tag" id="h-tag">Portfolio · XOTX.Studio</div>
+    <div class="header-title">
+      <span id="h-line1">Nuestros</span><br>
+      <span id="h-line2" class="outline">Proyectos</span>
+    </div>
+    <div class="header-sub">
+      <p class="header-desc" id="h-desc">
+        Elige una categoría para explorar el trabajo que hacemos. Cartelería, vinilos, identidades y más.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORY SELECTOR -->
+<section id="cat-selector">
+  <div class="cat-intro px-2">
+    <div class="cat-intro-label">Explorar por tipo</div>
+    <div class="cat-intro-title">¿Qué tipo de proyecto buscas?</div>
+  </div>
+
+  <ul class="cat-list" id="cat-list">
+
+    <li class="cat-item">
+      <button class="cat-btn" data-cat="carteleria" aria-label="Ver proyectos de Cartelería">
+        <div class="cat-btn-inner">
+          <span class="cat-num">01</span>
+          <span class="cat-name">Cartelería</span>
+          <span class="cat-desc">Carteles en formatos A2, 40×50cm, lonas y soportes gráficos de gran impacto visual.</span>
+        </div>
+        <span class="cat-arrow">→</span>
+      </button>
+    </li>
+
+    <li class="cat-item">
+      <button class="cat-btn" data-cat="vinilos" aria-label="Ver proyectos de Vinilos">
+        <div class="cat-btn-inner">
+          <span class="cat-num">02</span>
+          <span class="cat-name">Vinilos</span>
+          <span class="cat-desc">Rotulación de vehículos, escaparates, vinilos decorativos y señalética de espacios.</span>
+        </div>
+        <span class="cat-arrow">→</span>
+      </button>
+    </li>
+
+    <li class="cat-item">
+      <button class="cat-btn" data-cat="logotipos" aria-label="Ver proyectos de Logotipos">
+        <div class="cat-btn-inner">
+          <span class="cat-num">03</span>
+          <span class="cat-name">Logotipos</span>
+          <span class="cat-desc">Diseño de marcas únicas que comunican la identidad y los valores de cada negocio.</span>
+        </div>
+        <span class="cat-arrow">→</span>
+      </button>
+    </li>
+
+    <li class="cat-item">
+      <button class="cat-btn" data-cat="imagen" aria-label="Ver proyectos de Imagen Corporativa">
+        <div class="cat-btn-inner">
+          <span class="cat-num">04</span>
+          <span class="cat-name">Imagen Corporativa</span>
+          <span class="cat-desc">Identidades visuales completas: sistema de marca, papelería y manual de identidad.</span>
+        </div>
+        <span class="cat-arrow">→</span>
+      </button>
+    </li>
+
+    <li class="cat-item">
+      <button class="cat-btn" data-cat="rrss" aria-label="Ver proyectos de Redes Sociales">
+        <div class="cat-btn-inner">
+          <span class="cat-num">05</span>
+          <span class="cat-name">Redes Sociales</span>
+          <span class="cat-desc">Sistemas de plantillas y piezas gráficas para Instagram, Facebook y LinkedIn.</span>
+        </div>
+        <span class="cat-arrow">→</span>
+      </button>
+    </li>
+
+  </ul>
+</section>
+
+<!-- CTA -->
+<section id="cta-section">
+  <div class="cta-bg-text">HOLA</div>
+  <div class="container position-relative">
+    <div class="row">
+      <div class="col-lg-5 mb-5 mb-lg-0">
+        <h2 class="cta-title reveal">¿Tu proyecto<br>es el <span class="outline-dark">siguiente</span>?</h2>
+        <p class="cta-sub reveal">Cuéntanos qué necesitas. Trabajamos con negocios de todos los tamaños que quieren destacar visualmente.</p>
+        <a href="index.html#contacto" class="cta-btn reveal">
+          Empezar un proyecto <span class="arrow">→</span>
+        </a>
+        <div class="cta-links reveal">
+          <a href="index.html#servicios" class="cta-link">Ver servicios</a>
+          <a href="index.html#sobre" class="cta-link">Sobre nosotros</a>
+          <a href="mailto:hola@xotx.studio" class="cta-link">hola@xotx.studio</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-logo">XOTX.Studio</span>
+      <span class="footer-copy">© 2025 XOTX.Studio — Todos los derechos reservados</span>
+      <div class="footer-links">
+        <a href="index.html#servicios">Servicios</a>
+        <a href="xotx-proyectos.html">Proyectos</a>
+        <a href="index.html#contacto">Contacto</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- CATEGORY FULL-SCREEN VIEW -->
+<div id="cat-view">
+
+  <!-- Header -->
+  <div class="view-header">
+    <button class="view-back" id="view-back-btn">
+      ← Volver
+    </button>
+    <div class="view-title" id="view-title">Cartelería</div>
+    <div class="view-format-tabs" id="fmt-tabs">
+      <button class="fmt-tab active" data-fmt="all">Todos</button>
+      <button class="fmt-tab" data-fmt="a2">A2 (420×594mm)</button>
+      <button class="fmt-tab" data-fmt="40x50">40×50 cm</button>
+    </div>
+  </div>
+
+  <!-- Drag hint -->
+  <div class="drag-hint" id="drag-hint">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M5 5L2 8l3 3M11 5l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Arrastra para explorar · Rueda para hacer zoom · Pincha en un cartel para ampliar
+  </div>
+
+  <!-- Mesa -->
+  <div class="mesa-wrap" id="mesa-wrap">
+    <div class="mesa" id="mesa">
+
+      <!-- CARTELERÍA sheets -->
+     <div class="sheet sheet-a2" style="left:400px; top:566px; transform:rotate(-1.5deg)" data-format="a2" data-cat="carteleria" data-title="I. Rallysprint Erniope 2026" data-desc="I. Rallysprint Erniope 2026" data-open="1">
+  <div class="sheet-inner">
+    <div class="sd-1 sheet-design">
+      
+      <div class="sd-accent"></div>
+
+      <!-- IMAGEN AJUSTADA -->
+      <div class="sd-img" style="width:100%; height:100%; overflow:hidden;">
+        <img src="imgs/cartel_erniope.png" 
+             style="width:100%; height:100%; object-fit:cover; object-position:center;">
+      </div>
+    </div>
+
+    <div class="sheet-format-badge">A2</div>
+    <div class="sheet-margin"></div>
+
+    <div class="sheet-overlay">
+      <div class="sheet-overlay-title">I. Rallysprint Erniope 2026</div>
+      <div class="sheet-overlay-sub">A2 · 420×594mm</div>
+    </div>
+
+  </div>
+</div>
+
+     <div class="sheet sheet-a2" style="left:400px; top:566px; transform:rotate(-1.5deg)" data-format="a2" data-cat="carteleria" data-title="I. Rallysprint Erniope 2026" data-desc="I. Rallysprint Erniope 2026" data-open="2">
+  <div class="sheet-inner">
+    <div class="sd-1 sheet-design">
+      
+      <div class="sd-accent"></div>
+
+      <!-- IMAGEN AJUSTADA -->
+      <div class="sd-img" style="width:100%; height:100%; overflow:hidden;">
+        <img src="imgs/cartel_erniope.png" 
+             style="width:100%; height:100%; object-fit:cover; object-position:center;">
+      </div>
+    </div>
+
+    <div class="sheet-format-badge">A2</div>
+    <div class="sheet-margin"></div>
+
+    <div class="sheet-overlay">
+      <div class="sheet-overlay-title">I. Rallysprint Erniope 2026</div>
+      <div class="sheet-overlay-sub">A2 · 420×594mm</div>
+    </div>
+
+  </div>
+</div>
+
+      <div class="sheet sheet-a2" style="left:1020px; top:100px; transform:rotate(.8deg)" data-format="a2" data-cat="carteleria" data-title="Apertura Restaurante Ola" data-desc="Cartel A2 — Gran apertura restaurante mediterráneo" data-open="3">
+        <div class="sheet-inner">
+          <div class="sd-2 sheet-design">
+            <div class="sd-top-bar"></div>
+            <div class="sd-dot"></div>
+            <div class="sd-title">OLA<br><span>REST.</span></div>
+            <div class="sd-line"></div>
+            <div class="sd-body">Gran apertura · Restaurante mediterráneo · Getxo, Bizkaia · Reservas: +34 944 000 000</div>
+          </div>
+          <div class="sheet-format-badge">A2</div>
+          <div class="sheet-margin"></div>
+          <div class="sheet-overlay">
+            <div class="sheet-overlay-title">Apertura Rest. Ola</div>
+            <div class="sheet-overlay-sub">A2 · 420×594mm</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet sheet-40x50" style="left:1460px; top:60px; transform:rotate(-2deg)" data-format="40x50" data-cat="carteleria" data-title="Mercado Artesanal" data-desc="Cartel 40×50cm — Mercado artesanal navideño" data-open="4">
+        <div class="sheet-inner">
+          <div class="sd-3 sheet-design">
+            <div class="sd-grid"></div>
+            <div class="sd-circle"></div>
+            <div class="sd-circle2"></div>
+            <div class="sd-tag">Artisan Market · Diciembre 2025</div>
+            <div class="sd-title">MERKA<br>DO</div>
+            <div class="sd-accent-bar"></div>
+          </div>
+          <div class="sheet-format-badge">40×50</div>
+          <div class="sheet-margin"></div>
+          <div class="sheet-overlay">
+            <div class="sheet-overlay-title">Mercado Artesanal</div>
+            <div class="sheet-overlay-sub">40×50cm</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet sheet-a2" style="left:1860px; top:130px; transform:rotate(-1deg)" data-format="a2" data-cat="carteleria" data-title="Exposición Zubía Arquitectura" data-desc="Cartel A2 — Exposición de proyectos de arquitectura" data-open="5">
+        <div class="sheet-inner">
+          <div class="sd-6 sheet-design">
+            <div class="sd-half"></div>
+            <div class="sd-dot2"></div>
+            <div class="sd-title">
+              <span class="t-white">ZUBÍA</span>
+              <span class="t-dark">ARCHI</span>
+            </div>
+            <div class="sd-year">25</div>
+          </div>
+          <div class="sheet-format-badge">A2</div>
+          <div class="sheet-margin"></div>
+          <div class="sheet-overlay">
+            <div class="sheet-overlay-title">Exposición Zubía</div>
+            <div class="sheet-overlay-sub">A2 · 420×594mm</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEGUNDA FILA -->
+      <div class="sheet sheet-40x50" style="left:260px; top:700px; transform:rotate(2deg)" data-format="40x50" data-cat="carteleria" data-title="Peluquería Ane — Promoción" data-desc="Cartel 40×50cm — Oferta especial de temporada" data-open="6">
+        <div class="sheet-inner">
+          <div class="sd-5 sheet-design">
+            <div class="sd-photo"><div class="sd-photo-lines"></div></div>
+            <div class="sd-title">ANE<br>STUDIO</div>
+            <div class="sd-footer"><span>Peluquería · Bilbao</span></div>
+          </div>
+          <div class="sheet-format-badge">40×50</div>
+          <div class="sheet-margin"></div>
+          <div class="sheet-overlay">
+            <div class="sheet-overlay-title">Peluquería Ane</div>
+            <div class="sheet-overlay-sub">40×50cm</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet sheet-a2" style="left:680px; top:680px; transform:rotate(-1.2deg)" data-format="a2" data-cat="carteleria" data-title="Clínica Dental Dent — Campaña" data-desc="Cartel A2 — Campaña de captación de pacientes" data-open="7">
+        <div class="sheet-inner">
+          <div class="sd-2 sheet-design" style="background:#fff">
+            <div class="sd-top-bar" style="background:#1a2d1a; height:50%"></div>
+            <div class="sd-dot" style="background:#4caf50"></div>
+            <div class="sd-title" style="color:var(--white)">DENT<br><span style="-webkit-text-stroke:1px rgba(255,255,255,.4);color:transparent">CLINIC</span></div>
+            <div class="sd-line"></div>
+            <div class="sd-body">Tu sonrisa, nuestro compromiso · Bilbao · Cita previa: 944 111 222</div>
+          </div>
+          <div class="sheet-format-badge">A2</div>
+          <div class="sheet-margin"></div>
+          <div class="sheet-overlay">
+            <div class="sheet-overlay-title">Clínica Dent</div>
+            <div class="sheet-overlay-sub">A2 · 420×594mm</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet sheet-40x50" style="left:1130px; top:720px; transform:rotate(.6deg)" data-format="40x50" data-cat="carteleria" data-title="Logística Norte — Lanzamiento" data-desc="Cartel 40×50cm — Presentación de nueva flota" data-open="8">
+        <div class="sheet-inner">
+          <div class="sd-4 sheet-design" style="background:#0f1a2d">
+            <div class="sd-slash" style="background:rgba(28,106,232,.3)"></div>
+            <div class="sd-slash2" style="background:rgba(28,106,232,.15)"></div>
+            <div class="sd-tag" style="color:rgba(100,160,255,.6)">Logística · Euskadi</div>
+            <div class="sd-num">12</div>
+            <div class="sd-title" style="">
+              NORTE<br>
+              <span style="-webkit-text-stroke:1px rgba(100,160,255,.4);color:transparent">FLEET</span>
+            </div>
+          </div>
+          <div class="sheet-format-badge">40×50</div>
+          <div class="sheet-margin"></div>
+          <div class="sheet-overlay">
+            <div class="sheet-overlay-title">Logística Norte</div>
+            <div class="sheet-overlay-sub">40×50cm</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet sheet-a2" style="left:1540px; top:700px; transform:rotate(-1.8deg)" data-format="a2" data-cat="carteleria" data-title="Pop-Up Moda Urbana" data-desc="Cartel A2 — Tienda temporal de moda" data-open="9">
+        <div class="sheet-inner">
+          <div class="sd-3 sheet-design" style="background:#0a0a0a">
+            <div class="sd-grid" style="background-image: repeating-linear-gradient(0deg,transparent,transparent 18px,rgba(255,255,255,.04) 18px,rgba(255,255,255,.04) 19px),repeating-linear-gradient(90deg,transparent,transparent 18px,rgba(255,255,255,.04) 18px,rgba(255,255,255,.04) 19px)"></div>
+            <div class="sd-circle" style="border-color:rgba(255,255,255,.06)"></div>
+            <div class="sd-circle2" style="border-color:rgba(255,255,255,.04)"></div>
+            <div class="sd-tag" style="color:rgba(255,255,255,.25)">Pop-Up Store · Bilbao</div>
+            <div class="sd-title" style="color:var(--paper)">POP<br>UP</div>
+            <div class="sd-accent-bar"></div>
+          </div>
+          <div class="sheet-format-badge">A2</div>
+          <div class="sheet-margin"></div>
+          <div class="sheet-overlay">
+            <div class="sheet-overlay-title">Pop-Up Moda</div>
+            <div class="sheet-overlay-sub">A2 · 420×594mm</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet sheet-40x50" style="left:1990px; top:680px; transform:rotate(1.4deg)" data-format="40x50" data-cat="carteleria" data-title="Concierto Jazz Otoño" data-desc="Cartel 40×50cm — Ciclo de jazz en el Kafe Antzokia" data-open="10">
+        <div class="sheet-inner">
+          <div class="sd-1 sheet-design" style="background:linear-gradient(160deg,#100a18 0%,#1f0a2d 100%)">
+            <div class="sd-accent" style="background:#9c27b0"></div>
+            <div class="sd-img" style="background:repeating-linear-gradient(-45deg,transparent,transparent 20px,rgba(156,39,176,.04) 20px,rgba(156,39,176,.04) 21px)"></div>
+            <div class="sd-xotx" style="color:rgba(156,39,176,.15)">XOTX</div>
+            <div class="sd-title" style="color:var(--paper)">JAZZ<br>OTOÑO<br><span style="-webkit-text-stroke:1px var(--paper);color:transparent">24</span></div>
+            <div class="sd-sub" style="color:#9c27b0">Kafe Antzokia · Bilbao</div>
+          </div>
+          <div class="sheet-format-badge">40×50</div>
+          <div class="sheet-margin"></div>
+          <div class="sheet-overlay">
+            <div class="sheet-overlay-title">Jazz Otoño</div>
+            <div class="sheet-overlay-sub">40×50cm</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TERCERA FILA -->
+      <div class="sheet sheet-a2" style="left:120px; top:1280px; transform:rotate(.5deg)" data-format="a2" data-cat="carteleria" data-title="Semana Grande Bilbao" data-desc="Cartel A2 — Programa de fiestas" data-open="11">
+        <div class="sheet-inner">
+          <div class="sd-4 sheet-design" style="background:#c8880e">
+            <div class="sd-slash" style="background:rgba(0,0,0,.15)"></div>
+            <div class="sd-slash2" style="background:rgba(0,0,0,.08)"></div>
+            <div class="sd-tag" style="color:rgba(0,0,0,.4)">Bilbao · Agosto 2025</div>
+            <div class="sd-num" style="color:rgba(0,0,0,.08)">25</div>
+            <div class="sd-title" style="color:#fff">
+              SEMANA<br>
+              <span style="-webkit-text-stroke:1px rgba(0,0,0,.3);color:transparent">GRANDE</span>
+            </div>
+          </div>
+          <div class="sheet-format-badge">A2</div>
+          <div class="sheet-margin"></div>
+          <div class="sheet-overlay">
+            <div class="sheet-overlay-title">Semana Grande</div>
+            <div class="sheet-overlay-sub">A2 · 420×594mm</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet sheet-40x50" style="left:580px; top:1320px; transform:rotate(-2.2deg)" data-format="40x50" data-cat="carteleria" data-title="Tienda Ekoa — Apertura" data-desc="Cartel 40×50cm — Eco-tienda local" data-open="12">
+        <div class="sheet-inner">
+          <div class="sd-3 sheet-design" style="background:#f0f5e8">
+            <div class="sd-grid" style="background-image:repeating-linear-gradient(0deg,transparent,transparent 18px,rgba(0,60,0,.04) 18px,rgba(0,60,0,.04) 19px),repeating-linear-gradient(90deg,transparent,transparent 18px,rgba(0,60,0,.04) 18px,rgba(0,60,0,.04) 19px)"></div>
+            <div class="sd-circle" style="border-color:rgba(0,80,0,.08)"></div>
+            <div class="sd-circle2" style="border-color:rgba(0,80,0,.06)"></div>
+            <div class="sd-tag" style="color:rgba(0,60,0,.3)">Eco Store · Bilbao</div>
+            <div class="sd-title" style="color:#1a3d1a">EKOA<br>SHOP</div>
+            <div class="sd-accent-bar" style="background:#4caf50"></div>
+          </div>
+          <div class="sheet-format-badge">40×50</div>
+          <div class="sheet-margin"></div>
+          <div class="sheet-overlay">
+            <div class="sheet-overlay-title">Tienda Ekoa</div>
+            <div class="sheet-overlay-sub">40×50cm</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet sheet-a2" style="left:990px; top:1300px; transform:rotate(1.6deg)" data-format="a2" data-cat="carteleria" data-title="Maratón Euskadi 2025" data-desc="Cartel A2 — Inscripción maratón popular" data-open="13">
+        <div class="sheet-inner">
+          <div class="sd-5 sheet-design" style="background:#0a0a14">
+            <div class="sd-photo" style="background:linear-gradient(135deg,#0a0a18 0%,#14143d 100%)"><div class="sd-photo-lines" style="background:repeating-linear-gradient(90deg,transparent,transparent 24px,rgba(60,60,232,.08) 24px,rgba(60,60,232,.08) 25px)"></div></div>
+            <div class="sd-title" style="color:var(--paper)">MARA<br>TON</div>
+            <div class="sd-footer" style="background:#1c6ae8"><span>Euskadi · 2025</span></div>
+          </div>
+          <div class="sheet-format-badge">A2</div>
+          <div class="sheet-margin"></div>
+          <div class="sheet-overlay">
+            <div class="sheet-overlay-title">Maratón Euskadi</div>
+            <div class="sheet-overlay-sub">A2 · 420×594mm</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Minimap -->
+    <div class="mesa-minimap" id="minimap">
+      <div class="minimap-viewport" id="minimap-vp"></div>
+    </div>
+
+    <!-- Zoom controls -->
+    <div class="zoom-controls">
+      <button class="zoom-btn" id="zoom-out">−</button>
+      <div class="zoom-label" id="zoom-label">75%</div>
+      <button class="zoom-btn" id="zoom-in">+</button>
+    </div>
+
+  </div><!-- /mesa-wrap -->
+
+  <!-- Vinilos & otros placeholders (hidden, shown by cat) -->
+  <div id="cat-placeholder" style="display:none; flex:1; align-items:center; justify-content:center; flex-direction:column; gap:1rem;">
+    <div class="cs-title" id="placeholder-cat-name">VINILOS</div>
+    <div class="cs-sub">Proyectos próximamente</div>
+  </div>
+
+</div><!-- /cat-view -->
+
+<!-- LIGHTBOX — full sheet viewer -->
+<div id="lightbox">
+  <div id="lb-backdrop"></div>
+  <button id="lb-close">✕ Cerrar</button>
+  <button id="lb-prev" class="lb-nav">←</button>
+  <button id="lb-next" class="lb-nav">→</button>
+  <div id="lb-stage">
+    <div id="lb-sheet-wrap"></div>
+    <div id="lb-info">
+      <div id="lb-format-badge"></div>
+      <div id="lb-title"></div>
+      <div id="lb-desc"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+#lightbox {
+  position: fixed; inset: 0; z-index: 500;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; padding: 1.5rem;
+}
+#lb-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(5,5,5,.96); backdrop-filter: blur(12px);
+}
+#lb-close {
+  position: absolute; top: 1.5rem; right: 1.5rem; z-index: 10;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+  color: var(--paper); font-family: var(--font-body);
+  font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
+  padding: .5rem 1.1rem; cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+#lb-close:hover { background: var(--accent); border-color: var(--accent); }
+.lb-nav {
+  position: absolute; top: 50%; z-index: 10;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+  color: var(--paper); font-family: var(--font-display);
+  font-size: 1.4rem; width: 48px; height: 48px;
+  cursor: pointer; transition: background .2s, border-color .2s;
+  display: flex; align-items: center; justify-content: center;
+}
+.lb-nav:hover { background: var(--accent); border-color: var(--accent); }
+#lb-prev { left: 1.5rem; }
+#lb-next { right: 1.5rem; }
+#lb-stage {
+  position: relative; z-index: 5;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 1.75rem; width: 100%; max-height: 100vh;
+}
+#lb-sheet-wrap {
+  position: relative;
+  transform-origin: center center;
+  flex-shrink: 0;
+}
+#lb-sheet-wrap .sheet {
+  position: relative !important;
+  left: auto !important; top: auto !important;
+  transform: none !important;
+  width: 100% !important; height: 100% !important;
+  pointer-events: none;
+  box-shadow: 0 30px 80px rgba(0,0,0,.8), 0 60px 140px rgba(0,0,0,.6), inset 0 0 0 1px rgba(0,0,0,.1);
+}
+#lb-info { text-align: center; z-index: 5; }
+#lb-format-badge {
+  font-size: .6rem; letter-spacing: .25em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: .5rem;
+}
+#lb-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  letter-spacing: .05em; color: var(--paper); margin-bottom: .35rem;
+}
+#lb-desc { font-size: .8rem; line-height: 1.7; color: var(--mid); }
+@media (max-width: 600px) {
+  #lb-prev { left: .5rem; }
+  #lb-next { right: .5rem; }
+  #lb-close { top: .75rem; right: .75rem; font-size: .6rem; padding: .4rem .8rem; }
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ─── CURSOR ─── */
+const cursor      = document.getElementById('cursor');
+const ring        = document.getElementById('cursor-ring');
+const cursorLabel = document.getElementById('cursor-label');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+if (cursor) {
+  gsap.ticker.add(() => {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    gsap.set(cursor,      { x: mx, y: my });
+    gsap.set(ring,        { x: rx, y: ry });
+    gsap.set(cursorLabel, { x: mx + 20, y: my + 20 });
+  });
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      gsap.to(cursor, { width: 6, height: 6, duration: .2 });
+      gsap.to(ring,   { width: 56, height: 56, opacity: .8, duration: .3 });
+    });
+    el.addEventListener('mouseleave', () => {
+      gsap.to(cursor, { width: 12, height: 12, duration: .2 });
+      gsap.to(ring,   { width: 36, height: 36, opacity: .5, duration: .3 });
+    });
+  });
+}
+
+/* ─── HERO ENTRANCE ─── */
+const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+tl.from('#h-tag',   { opacity: 0, x: -20, duration: .8 }, .3)
+  .from('#h-line1', { y: '110%', duration: 1 }, .4)
+  .from('#h-line2', { y: '110%', duration: 1 }, .55)
+  .from('#h-desc',  { opacity: 0, y: 20, duration: .8 }, .9);
+
+gsap.from('.header-line', { scaleY: 0, transformOrigin: 'top center', duration: 1.5, ease: 'power2.inOut', delay: .2 });
+
+gsap.utils.toArray('.cat-item').forEach((el, i) => {
+  gsap.from(el, {
+    opacity: 0, x: -40, duration: .7, ease: 'power3.out',
+    scrollTrigger: { trigger: el, start: 'top 88%' },
+    delay: i * 0.06
+  });
+});
+
+gsap.utils.toArray('.reveal').forEach(el => {
+  gsap.to(el, {
+    opacity: 1, y: 0, duration: .9, ease: 'power3.out',
+    scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
+  });
+});
+
+/* ════════════════════════════════════════
+   CATEGORY VIEW LOGIC
+════════════════════════════════════════ */
+const catView   = document.getElementById('cat-view');
+const viewTitle = document.getElementById('view-title');
+const mesaWrap  = document.getElementById('mesa-wrap');
+const mesa      = document.getElementById('mesa');
+const fmtTabs   = document.querySelectorAll('.fmt-tab');
+const catPlaceholder = document.getElementById('cat-placeholder');
+const placeholderCatName = document.getElementById('placeholder-cat-name');
+
+const catNames = {
+  carteleria: 'Cartelería', vinilos: 'Vinilos',
+  logotipos: 'Logotipos', imagen: 'Imagen Corporativa', rrss: 'Redes Sociales'
+};
+const hasTable = ['carteleria'];
+
+document.querySelectorAll('.cat-btn').forEach(btn => {
+  btn.addEventListener('click', () => openCatView(btn.dataset.cat));
+});
+
+function openCatView(cat) {
+  viewTitle.textContent = catNames[cat] || cat;
+  if (hasTable.includes(cat)) {
+    mesaWrap.style.display = '';
+    document.querySelector('.drag-hint').style.display = '';
+    document.getElementById('fmt-tabs').style.display = '';
+    catPlaceholder.style.display = 'none';
+    initMesa();
+    filterSheets('all');
+    fmtTabs.forEach(t => t.classList.remove('active'));
+    fmtTabs[0].classList.add('active');
+  } else {
+    mesaWrap.style.display = 'none';
+    document.querySelector('.drag-hint').style.display = 'none';
+    document.getElementById('fmt-tabs').style.display = 'none';
+    catPlaceholder.style.display = 'flex';
+    placeholderCatName.textContent = (catNames[cat] || cat).toUpperCase();
+  }
+  catView.classList.add('open');
+  gsap.from('#cat-view .view-header', { y: -20, opacity: 0, duration: .5, ease: 'power3.out' });
+  document.body.style.overflow = 'hidden';
+}
+
+document.getElementById('view-back-btn').addEventListener('click', () => {
+  gsap.to(catView, { opacity: 0, duration: .3, ease: 'power2.in', onComplete: () => {
+    catView.classList.remove('open');
+    gsap.set(catView, { opacity: 1 });
+  }});
+  document.body.style.overflow = '';
+});
+
+fmtTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    fmtTabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    filterSheets(tab.dataset.fmt);
+  });
+});
+
+function filterSheets(fmt) {
+  mesa.querySelectorAll('.sheet').forEach(sheet => {
+    const match = fmt === 'all' || sheet.dataset.format === fmt;
+    gsap.to(sheet, { opacity: match ? 1 : 0.07, duration: .35, ease: 'power2.out' });
+    sheet.style.pointerEvents = match ? 'auto' : 'none';
+  });
+}
+
+/* ════════════════════════════════════════
+   MESA — PAN & ZOOM (canvas drag)
+════════════════════════════════════════ */
+let panX = 0, panY = 0;
+let scale = 0.75;
+const MIN_SCALE = 0.25, MAX_SCALE = 1.6;
+let isCanvasDragging = false;
+let canvasStartX, canvasStartY, lastPanX, lastPanY;
+let mesaInited = false;
+
+/* per-sheet drag state */
+let sheetDragging = null;
+let sheetStartX, sheetStartY;
+let sheetOrigLeft, sheetOrigTop;
+let dragMoved = false;
+
+function initMesa() {
+  if (mesaInited) { updateMesa(); return; }
+  mesaInited = true;
+
+  panX = window.innerWidth * 0.08;
+  panY = 40;
+  updateMesa();
+
+  /* ── Canvas mouse pan ── */
+  mesaWrap.addEventListener('mousedown', onCanvasMouseDown);
+  window.addEventListener('mousemove',  onMouseMove);
+  window.addEventListener('mouseup',    onMouseUp);
+
+  /* ── Canvas touch pan ── */
+  let touchCanvasStartX, touchCanvasStartY, lastTouchPanX, lastTouchPanY;
+  let touchSheetEl = null, touchSheetOrigLeft, touchSheetOrigTop, touchMoved = false;
+  let touchStartClientX, touchStartClientY;
+
+  mesaWrap.addEventListener('touchstart', e => {
+    if (e.touches.length !== 1) return;
+    const t = e.touches[0];
+    touchStartClientX = t.clientX;
+    touchStartClientY = t.clientY;
+    touchMoved = false;
+
+    const sheetEl = e.target.closest('.sheet');
+    if (sheetEl && sheetEl.style.pointerEvents !== 'none') {
+      touchSheetEl = sheetEl;
+      touchSheetOrigLeft = parseInt(sheetEl.style.left) || 0;
+      touchSheetOrigTop  = parseInt(sheetEl.style.top)  || 0;
+    } else {
+      touchSheetEl = null;
+      lastTouchPanX = panX; lastTouchPanY = panY;
+      touchCanvasStartX = t.clientX; touchCanvasStartY = t.clientY;
+    }
+  }, { passive: true });
+
+  window.addEventListener('touchmove', e => {
+    if (e.touches.length !== 1) return;
+    e.preventDefault();
+    const t = e.touches[0];
+    const dx = t.clientX - touchStartClientX;
+    const dy = t.clientY - touchStartClientY;
+    if (Math.abs(dx) > 4 || Math.abs(dy) > 4) touchMoved = true;
+
+    if (touchSheetEl) {
+      touchSheetEl.style.left = (touchSheetOrigLeft + dx / scale) + 'px';
+      touchSheetEl.style.top  = (touchSheetOrigTop  + dy / scale) + 'px';
+      touchSheetEl.classList.add('is-dragging');
+    } else {
+      panX = lastTouchPanX + (t.clientX - touchCanvasStartX);
+      panY = lastTouchPanY + (t.clientY - touchCanvasStartY);
+      updateMesa();
+    }
+  }, { passive: false });
+
+  window.addEventListener('touchend', e => {
+    if (touchSheetEl) {
+      touchSheetEl.classList.remove('is-dragging');
+      if (!touchMoved) {
+        // tap = open lightbox
+        openLightbox(touchSheetEl);
+      }
+      touchSheetEl = null;
+    }
+    touchMoved = false;
+  });
+
+  /* ── Wheel zoom ── */
+  mesaWrap.addEventListener('wheel', e => {
+    e.preventDefault();
+    const delta = -e.deltaY * 0.001;
+    const rect = mesaWrap.getBoundingClientRect();
+    const cx = e.clientX - rect.left;
+    const cy = e.clientY - rect.top;
+    const newScale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, scale + delta));
+    panX = cx - (cx - panX) * (newScale / scale);
+    panY = cy - (cy - panY) * (newScale / scale);
+    scale = newScale;
+    updateMesa();
+  }, { passive: false });
+
+  /* ── Zoom buttons ── */
+  document.getElementById('zoom-in').addEventListener('click', () => {
+    const cx = mesaWrap.offsetWidth / 2, cy = mesaWrap.offsetHeight / 2;
+    const ns = Math.min(MAX_SCALE, scale + 0.1);
+    panX = cx - (cx - panX) * (ns / scale);
+    panY = cy - (cy - panY) * (ns / scale);
+    scale = ns; updateMesa();
+  });
+  document.getElementById('zoom-out').addEventListener('click', () => {
+    const cx = mesaWrap.offsetWidth / 2, cy = mesaWrap.offsetHeight / 2;
+    const ns = Math.max(MIN_SCALE, scale - 0.1);
+    panX = cx - (cx - panX) * (ns / scale);
+    panY = cy - (cy - panY) * (ns / scale);
+    scale = ns; updateMesa();
+  });
+}
+
+/* ── Canvas mousedown: decides canvas drag vs sheet drag ── */
+function onCanvasMouseDown(e) {
+  if (e.button !== 0) return;
+  const sheetEl = e.target.closest('.sheet');
+
+  if (sheetEl && sheetEl.style.pointerEvents !== 'none') {
+    // Start sheet drag
+    sheetDragging = sheetEl;
+    sheetStartX = e.clientX;
+    sheetStartY = e.clientY;
+    sheetOrigLeft = parseInt(sheetEl.style.left) || 0;
+    sheetOrigTop  = parseInt(sheetEl.style.top)  || 0;
+    dragMoved = false;
+    sheetEl.style.zIndex = 99;
+    e.preventDefault();
+  } else if (!e.target.closest('button, .zoom-controls, .mesa-minimap')) {
+    // Canvas pan
+    isCanvasDragging = true;
+    canvasStartX = e.clientX; canvasStartY = e.clientY;
+    lastPanX = panX; lastPanY = panY;
+    mesaWrap.classList.add('grabbing');
+    e.preventDefault();
+  }
+}
+
+function onMouseMove(e) {
+  if (sheetDragging) {
+    const dx = (e.clientX - sheetStartX) / scale;
+    const dy = (e.clientY - sheetStartY) / scale;
+    if (Math.abs(e.clientX - sheetStartX) > 3 || Math.abs(e.clientY - sheetStartY) > 3) {
+      dragMoved = true;
+    }
+    sheetDragging.style.left = (sheetOrigLeft + dx) + 'px';
+    sheetDragging.style.top  = (sheetOrigTop  + dy) + 'px';
+    sheetDragging.classList.add('is-dragging');
+    return;
+  }
+  if (!isCanvasDragging) return;
+  panX = lastPanX + (e.clientX - canvasStartX);
+  panY = lastPanY + (e.clientY - canvasStartY);
+  updateMesa();
+}
+
+function onMouseUp(e) {
+  if (sheetDragging) {
+    sheetDragging.classList.remove('is-dragging');
+    sheetDragging.style.zIndex = '';
+    if (!dragMoved) {
+      // click (no drag) → open lightbox
+      openLightbox(sheetDragging);
+    }
+    sheetDragging = null;
+    dragMoved = false;
+    return;
+  }
+  if (isCanvasDragging) {
+    isCanvasDragging = false;
+    mesaWrap.classList.remove('grabbing');
+  }
+}
+
+function updateMesa() {
+  mesa.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+  document.getElementById('zoom-label').textContent = Math.round(scale * 100) + '%';
+  updateMinimap();
+}
+
+function updateMinimap() {
+  const mm = document.getElementById('minimap');
+  const vp = document.getElementById('minimap-vp');
+  if (!mm || !vp) return;
+  const mesaW = 4000, mesaH = 2400;
+  const mmW = mm.offsetWidth, mmH = mm.offsetHeight;
+  const ratio = mmW / mesaW;
+  const vpLeft   = -panX / scale, vpTop = -panY / scale;
+  const vpWidth  = mesaWrap.offsetWidth / scale;
+  const vpHeight = mesaWrap.offsetHeight / scale;
+  vp.style.left   = Math.max(0, vpLeft  * ratio) + 'px';
+  vp.style.top    = Math.max(0, vpTop   * (mmH / mesaH)) + 'px';
+  vp.style.width  = Math.min(mmW, vpWidth  * ratio) + 'px';
+  vp.style.height = Math.min(mmH, vpHeight * (mmH / mesaH)) + 'px';
+}
+
+/* ════════════════════════════════════════
+   LIGHTBOX — clones real sheet design
+════════════════════════════════════════ */
+const lightbox    = document.getElementById('lightbox');
+const lbSheetWrap = document.getElementById('lb-sheet-wrap');
+const lbTitle     = document.getElementById('lb-title');
+const lbDesc      = document.getElementById('lb-desc');
+const lbFmtBadge  = document.getElementById('lb-format-badge');
+
+// Build ordered list of visible sheets for prev/next
+let lbSheets = [];
+let lbIdx    = 0;
+
+function getVisibleSheets() {
+  return [...mesa.querySelectorAll('.sheet')].filter(s => s.style.pointerEvents !== 'none');
+}
+
+function openLightbox(sheetEl) {
+  lbSheets = getVisibleSheets();
+  lbIdx = lbSheets.indexOf(sheetEl);
+  renderLightboxSheet(lbIdx);
+  lightbox.style.pointerEvents = 'all';
+  gsap.to(lightbox, { opacity: 1, duration: .35, ease: 'power2.out' });
+  gsap.from('#lb-stage', { y: 40, opacity: 0, duration: .4, ease: 'power3.out' });
+}
+
+function renderLightboxSheet(idx) {
+  const sheet = lbSheets[idx];
+  if (!sheet) return;
+
+  // Clone the sheet-inner (the design itself)
+  const innerClone = sheet.querySelector('.sheet-inner').cloneNode(true);
+  // Remove overlay hint from clone
+  const ov = innerClone.querySelector('.sheet-overlay');
+  if (ov) ov.remove();
+
+  // Create a wrapper sheet div
+  lbSheetWrap.innerHTML = '';
+  const wrapDiv = document.createElement('div');
+  wrapDiv.className = 'sheet ' + (sheet.classList.contains('sheet-a2') ? 'sheet-a2' : 'sheet-40x50');
+  wrapDiv.appendChild(innerClone);
+  lbSheetWrap.appendChild(wrapDiv);
+
+  // Scale the sheet to fit viewport
+  const isA2 = sheet.classList.contains('sheet-a2');
+  const nativeW = isA2 ? 370 : 330;
+  const nativeH = isA2 ? 524 : 415;
+
+  // Available space (leave room for info + padding + nav buttons)
+  const availW = Math.min(window.innerWidth  - 160, 700);
+  const availH = Math.min(window.innerHeight - 200, 600);
+  const fitScale = Math.min(availW / nativeW, availH / nativeH, 1.4);
+
+  lbSheetWrap.style.width  = nativeW + 'px';
+  lbSheetWrap.style.height = nativeH + 'px';
+  lbSheetWrap.style.transform = `scale(${fitScale})`;
+  // Compensate for scale so it doesn't take up native space
+  lbSheetWrap.style.marginBottom = `-${nativeH * (1 - fitScale)}px`;
+  // Also compensate top margin from transform
+  lbSheetWrap.style.marginTop = `${(nativeH * (fitScale - 1)) / 2}px`;
+
+  lbTitle.textContent    = sheet.dataset.title || '';
+  lbDesc.textContent     = sheet.dataset.desc  || '';
+  lbFmtBadge.textContent = isA2 ? 'Formato A2 · 420 × 594 mm' : 'Formato 40 × 50 cm';
+}
+
+function closeLightbox() {
+  gsap.to(lightbox, { opacity: 0, duration: .25, ease: 'power2.in', onComplete: () => {
+    lightbox.style.pointerEvents = 'none';
+    lbSheetWrap.innerHTML = '';
+  }});
+}
+
+document.getElementById('lb-close').addEventListener('click', closeLightbox);
+document.getElementById('lb-backdrop').addEventListener('click', closeLightbox);
+
+document.getElementById('lb-prev').addEventListener('click', () => {
+  lbIdx = (lbIdx - 1 + lbSheets.length) % lbSheets.length;
+  gsap.from('#lb-stage', { x: -30, opacity: 0, duration: .3, ease: 'power3.out' });
+  renderLightboxSheet(lbIdx);
+});
+document.getElementById('lb-next').addEventListener('click', () => {
+  lbIdx = (lbIdx + 1) % lbSheets.length;
+  gsap.from('#lb-stage', { x: 30, opacity: 0, duration: .3, ease: 'power3.out' });
+  renderLightboxSheet(lbIdx);
+});
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  if (lightbox.style.pointerEvents !== 'all') return;
+  if (e.key === 'Escape')      closeLightbox();
+  if (e.key === 'ArrowLeft')   document.getElementById('lb-prev').click();
+  if (e.key === 'ArrowRight')  document.getElementById('lb-next').click();
+});
+</script>
+</body>
+</html>

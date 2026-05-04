@@ -728,6 +728,800 @@
       font-size: .75rem; letter-spacing: .2em; text-transform: uppercase;
       color: var(--accent);
     }
+
+    /* ══════════════════════════════════════
+       ROTULACIONES SECTION
+    ══════════════════════════════════════ */
+    #rot-section {
+      background: var(--ink);
+    }
+
+    .rot-header {
+      padding: 3.5rem 2rem 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      position: relative; overflow: hidden;
+    }
+    .rot-header::after {
+      content: 'RÓTULO';
+      position: absolute; right: -1rem; top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: clamp(5rem, 14vw, 11rem);
+      line-height: 1; color: rgba(232,77,28,.04);
+      pointer-events: none;
+    }
+    .rot-header-label {
+      font-size: .65rem; letter-spacing: .3em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: .75rem;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .rot-header-label::before {
+      content: ''; display: block; width: 1.5rem; height: 1px; background: var(--accent);
+    }
+    .rot-header-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      line-height: .92; color: var(--paper); letter-spacing: .02em;
+      margin-bottom: 1rem;
+    }
+    .rot-outline {
+      -webkit-text-stroke: 1px rgba(244,240,232,.25); color: transparent;
+    }
+    .rot-header-desc {
+      max-width: 500px; font-size: .88rem; line-height: 1.75; color: var(--mid);
+    }
+
+    /* Showroom grid */
+    .rot-showroom {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    @media (max-width: 900px) { .rot-showroom { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 560px) { .rot-showroom { grid-template-columns: 1fr; } }
+
+    .rot-panel {
+      border-right: 1px solid rgba(255,255,255,.06);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      display: flex; flex-direction: column;
+      cursor: pointer;
+      transition: background .3s;
+    }
+    .rot-panel:hover { background: rgba(255,255,255,.02); }
+    .rot-panel--featured { grid-column: span 1; }
+
+    .rot-panel-scene {
+      aspect-ratio: 4 / 3;
+      position: relative; overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .rot-panel-info {
+      padding: 1.25rem 1.5rem;
+      border-top: 1px solid rgba(255,255,255,.05);
+      display: flex; flex-direction: column; gap: .25rem;
+    }
+    .rot-panel-type {
+      font-size: .58rem; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--accent);
+    }
+    .rot-panel-name {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      color: var(--paper); letter-spacing: .06em;
+    }
+
+    /* ── ESCENA 1: Escaparate ── */
+    .rot-scene-escaparate {
+      background: linear-gradient(180deg, #1a1610 0%, #100e0a 100%);
+    }
+    .esc-wall {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(90deg,
+        rgba(255,255,255,.012) 0, rgba(255,255,255,.012) 1px,
+        transparent 1px, transparent 60px);
+    }
+    .esc-floor {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 20%;
+      background: linear-gradient(180deg, #0d0b08 0%, #0a0806 100%);
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .esc-awning {
+      position: absolute; top: 8%; left: 20%; right: 20%; height: 12%;
+      background: linear-gradient(180deg, #e84d1c 0%, #c83d0c 100%);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .esc-awning-stripe {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(90deg,
+        rgba(0,0,0,.15) 0, rgba(0,0,0,.15) 12px,
+        transparent 12px, transparent 24px);
+    }
+    .esc-awning-text {
+      font-family: var(--font-display);
+      font-size: clamp(.35rem, 1.2vw, .7rem);
+      letter-spacing: .18em; color: rgba(255,255,255,.85);
+      position: relative; z-index: 2;
+    }
+    .esc-door-frame {
+      position: absolute; top: 20%; bottom: 20%; left: 22%; right: 22%;
+      border: 2px solid rgba(180,160,120,.2);
+      background: rgba(255,255,255,.02);
+    }
+    .esc-glass {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,.04) 0%, rgba(255,255,255,.01) 100%);
+    }
+    .esc-vinyl-wrap {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    .esc-vinyl-logo {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 4vw, 2.2rem);
+      color: rgba(244,240,232,.85);
+      letter-spacing: .2em;
+    }
+    .esc-vinyl-line {
+      height: 1px; background: rgba(232,77,28,.6);
+      margin: .3rem 0;
+    }
+    .esc-vinyl-sub {
+      font-size: clamp(.3rem, .9vw, .55rem);
+      letter-spacing: .24em; color: rgba(200,180,140,.5);
+      text-transform: uppercase;
+    }
+    .esc-reflection {
+      position: absolute; top: 0; left: 10%; width: 8%; bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.04), transparent);
+    }
+    .esc-sign {
+      position: absolute; bottom: 23%; right: 24%;
+      background: rgba(232,77,28,.9); padding: .15rem .5rem;
+    }
+    .esc-sign span {
+      font-size: clamp(.3rem, .8vw, .5rem);
+      letter-spacing: .2em; color: #fff; text-transform: uppercase;
+    }
+
+    /* ── ESCENA 2: Rótulo luminoso ── */
+    .rot-scene-rotulo {
+      background: #080808;
+    }
+    .rot-bk { position: absolute; inset: 0; background: #0a0a0a; }
+    .rot-wall-tex {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(0deg,
+        rgba(255,255,255,.008) 0, rgba(255,255,255,.008) 1px,
+        transparent 1px, transparent 30px);
+    }
+    .rot-bracket {
+      position: absolute; top: 8%; bottom: 38%;
+      width: 2px; background: rgba(255,255,255,.1);
+    }
+    .rot-bracket-l { left: 22%; }
+    .rot-bracket-r { right: 22%; }
+    .rot-cajafuz {
+      position: absolute; top: 22%; bottom: 30%;
+      left: 18%; right: 18%;
+      background: #111;
+      border: 1px solid rgba(255,255,255,.08);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: .2rem;
+    }
+    .rot-cajafuz-border {
+      position: absolute; inset: 5px;
+      border: 1px solid rgba(232,77,28,.45);
+      box-shadow: inset 0 0 15px rgba(232,77,28,.08), 0 0 15px rgba(232,77,28,.08);
+    }
+    .rot-cajafuz-text {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 3.5vw, 2rem);
+      letter-spacing: .14em; color: #fff; text-align: center;
+      text-shadow: 0 0 12px rgba(232,77,28,.9), 0 0 30px rgba(232,77,28,.4);
+      position: relative; z-index: 2; line-height: .95;
+    }
+    .rot-cajafuz-sub {
+      font-size: clamp(.28rem, .8vw, .48rem);
+      letter-spacing: .2em; color: rgba(232,77,28,.6);
+      text-transform: uppercase; position: relative; z-index: 2;
+    }
+    .rot-cajafuz-glow {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, rgba(232,77,28,.08) 0%, transparent 70%);
+    }
+    .rot-floor-shadow {
+      position: absolute; bottom: 28%; left: 18%; right: 18%;
+      height: 6%; background: rgba(232,77,28,.04);
+      filter: blur(10px);
+    }
+    .rot-ambient {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 40%, rgba(232,77,28,.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* ── ESCENA 3: Señalética ── */
+    .rot-scene-senal {
+      background: #f4f0e8;
+    }
+    .senal-bg { position: absolute; inset: 0; background: #ede9e1; }
+    .senal-strip {
+      position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+      background: var(--accent);
+    }
+    .senal-floor {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 15%;
+      background: #e0dcd4; border-top: 1px solid rgba(0,0,0,.06);
+    }
+    .senal-placa {
+      position: absolute;
+      width: 68%; height: 14%;
+      background: var(--ink);
+      left: 16%;
+      display: flex; align-items: center;
+      padding: 0 .75rem;
+      gap: .5rem;
+      box-shadow: 2px 2px 0 rgba(0,0,0,.12);
+    }
+    .senal-placa--1 { top: 18%; }
+    .senal-placa--2 { top: 38%; }
+    .senal-placa--3 { top: 58%; }
+    .senal-placa-bar {
+      width: 3px; align-self: stretch;
+      background: var(--accent); flex-shrink: 0;
+    }
+    .senal-placa-num {
+      font-family: var(--font-display);
+      font-size: clamp(.8rem, 2.2vw, 1.3rem);
+      color: var(--accent); min-width: 1.8rem;
+    }
+    .senal-placa-name {
+      font-family: var(--font-display);
+      font-size: clamp(.5rem, 1.3vw, .8rem);
+      color: var(--paper); letter-spacing: .1em;
+    }
+
+    /* ── ESCENA 4: Lona ── */
+    .rot-scene-lona {
+      background: linear-gradient(180deg, #1c1c1a 0%, #111 60%, #0a0a0a 100%);
+    }
+    .lona-sky {
+      position: absolute; top: 0; left: 0; right: 0; height: 50%;
+      background: linear-gradient(180deg, #1a1916 0%, transparent 100%);
+    }
+    .lona-post {
+      position: absolute; top: 8%; bottom: 20%; width: 3px;
+      background: rgba(255,255,255,.12);
+    }
+    .lona-post-l { left: 15%; }
+    .lona-post-r { right: 15%; }
+    .lona-cable {
+      position: absolute; top: 8%; height: 2px; width: 15%;
+      background: rgba(255,255,255,.1);
+    }
+    .lona-cable-l { left: 15%; top: 8%; }
+    .lona-cable-r { right: 15%; top: 8%; }
+    .lona-tela {
+      position: absolute; top: 10%; bottom: 22%; left: 15%; right: 15%;
+      background: var(--accent);
+      display: flex; flex-direction: column;
+      box-shadow: 0 4px 20px rgba(232,77,28,.25);
+    }
+    .lona-tela-top-holes, .lona-tela-bot-holes {
+      display: flex; justify-content: space-between;
+      padding: 0 4%; flex-shrink: 0;
+    }
+    .lona-tela-top-holes { padding-top: 3px; }
+    .lona-tela-bot-holes { padding-bottom: 3px; }
+    .lona-tela-top-holes span, .lona-tela-bot-holes span {
+      display: block; width: 5px; height: 5px;
+      background: rgba(0,0,0,.3); border-radius: 50%;
+    }
+    .lona-tela-content {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: .5rem; gap: .15rem;
+    }
+    .lona-tela-overline {
+      font-size: clamp(.28rem, .75vw, .45rem);
+      letter-spacing: .3em; color: rgba(255,255,255,.7);
+      text-transform: uppercase;
+    }
+    .lona-tela-title {
+      font-family: var(--font-display);
+      font-size: clamp(.9rem, 3vw, 1.8rem);
+      color: #fff; letter-spacing: .06em; text-align: center; line-height: .9;
+    }
+    .lona-tela-date {
+      font-size: clamp(.28rem, .8vw, .48rem);
+      letter-spacing: .22em; color: rgba(255,255,255,.7);
+    }
+    .lona-tela-logo {
+      font-family: var(--font-display);
+      font-size: clamp(.5rem, 1.4vw, .85rem);
+      color: rgba(255,255,255,.4); letter-spacing: .2em;
+      margin-top: .2rem;
+    }
+    .lona-ground-line {
+      position: absolute; bottom: 20%; left: 0; right: 0;
+      height: 1px; background: rgba(255,255,255,.04);
+    }
+
+    /* ── ESCENA 5: Vinilo escaparate grande ── */
+    .rot-scene-vinilo {
+      background: #f2ede5;
+    }
+    .vc-wall { position: absolute; inset: 0; background: #eee9e1; }
+    .vc-floor {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 18%;
+      background: #e5e0d8; border-top: 1px solid rgba(0,0,0,.06);
+    }
+    .vc-glass {
+      position: absolute; top: 12%; bottom: 18%; left: 14%; right: 14%;
+      border: 2px solid rgba(0,0,0,.1);
+      background: rgba(255,255,255,.4);
+    }
+    .vc-glass-frame {
+      position: absolute; inset: 0;
+      box-shadow: inset 0 0 0 6px rgba(255,255,255,.3);
+    }
+    .vc-glass-inner {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: .3rem;
+    }
+    .vc-circle-big {
+      position: absolute; width: 65%; aspect-ratio: 1;
+      border: 1px solid rgba(0,0,0,.07); border-radius: 50%;
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+    }
+    .vc-circle-mid {
+      position: absolute; width: 44%; aspect-ratio: 1;
+      border: 1px solid rgba(0,0,0,.05); border-radius: 50%;
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+    }
+    .vc-logo-wrap {
+      display: flex; align-items: center; gap: .4rem; position: relative; z-index: 2;
+    }
+    .vc-logo-cross {
+      font-family: var(--font-display); font-size: clamp(.8rem, 2.5vw, 1.4rem);
+      color: var(--accent); line-height: 1;
+    }
+    .vc-logo-name {
+      font-family: var(--font-display);
+      font-size: clamp(.5rem, 1.5vw, .9rem);
+      color: var(--ink); letter-spacing: .1em; line-height: 1.1;
+    }
+    .vc-tagline {
+      font-size: clamp(.28rem, .8vw, .48rem);
+      letter-spacing: .18em; color: rgba(0,0,0,.35);
+      text-transform: uppercase; position: relative; z-index: 2;
+    }
+    .vc-ref {
+      position: absolute; top: 0; left: 20%; width: 5%; bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
+    }
+
+    /* ── ESCENA 6: Placa corporativa ── */
+    .rot-scene-placa {
+      background: #f0ece4;
+    }
+    .placa-wall { position: absolute; inset: 0; background: #ece8e0; }
+    .placa-body {
+      position: absolute; top: 18%; bottom: 18%; left: 16%; right: 16%;
+      background: #1c1c1c;
+      display: flex; flex-direction: column;
+      padding: clamp(.6rem, 2vw, 1.2rem);
+      gap: .4rem;
+      box-shadow: 3px 3px 0 rgba(0,0,0,.15), 6px 6px 0 rgba(0,0,0,.06);
+    }
+    .placa-logo-row {
+      display: flex; align-items: center; gap: .6rem;
+    }
+    .placa-mark {
+      width: clamp(16px, 3vw, 22px); aspect-ratio: 1;
+      background: var(--accent); flex-shrink: 0;
+    }
+    .placa-brand {
+      font-family: var(--font-display);
+      font-size: clamp(.55rem, 1.6vw, 1rem);
+      color: var(--paper); letter-spacing: .1em; line-height: 1.1;
+    }
+    .placa-brand span { color: rgba(244,240,232,.4); font-size: .8em; }
+    .placa-divider {
+      height: 1px; background: rgba(255,255,255,.1); margin: .15rem 0;
+    }
+    .placa-address {
+      font-size: clamp(.3rem, .9vw, .55rem);
+      letter-spacing: .12em; color: rgba(244,240,232,.4);
+      text-transform: uppercase;
+    }
+    .placa-tel {
+      font-family: var(--font-display);
+      font-size: clamp(.5rem, 1.4vw, .85rem);
+      color: var(--accent); letter-spacing: .1em;
+    }
+    .placa-screws {
+      position: absolute; inset: 6px;
+      pointer-events: none;
+    }
+    .placa-screws span {
+      position: absolute; width: 5px; height: 5px;
+      background: #2a2a2a; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.06);
+    }
+    .placa-screws span:nth-child(1) { top: 0; left: 0; }
+    .placa-screws span:nth-child(2) { top: 0; right: 0; }
+    .placa-screws span:nth-child(3) { bottom: 0; left: 0; }
+    .placa-screws span:nth-child(4) { bottom: 0; right: 0; }
+
+    /* Servicios strip */
+    .rot-services-strip {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    @media (max-width: 800px) { .rot-services-strip { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 480px) { .rot-services-strip { grid-template-columns: 1fr; } }
+    .rot-srv {
+      padding: 2rem 1.5rem;
+      border-right: 1px solid rgba(255,255,255,.06);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .rot-srv:last-child { border-right: none; }
+    .rot-srv-num {
+      font-family: var(--font-display);
+      font-size: 2rem; color: rgba(232,77,28,.18);
+      letter-spacing: .08em; margin-bottom: .4rem;
+    }
+    .rot-srv-name {
+      font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--mid); margin-bottom: .5rem;
+    }
+    .rot-srv-desc {
+      font-size: .8rem; line-height: 1.65; color: rgba(200,194,180,.5);
+    }
+
+    /* ══════════════════════════════════════
+       REDES SOCIALES SECTION
+    ══════════════════════════════════════ */
+    #rrss-section { background: var(--ink); }
+
+    .rrss-header {
+      padding: 3.5rem 2rem 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      position: relative; overflow: hidden;
+    }
+    .rrss-header::after {
+      content: 'SOCIAL';
+      position: absolute; right: -1rem; top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: clamp(5rem, 14vw, 11rem);
+      line-height: 1; color: rgba(232,77,28,.04);
+      pointer-events: none;
+    }
+    .rrss-header-label {
+      font-size: .65rem; letter-spacing: .3em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: .75rem;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .rrss-header-label::before {
+      content: ''; display: block; width: 1.5rem; height: 1px; background: var(--accent);
+    }
+    .rrss-header-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      line-height: .92; color: var(--paper); letter-spacing: .02em;
+      margin-bottom: 1rem;
+    }
+    .rrss-outline {
+      -webkit-text-stroke: 1px rgba(244,240,232,.25); color: transparent;
+    }
+    .rrss-header-desc {
+      max-width: 500px; font-size: .88rem; line-height: 1.75; color: var(--mid);
+    }
+
+    /* Format tabs */
+    .rrss-tabs {
+      display: flex; border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .rrss-tab {
+      padding: 1rem 1.5rem;
+      background: none; border: none; border-right: 1px solid rgba(255,255,255,.06);
+      color: var(--mid); font-family: var(--font-body);
+      font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
+      cursor: pointer; transition: color .2s, background .2s;
+    }
+    .rrss-tab:hover { color: var(--paper); }
+    .rrss-tab.active { color: var(--paper); background: rgba(232,77,28,.08); border-bottom: 2px solid var(--accent); }
+
+    /* Stories fan label */
+    .rrss-fan-label {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 2rem 2rem 1rem;
+    }
+    .rrss-fan-label-tag {
+      font-family: var(--font-display);
+      font-size: 1.1rem; letter-spacing: .14em; color: var(--paper);
+    }
+    .rrss-fan-label-size {
+      font-size: .6rem; letter-spacing: .2em; color: var(--accent);
+      text-transform: uppercase; border: 1px solid rgba(232,77,28,.3);
+      padding: .2rem .6rem;
+    }
+
+    /* ── ABANICO STORIES ── */
+    .rrss-fan-wrap {
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      overflow: hidden;
+    }
+    .rrss-fan {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 2rem 2rem 1rem;
+      gap: 0;
+      position: relative;
+      min-height: 340px;
+    }
+    @media (max-width: 600px) {
+      .rrss-fan { min-height: 260px; }
+    }
+    .rrss-fan-hint {
+      text-align: center; font-size: .6rem; letter-spacing: .18em;
+      text-transform: uppercase; color: rgba(255,255,255,.2);
+      padding-bottom: .5rem;
+    }
+
+    /* Story card — proporción 9:16 */
+    .story-card {
+      flex-shrink: 0;
+      width: clamp(80px, 14vw, 140px);
+      aspect-ratio: 9 / 16;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,.6), 0 2px 6px rgba(0,0,0,.4);
+      cursor: pointer;
+      transition: transform .4s cubic-bezier(.34,1.56,.64,1), box-shadow .3s, z-index 0s;
+      position: relative;
+      transform-origin: bottom center;
+    }
+    /* Abanico: rotate each card */
+    .story-card--0 { transform: rotate(-16deg) translateX(40px); z-index: 1; }
+    .story-card--1 { transform: rotate(-8deg) translateX(20px); z-index: 2; }
+    .story-card--2 { transform: rotate(0deg); z-index: 5; margin: 0 6px; }
+    .story-card--3 { transform: rotate(8deg) translateX(-20px); z-index: 2; }
+    .story-card--4 { transform: rotate(16deg) translateX(-40px); z-index: 1; }
+
+    .story-card:hover {
+      transform: rotate(0deg) translateY(-16px) scale(1.08) !important;
+      z-index: 10 !important;
+      box-shadow: 0 20px 60px rgba(0,0,0,.7), 0 4px 12px rgba(0,0,0,.4);
+    }
+
+    .story-inner {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      position: relative; overflow: hidden;
+      padding: clamp(6px, 1.5vw, 12px);
+    }
+
+    .story-phone-bar {
+      display: flex; gap: 2px; margin-bottom: auto;
+      align-items: center;
+    }
+    .story-phone-bar span {
+      display: block; height: 2px; background: rgba(255,255,255,.4);
+      border-radius: 2px;
+    }
+    .story-phone-bar span:nth-child(1) { width: 30%; }
+    .story-phone-bar span:nth-child(2) { width: 20%; }
+    .story-phone-bar span:nth-child(3) { width: 10%; }
+
+    .story-content {
+      display: flex; flex-direction: column; gap: clamp(3px, .8vw, 6px);
+      padding-top: clamp(4px, 1vw, 8px);
+    }
+    .story-tag-top {
+      font-size: clamp(.28rem, .7vw, .42rem);
+      letter-spacing: .2em; color: var(--accent);
+      text-transform: uppercase;
+    }
+    .story-big-text {
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 3.5vw, 2.2rem);
+      line-height: .88; color: var(--paper);
+      letter-spacing: -.01em;
+    }
+    .story-big-text--sm2 {
+      font-size: clamp(.9rem, 2.8vw, 1.8rem);
+    }
+    .story-mid-line {
+      height: 1px; background: rgba(232,77,28,.6);
+      width: 60%;
+    }
+    .story-desc-text {
+      font-size: clamp(.28rem, .75vw, .46rem);
+      line-height: 1.5; color: rgba(200,190,180,.7);
+    }
+    .story-cta-pill {
+      display: inline-flex; align-items: center;
+      background: var(--accent); color: #fff;
+      font-size: clamp(.25rem, .65vw, .4rem);
+      letter-spacing: .16em; text-transform: uppercase;
+      padding: clamp(2px, .5vw, 4px) clamp(5px, 1.2vw, 9px);
+      margin-top: clamp(2px, .5vw, 4px);
+      width: fit-content;
+    }
+    .story-cta-dark { background: var(--ink); }
+    .story-cta-outline {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,.4);
+    }
+    .story-acc-bar {
+      position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+      background: var(--accent);
+    }
+    .story-big-num {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 4.5vw, 2.8rem);
+      color: var(--accent); line-height: 1;
+    }
+    .story-big-text-sm {
+      font-family: var(--font-display);
+      font-size: clamp(.7rem, 2.2vw, 1.4rem);
+      color: var(--paper); line-height: 1;
+    }
+    .story-dots-row {
+      display: flex; gap: 3px; margin: 2px 0;
+    }
+    .story-dots-row span {
+      width: 4px; height: 4px; border-radius: 50%;
+      background: rgba(232,77,28,.5);
+    }
+    .story-email {
+      font-size: clamp(.28rem, .7vw, .42rem);
+      letter-spacing: .12em; color: var(--accent);
+    }
+    .story-social-row {
+      display: flex; gap: .4rem;
+      font-size: clamp(.24rem, .6vw, .38rem);
+      letter-spacing: .14em; color: rgba(200,190,180,.5);
+    }
+    .story-badge-row { display: flex; gap: 3px; flex-wrap: wrap; }
+    .story-badge {
+      font-size: clamp(.22rem, .6vw, .38rem);
+      letter-spacing: .14em; text-transform: uppercase;
+      border: 1px solid rgba(232,77,28,.5); color: var(--accent);
+      padding: 1px 4px;
+    }
+    .story-circle-bg {
+      position: absolute; right: -20%; top: -10%;
+      width: 80%; aspect-ratio: 1;
+      border-radius: 50%;
+      background: rgba(232,77,28,.08);
+    }
+    .story-grid-lines {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(0deg,
+        rgba(255,255,255,.03) 0, rgba(255,255,255,.03) 1px,
+        transparent 1px, transparent 12px);
+    }
+
+    /* Story themes */
+    .story-s1 { background: var(--ink); }
+    .story-s2 { background: var(--paper); }
+    .story-s3 { background: #0d0d0d; }
+    .story-s4 { background: var(--accent); }
+    .story-s4 .story-tag-top { color: rgba(255,255,255,.7); }
+    .story-s4 .story-big-num { color: #fff; }
+    .story-s4 .story-big-text-sm { color: rgba(255,255,255,.85); }
+    .story-s4 .story-desc-text { color: rgba(255,255,255,.6); }
+    .story-s4 .story-cta-pill { background: var(--ink); }
+    .story-s4 .story-dots-row span { background: rgba(255,255,255,.5); }
+    .story-s5 { background: #0a0a0a; }
+
+    /* ── POSTS GRID ── */
+    .rrss-posts-wrap { padding-bottom: 3rem; }
+    .rrss-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 0 2rem 1rem;
+      gap: 1rem;
+    }
+    @media (max-width: 800px) { .rrss-posts-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 480px) { .rrss-posts-grid { grid-template-columns: repeat(2,1fr); gap: .5rem; padding: 0 1rem 1rem; } }
+
+    .post-card {
+      aspect-ratio: 1 / 1;
+      border-radius: 4px; overflow: hidden;
+      cursor: pointer;
+      transition: transform .3s, box-shadow .3s;
+      box-shadow: 0 4px 16px rgba(0,0,0,.5);
+    }
+    .post-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,.6); }
+    .post-inner {
+      width: 100%; height: 100%; padding: clamp(8px, 2vw, 16px);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      position: relative; overflow: hidden;
+    }
+    .post-content { position: relative; z-index: 2; }
+    .post-label {
+      font-size: clamp(.28rem, .8vw, .5rem);
+      letter-spacing: .22em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: .25rem;
+    }
+    .post-title {
+      font-family: var(--font-display);
+      font-size: clamp(.9rem, 2.8vw, 1.8rem);
+      line-height: .9; color: var(--paper); letter-spacing: .02em;
+    }
+    .post-title-outline {
+      -webkit-text-stroke: 1px rgba(244,240,232,.5); color: transparent;
+    }
+    .post-line {
+      height: 1px; width: 40%; background: rgba(232,77,28,.5);
+      margin: .35rem 0;
+    }
+    .post-sub {
+      font-size: clamp(.25rem, .7vw, .44rem);
+      letter-spacing: .16em; color: rgba(200,190,180,.5);
+    }
+    .post-corner-mark {
+      position: absolute; top: 0; right: 0;
+      width: 30%; aspect-ratio: 1;
+      background: var(--accent);
+      clip-path: polygon(100% 0, 100% 100%, 0 0);
+    }
+    .post-acc-stripe {
+      position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+      background: var(--accent);
+    }
+    .post-circle-deco {
+      position: absolute; right: -15%; top: 50%;
+      transform: translateY(-50%);
+      width: 60%; aspect-ratio: 1;
+      border: 1px solid rgba(0,0,0,.06); border-radius: 50%;
+    }
+    .post-slash {
+      position: absolute; top: 0; right: 20%; width: 1px; bottom: 0;
+      background: rgba(255,255,255,.1);
+      transform: skewX(-6deg);
+    }
+    .post-badge-list {
+      display: flex; gap: 3px; margin: .3rem 0 .15rem;
+    }
+    .post-badge-list span {
+      font-size: clamp(.22rem, .6vw, .38rem);
+      letter-spacing: .14em; text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,.2); color: rgba(200,190,180,.6);
+      padding: 1px 4px;
+    }
+    .post-big-num-post {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 4vw, 2.5rem);
+      color: #fff; line-height: 1;
+    }
+    .post-label-under {
+      font-size: clamp(.28rem, .8vw, .5rem);
+      letter-spacing: .18em; text-transform: uppercase;
+      color: rgba(255,255,255,.6); margin-bottom: .25rem;
+    }
+
+    /* Post themes */
+    .post-p1 { background: var(--ink); }
+    .post-p2 { background: var(--paper); }
+    .post-p2 .post-title { color: var(--ink); }
+    .post-p3 { background: #111; }
+    .post-p3 .post-label { color: rgba(232,77,28,.8); }
+    .post-p4 { background: var(--accent); }
+    .post-p4 .post-label-under { color: rgba(255,255,255,.7); }
+    .post-p4 .post-sub { color: rgba(255,255,255,.5); }
   </style>
 </head>
 <body>
@@ -797,11 +1591,11 @@
     </li>
 
     <li class="cat-item">
-      <button class="cat-btn" data-cat="vinilos" aria-label="Ver proyectos de Vinilos">
+      <button class="cat-btn" data-cat="rotulaciones" aria-label="Ver proyectos de Rotulaciones">
         <div class="cat-btn-inner">
           <span class="cat-num">02</span>
-          <span class="cat-name">Vinilos</span>
-          <span class="cat-desc">Rotulación de vehículos, escaparates, vinilos decorativos y señalética de espacios.</span>
+          <span class="cat-name">Rotulaciones</span>
+          <span class="cat-desc">Vinilos de corte, rotulación comercial, escaparates y señalética de alto impacto.</span>
         </div>
         <span class="cat-arrow">→</span>
       </button>
@@ -1200,9 +1994,376 @@
 
   <!-- Vinilos & otros placeholders (hidden, shown by cat) -->
   <div id="cat-placeholder" style="display:none; flex:1; align-items:center; justify-content:center; flex-direction:column; gap:1rem;">
-    <div class="cs-title" id="placeholder-cat-name">VINILOS</div>
+    <div class="cs-title" id="placeholder-cat-name">LOGOTIPOS</div>
     <div class="cs-sub">Proyectos próximamente</div>
   </div>
+
+  <!-- ══ ROTULACIONES SECTION ══ -->
+  <div id="rot-section" style="display:none; flex:1; flex-direction:column; overflow-y:auto;">
+
+    <div class="rot-header">
+      <div class="rot-header-label">Rotulación Comercial</div>
+      <h2 class="rot-header-title">Identidad<br><span class="rot-outline">en cada</span><br>superficie</h2>
+      <p class="rot-header-desc">Vinilos de corte, escaparates, señalética interior y rótulos comerciales. Cada soporte es una oportunidad de comunicar con impacto.</p>
+    </div>
+
+    <!-- Expositor tipo showroom: paneles en perspectiva -->
+    <div class="rot-showroom">
+
+      <!-- Panel 1: Escaparate vinilo -->
+      <div class="rot-panel" data-label="Escaparate · Vinilo de corte" data-project="Peluquería Noa — Bilbao">
+        <div class="rot-panel-scene rot-scene-escaparate">
+          <div class="esc-wall"></div>
+          <div class="esc-floor"></div>
+          <div class="esc-door-frame">
+            <div class="esc-glass">
+              <div class="esc-vinyl-wrap">
+                <div class="esc-vinyl-logo">NOA</div>
+                <div class="esc-vinyl-line"></div>
+                <div class="esc-vinyl-sub">Peluquería · Bilbao</div>
+              </div>
+              <div class="esc-reflection"></div>
+            </div>
+          </div>
+          <div class="esc-awning">
+            <div class="esc-awning-stripe"></div>
+            <div class="esc-awning-text">PELUQUERÍA NOA</div>
+          </div>
+          <div class="esc-sign">
+            <span>ABIERTO</span>
+          </div>
+        </div>
+        <div class="rot-panel-info">
+          <span class="rot-panel-type">Escaparate · Vinilo</span>
+          <span class="rot-panel-name">Peluquería Noa</span>
+        </div>
+      </div>
+
+      <!-- Panel 2: Rótulo luminoso -->
+      <div class="rot-panel rot-panel--featured" data-label="Rótulo · Caja de luz" data-project="Bar Txoko — Getxo">
+        <div class="rot-panel-scene rot-scene-rotulo">
+          <div class="rot-bk"></div>
+          <div class="rot-wall-tex"></div>
+          <div class="rot-bracket rot-bracket-l"></div>
+          <div class="rot-bracket rot-bracket-r"></div>
+          <div class="rot-cajafuz">
+            <div class="rot-cajafuz-border"></div>
+            <div class="rot-cajafuz-text">BAR<br>TXOKO</div>
+            <div class="rot-cajafuz-sub">BILBAO · GETXO</div>
+            <div class="rot-cajafuz-glow"></div>
+          </div>
+          <div class="rot-floor-shadow"></div>
+          <div class="rot-ambient"></div>
+        </div>
+        <div class="rot-panel-info">
+          <span class="rot-panel-type">Rótulo · Luminoso</span>
+          <span class="rot-panel-name">Bar Txoko</span>
+        </div>
+      </div>
+
+      <!-- Panel 3: Señalética interior -->
+      <div class="rot-panel" data-label="Señalética · Interior" data-project="Coworking Bilbao Centro">
+        <div class="rot-panel-scene rot-scene-senal">
+          <div class="senal-bg"></div>
+          <div class="senal-strip"></div>
+          <!-- Placas -->
+          <div class="senal-placa senal-placa--1">
+            <div class="senal-placa-bar"></div>
+            <div class="senal-placa-num">01</div>
+            <div class="senal-placa-name">RECEPCIÓN</div>
+          </div>
+          <div class="senal-placa senal-placa--2">
+            <div class="senal-placa-bar"></div>
+            <div class="senal-placa-num">02</div>
+            <div class="senal-placa-name">SALAS</div>
+          </div>
+          <div class="senal-placa senal-placa--3">
+            <div class="senal-placa-bar"></div>
+            <div class="senal-placa-num">03</div>
+            <div class="senal-placa-name">OFICINAS</div>
+          </div>
+          <div class="senal-floor"></div>
+        </div>
+        <div class="rot-panel-info">
+          <span class="rot-panel-type">Señalética · Interior</span>
+          <span class="rot-panel-name">Coworking Bilbao</span>
+        </div>
+      </div>
+
+      <!-- Panel 4: Lona exterior -->
+      <div class="rot-panel" data-label="Lona · Gran formato" data-project="Inauguración Comercial 2025">
+        <div class="rot-panel-scene rot-scene-lona">
+          <div class="lona-sky"></div>
+          <div class="lona-post lona-post-l"></div>
+          <div class="lona-post lona-post-r"></div>
+          <div class="lona-cable lona-cable-l"></div>
+          <div class="lona-cable lona-cable-r"></div>
+          <div class="lona-tela">
+            <div class="lona-tela-top-holes">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="lona-tela-content">
+              <div class="lona-tela-overline">GRAN APERTURA</div>
+              <div class="lona-tela-title">INAUGU<br>RACIÓN</div>
+              <div class="lona-tela-date">15 · FEB · 2025</div>
+              <div class="lona-tela-logo">XOTX</div>
+            </div>
+            <div class="lona-tela-bot-holes">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="lona-ground-line"></div>
+        </div>
+        <div class="rot-panel-info">
+          <span class="rot-panel-type">Lona · Gran formato</span>
+          <span class="rot-panel-name">Inauguración Comercial</span>
+        </div>
+      </div>
+
+      <!-- Panel 5: Vinilo de corte -->
+      <div class="rot-panel" data-label="Vinilo · Escaparate grande" data-project="Clínica Dental — Barakaldo">
+        <div class="rot-panel-scene rot-scene-vinilo">
+          <div class="vc-wall"></div>
+          <div class="vc-glass">
+            <div class="vc-glass-frame"></div>
+            <div class="vc-glass-inner">
+              <div class="vc-circle-big"></div>
+              <div class="vc-circle-mid"></div>
+              <div class="vc-logo-wrap">
+                <div class="vc-logo-cross">+</div>
+                <div class="vc-logo-name">DENT<br>CLÍNICA</div>
+              </div>
+              <div class="vc-tagline">Tu sonrisa, nuestra misión</div>
+            </div>
+            <div class="vc-ref"></div>
+          </div>
+          <div class="vc-floor"></div>
+        </div>
+        <div class="rot-panel-info">
+          <span class="rot-panel-type">Vinilo · Escaparate</span>
+          <span class="rot-panel-name">Clínica Dent</span>
+        </div>
+      </div>
+
+      <!-- Panel 6: Placa de empresa -->
+      <div class="rot-panel" data-label="Placa · Corporativa" data-project="Asesoría Aranda — Bilbao">
+        <div class="rot-panel-scene rot-scene-placa">
+          <div class="placa-wall"></div>
+          <div class="placa-body">
+            <div class="placa-logo-row">
+              <div class="placa-mark"></div>
+              <div class="placa-brand">ARANDA<br><span>ASESORES</span></div>
+            </div>
+            <div class="placa-divider"></div>
+            <div class="placa-address">Calle Gran Vía 12 · Bilbao</div>
+            <div class="placa-tel">944 000 111</div>
+          </div>
+          <div class="placa-screws">
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="rot-panel-info">
+          <span class="rot-panel-type">Placa · Corporativa</span>
+          <span class="rot-panel-name">Asesoría Aranda</span>
+        </div>
+      </div>
+
+    </div><!-- /rot-showroom -->
+
+    <!-- Servicios strip -->
+    <div class="rot-services-strip">
+      <div class="rot-srv">
+        <div class="rot-srv-num">01</div>
+        <div class="rot-srv-name">Vinilos de corte</div>
+        <div class="rot-srv-desc">Siluetas y letras de alta precisión para cristaleras, puertas y fachadas en cualquier color.</div>
+      </div>
+      <div class="rot-srv">
+        <div class="rot-srv-num">02</div>
+        <div class="rot-srv-name">Rótulos y cajas de luz</div>
+        <div class="rot-srv-desc">Letrería corporativa con iluminación LED integrada para máxima visibilidad día y noche.</div>
+      </div>
+      <div class="rot-srv">
+        <div class="rot-srv-num">03</div>
+        <div class="rot-srv-name">Señalética interior</div>
+        <div class="rot-srv-desc">Placas direccionales, identificación de espacios y sistemas de señalización completos.</div>
+      </div>
+      <div class="rot-srv">
+        <div class="rot-srv-num">04</div>
+        <div class="rot-srv-name">Lonas y gran formato</div>
+        <div class="rot-srv-desc">Impresión de alta resolución para eventos, fachadas y puntos de venta exteriores.</div>
+      </div>
+    </div>
+
+  </div><!-- /rot-section -->
+
+  <!-- ══ REDES SOCIALES SECTION ══ -->
+  <div id="rrss-section" style="display:none; flex:1; flex-direction:column; overflow-y:auto;">
+
+    <div class="rrss-header">
+      <div class="rrss-header-label">Redes Sociales</div>
+      <h2 class="rrss-header-title">Contenido<br><span class="rrss-outline">que para</span><br>el scroll</h2>
+      <p class="rrss-header-desc">Piezas optimizadas para cada formato: Stories 1080×1920 y Posts cuadrados 1080×1080. Identidad coherente en cada publicación.</p>
+    </div>
+
+    <!-- FORMATO TABS -->
+    <div class="rrss-tabs">
+      <button class="rrss-tab active" data-rrss="stories">Stories 1080×1920</button>
+      <button class="rrss-tab" data-rrss="posts">Posts 1080×1080</button>
+      <button class="rrss-tab" data-rrss="all">Todo</button>
+    </div>
+
+    <!-- ABANICO STORIES -->
+    <div class="rrss-fan-wrap" id="rrss-stories-fan">
+      <div class="rrss-fan-label">
+        <span class="rrss-fan-label-tag">STORIES</span>
+        <span class="rrss-fan-label-size">1080 × 1920 px</span>
+      </div>
+      <div class="rrss-fan" id="stories-fan">
+
+        <div class="story-card story-card--0" data-idx="0">
+          <div class="story-inner story-s1">
+            <div class="story-phone-bar"><span></span><span></span><span></span></div>
+            <div class="story-content">
+              <div class="story-tag-top">NUEVO · XOTX.STUDIO</div>
+              <div class="story-big-text">DISE<br>ÑO</div>
+              <div class="story-mid-line"></div>
+              <div class="story-desc-text">Identidad visual que<br>te hace destacar</div>
+              <div class="story-cta-pill">Ver más →</div>
+            </div>
+            <div class="story-acc-bar"></div>
+          </div>
+        </div>
+
+        <div class="story-card story-card--1" data-idx="1">
+          <div class="story-inner story-s2">
+            <div class="story-phone-bar"><span></span><span></span><span></span></div>
+            <div class="story-content">
+              <div class="story-circle-bg"></div>
+              <div class="story-tag-top" style="color:var(--ink)">SERVICIO · 02</div>
+              <div class="story-big-text" style="color:var(--ink); -webkit-text-stroke:none">LOGOTI<br>POS</div>
+              <div class="story-mid-line" style="background:var(--ink)"></div>
+              <div class="story-desc-text" style="color:rgba(0,0,0,.5)">Marca única que<br>representa tu negocio</div>
+              <div class="story-cta-pill story-cta-dark">Conoce más →</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="story-card story-card--2" data-idx="2">
+          <div class="story-inner story-s3">
+            <div class="story-phone-bar"><span></span><span></span><span></span></div>
+            <div class="story-content">
+              <div class="story-grid-lines"></div>
+              <div class="story-tag-top">PROYECTO · DESTACADO</div>
+              <div class="story-big-text">ROTU<br>LACIÓN</div>
+              <div class="story-mid-line"></div>
+              <div class="story-desc-text">Cada superficie,<br>un impacto visual</div>
+              <div class="story-badge-row">
+                <span class="story-badge">A2</span>
+                <span class="story-badge">Vinilo</span>
+                <span class="story-badge">LED</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="story-card story-card--3" data-idx="3">
+          <div class="story-inner story-s4">
+            <div class="story-phone-bar"><span></span><span></span><span></span></div>
+            <div class="story-content">
+              <div class="story-big-num">150+</div>
+              <div class="story-big-text-sm">Proyectos<br>completados</div>
+              <div class="story-dots-row">
+                <span></span><span></span><span></span><span></span><span></span>
+              </div>
+              <div class="story-desc-text">5 años creando<br>identidades únicas</div>
+              <div class="story-cta-pill">Trabajemos juntos →</div>
+            </div>
+            <div class="story-acc-bar" style="background:var(--paper)"></div>
+          </div>
+        </div>
+
+        <div class="story-card story-card--4" data-idx="4">
+          <div class="story-inner story-s5">
+            <div class="story-phone-bar"><span></span><span></span><span></span></div>
+            <div class="story-content">
+              <div class="story-tag-top">CONTACTO</div>
+              <div class="story-big-text story-big-text--sm2">HOLA<br>MUNDO</div>
+              <div class="story-email">hola@xotx.studio</div>
+              <div class="story-social-row">
+                <span>@xotx.studio</span>
+                <span>Instagram</span>
+              </div>
+              <div class="story-cta-pill story-cta-outline">Escríbenos →</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /stories-fan -->
+      <div class="rrss-fan-hint">Toca una story para ver al detalle</div>
+    </div>
+
+    <!-- ABANICO POSTS -->
+    <div class="rrss-posts-wrap" id="rrss-posts-fan">
+      <div class="rrss-fan-label">
+        <span class="rrss-fan-label-tag">POSTS</span>
+        <span class="rrss-fan-label-size">1080 × 1080 px</span>
+      </div>
+      <div class="rrss-posts-grid">
+
+        <div class="post-card">
+          <div class="post-inner post-p1">
+            <div class="post-corner-mark"></div>
+            <div class="post-content">
+              <div class="post-label">NUEVO PROYECTO</div>
+              <div class="post-title">DISEÑO<br>GRÁFICO</div>
+              <div class="post-line"></div>
+              <div class="post-sub">@xotx.studio</div>
+            </div>
+            <div class="post-acc-stripe"></div>
+          </div>
+        </div>
+
+        <div class="post-card">
+          <div class="post-inner post-p2">
+            <div class="post-content">
+              <div class="post-label" style="color:rgba(0,0,0,.4)">IDENTIDAD</div>
+              <div class="post-circle-deco"></div>
+              <div class="post-title" style="color:var(--ink)">LOGO<br>TIPO</div>
+              <div class="post-line" style="background:var(--accent)"></div>
+              <div class="post-sub" style="color:rgba(0,0,0,.4)">@xotx.studio</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="post-card">
+          <div class="post-inner post-p3">
+            <div class="post-content">
+              <div class="post-label">CARTELERÍA</div>
+              <div class="post-title post-title-outline">ROTU<br>LACIÓN</div>
+              <div class="post-badge-list">
+                <span>Vinilo</span><span>LED</span><span>Lona</span>
+              </div>
+              <div class="post-sub">@xotx.studio</div>
+            </div>
+            <div class="post-slash"></div>
+          </div>
+        </div>
+
+        <div class="post-card">
+          <div class="post-inner post-p4">
+            <div class="post-content">
+              <div class="post-big-num-post">80+</div>
+              <div class="post-label-under">clientes satisfechos</div>
+              <div class="post-line" style="background:rgba(255,255,255,.2)"></div>
+              <div class="post-sub">hola@xotx.studio</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /posts-grid -->
+    </div>
+
+  </div><!-- /rrss-section -->
 
 </div><!-- /cat-view -->
 
@@ -1420,13 +2581,18 @@ const hamburger = document.getElementById('hamburger');
 const navMobile = document.getElementById('nav-mobile');
 if (hamburger) {
   hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    navMobile.classList.toggle('open');
+    const isOpen = hamburger.classList.toggle('open');
+    navMobile.classList.toggle('open', isOpen);
+    // Only lock scroll if cat-view is NOT open
+    if (!document.getElementById('cat-view').classList.contains('open')) {
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    }
   });
   navMobile.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       hamburger.classList.remove('open');
       navMobile.classList.remove('open');
+      document.body.style.overflow = '';
     });
   });
 }
@@ -1493,44 +2659,62 @@ const catPlaceholder = document.getElementById('cat-placeholder');
 const placeholderCatName = document.getElementById('placeholder-cat-name');
 
 const catNames = {
-  carteleria: 'Cartelería', vinilos: 'Vinilos',
+  carteleria: 'Cartelería', rotulaciones: 'Rotulaciones', vinilos: 'Rotulaciones',
   logotipos: 'Logotipos', imagen: 'Imagen Corporativa', rrss: 'Redes Sociales'
 };
 const hasTable = ['carteleria'];
+const hasRotulaciones = ['rotulaciones', 'vinilos'];
+const hasRRSS = ['rrss'];
+
+const rotSection = document.getElementById('rot-section');
+const rrssSection = document.getElementById('rrss-section');
 
 document.querySelectorAll('.cat-btn').forEach(btn => {
   btn.addEventListener('click', () => openCatView(btn.dataset.cat));
 });
 
+function hideAllSections() {
+  mesaWrap.style.display = 'none';
+  document.querySelector('.drag-hint').style.display = 'none';
+  document.getElementById('fmt-tabs').style.display = 'none';
+  catPlaceholder.style.display = 'none';
+  if (rotSection) rotSection.style.display = 'none';
+  if (rrssSection) rrssSection.style.display = 'none';
+}
+
 function openCatView(cat) {
   viewTitle.textContent = catNames[cat] || cat;
+  hideAllSections();
+
   if (hasTable.includes(cat)) {
     mesaWrap.style.display = '';
     document.querySelector('.drag-hint').style.display = '';
     document.getElementById('fmt-tabs').style.display = '';
-    catPlaceholder.style.display = 'none';
     initMesa();
     filterSheets('all');
     fmtTabs.forEach(t => t.classList.remove('active'));
     fmtTabs[0].classList.add('active');
+  } else if (hasRotulaciones.includes(cat)) {
+    if (rotSection) rotSection.style.display = 'flex';
+  } else if (hasRRSS.includes(cat)) {
+    if (rrssSection) rrssSection.style.display = 'flex';
   } else {
-    mesaWrap.style.display = 'none';
-    document.querySelector('.drag-hint').style.display = 'none';
-    document.getElementById('fmt-tabs').style.display = 'none';
     catPlaceholder.style.display = 'flex';
     placeholderCatName.textContent = (catNames[cat] || cat).toUpperCase();
   }
+
   catView.classList.add('open');
   gsap.from('#cat-view .view-header', { y: -20, opacity: 0, duration: .5, ease: 'power3.out' });
   document.body.style.overflow = 'hidden';
 }
 
 document.getElementById('view-back-btn').addEventListener('click', () => {
-  gsap.to(catView, { opacity: 0, duration: .3, ease: 'power2.in', onComplete: () => {
-    catView.classList.remove('open');
-    gsap.set(catView, { opacity: 1 });
-  }});
+  catView.classList.remove('open');
+  gsap.set(catView, { opacity: 1 }); // reset opacity for next open
   document.body.style.overflow = '';
+  // also close hamburger if open
+  if (hamburger) hamburger.classList.remove('open');
+  if (navMobile) navMobile.classList.remove('open');
 });
 
 fmtTabs.forEach(tab => {
@@ -1976,6 +3160,27 @@ if (aiaLbBackdrop) aiaLbBackdrop.addEventListener('click', closeAIALightbox);
 
 document.addEventListener('keydown', e => {
   if (aiaLightbox.classList.contains('open') && e.key === 'Escape') closeAIALightbox();
+});
+
+/* ─── RRSS TABS ─── */
+document.querySelectorAll('.rrss-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.rrss-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const mode = tab.dataset.rrss;
+    const storiesFan = document.getElementById('rrss-stories-fan');
+    const postsFan   = document.getElementById('rrss-posts-fan');
+    if (mode === 'stories') {
+      storiesFan.style.display = '';
+      postsFan.style.display = 'none';
+    } else if (mode === 'posts') {
+      storiesFan.style.display = 'none';
+      postsFan.style.display = '';
+    } else {
+      storiesFan.style.display = '';
+      postsFan.style.display = '';
+    }
+  });
 });
 </script>
 </body>

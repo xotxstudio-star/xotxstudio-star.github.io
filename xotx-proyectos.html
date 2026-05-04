@@ -17,6 +17,7 @@
       --white: #ffffff;
       --font-display: 'Bebas Neue', sans-serif;
       --font-body: 'DM Sans', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -932,16 +933,29 @@
   </div>
 </div>
 
-     <div class="sheet sheet-a2" style="left:600px; top:100px; transform:rotate(-1.5deg)" data-format="a2" data-cat="carteleria" data-title="[Propuesta] Cartel Subida AIA 2026" data-desc="[Propuesta] Cartel Subida AIA 2026" data-open="2">
+     <div class="sheet sheet-a2 aia-multi-sheet" style="left:600px; top:100px; transform:rotate(-1.5deg)" data-format="a2" data-cat="carteleria" data-title="[Propuesta] Cartel Subida AIA 2026" data-desc="4 variantes de diseño para la Subida AIA 2026" data-open="2" data-aia-multi="1">
   <div class="sheet-inner">
     <div class="sd-1 sheet-design">
-      
       <div class="sd-accent"></div>
-
-      <!-- IMAGEN AJUSTADA -->
-      <div class="sd-img" style="width:100%; height:100%; overflow:hidden;">
-        <img src="imgs/cartel_propuesta_aia.png" 
-             style="width:100%; height:100%; object-fit:cover; object-position:center;">
+      <!-- SLIDER AIA: 4 variantes -->
+      <div class="aia-slider" style="width:100%; height:100%; overflow:hidden; position:relative;">
+        <img class="aia-slide" src="imgs/cartel_propuesta_aia_1.png"
+             style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:1;transition:opacity 0.7s ease;">
+        <img class="aia-slide" src="imgs/cartel_propuesta_aia_2.png.png"
+             style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity 0.7s ease;">
+        <img class="aia-slide" src="imgs/cartel_propuesta_aia_3.png"
+             style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity 0.7s ease;">
+        <img class="aia-slide" src="imgs/cartel_propuesta_aia_4.png"
+             style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity 0.7s ease;">
+        <!-- Indicadores de variante -->
+        <div class="aia-dots" style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:20;">
+          <div class="aia-dot aia-dot-active" style="width:18px;height:3px;background:rgba(232,77,28,1);border-radius:2px;transition:all 0.3s;"></div>
+          <div class="aia-dot" style="width:6px;height:3px;background:rgba(255,255,255,0.4);border-radius:2px;transition:all 0.3s;"></div>
+          <div class="aia-dot" style="width:6px;height:3px;background:rgba(255,255,255,0.4);border-radius:2px;transition:all 0.3s;"></div>
+          <div class="aia-dot" style="width:6px;height:3px;background:rgba(255,255,255,0.4);border-radius:2px;transition:all 0.3s;"></div>
+        </div>
+        <!-- Badge variante -->
+        <div class="aia-variant-badge" style="position:absolute;top:10px;left:10px;z-index:20;background:rgba(232,77,28,0.9);color:#fff;font-family:var(--font-display);font-size:.5rem;letter-spacing:.2em;padding:3px 7px;border-radius:1px;">V1 / 4</div>
       </div>
     </div>
 
@@ -950,7 +964,7 @@
 
     <div class="sheet-overlay">
       <div class="sheet-overlay-title">[Propuesta] Cartel Subida AIA 2026</div>
-      <div class="sheet-overlay-sub">A2 · 420×594mm</div>
+      <div class="sheet-overlay-sub">4 variantes · A2 · 420×594mm</div>
     </div>
 
   </div>
@@ -1191,6 +1205,125 @@
   </div>
 
 </div><!-- /cat-view -->
+
+<!-- LIGHTBOX AIA MULTI — muestra las 4 variantes en grid -->
+<div id="aia-lightbox">
+  <div id="aia-lb-backdrop"></div>
+  <button id="aia-lb-close">✕ Cerrar</button>
+  <div id="aia-lb-stage">
+    <div id="aia-lb-header">
+      <div id="aia-lb-label">Cartel Subida AIA 2026</div>
+      <div id="aia-lb-sub">4 variantes de diseño</div>
+    </div>
+    <div id="aia-lb-grid">
+      <div class="aia-lb-card" data-v="1">
+        <div class="aia-lb-img-wrap">
+          <img src="imgs/cartel_propuesta_aia_1.png" alt="Variante 1">
+          <div class="aia-lb-card-num">V1</div>
+        </div>
+        <div class="aia-lb-card-info">Variante 1</div>
+      </div>
+      <div class="aia-lb-card" data-v="2">
+        <div class="aia-lb-img-wrap">
+          <img src="imgs/cartel_propuesta_aia_2.png" alt="Variante 2">
+          <div class="aia-lb-card-num">V2</div>
+        </div>
+        <div class="aia-lb-card-info">Variante 2</div>
+      </div>
+      <div class="aia-lb-card" data-v="3">
+        <div class="aia-lb-img-wrap">
+          <img src="imgs/cartel_propuesta_aia_3.png" alt="Variante 3">
+          <div class="aia-lb-card-num">V3</div>
+        </div>
+        <div class="aia-lb-card-info">Variante 3</div>
+      </div>
+      <div class="aia-lb-card" data-v="4">
+        <div class="aia-lb-img-wrap">
+          <img src="imgs/cartel_propuesta_aia_4.png" alt="Variante 4">
+          <div class="aia-lb-card-num">V4</div>
+        </div>
+        <div class="aia-lb-card-info">Variante 4</div>
+      </div>
+    </div>
+    <div id="aia-lb-badge">A2 · 420×594mm · Formato cartel oficial</div>
+  </div>
+</div>
+
+<style>
+/* ── AIA MULTI LIGHTBOX ── */
+#aia-lightbox {
+  position: fixed; inset: 0; z-index: 600;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  padding: 1.5rem;
+  transition: opacity .35s;
+}
+#aia-lightbox.open { opacity: 1; pointer-events: all; }
+#aia-lb-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(5,5,5,.97); backdrop-filter: blur(14px);
+}
+#aia-lb-close {
+  position: absolute; top: 1.5rem; right: 1.5rem; z-index: 10;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+  color: var(--paper); font-family: var(--font-body);
+  font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
+  padding: .5rem 1.1rem; cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+#aia-lb-close:hover { background: var(--accent); border-color: var(--accent); }
+#aia-lb-stage {
+  position: relative; z-index: 5;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 1.5rem; width: 100%; max-height: 95vh; overflow-y: auto;
+}
+#aia-lb-header { text-align: center; }
+#aia-lb-label {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4vw, 3rem);
+  letter-spacing: .05em; color: var(--paper);
+}
+#aia-lb-sub {
+  font-size: .7rem; letter-spacing: .25em; text-transform: uppercase;
+  color: var(--accent); margin-top: .3rem;
+}
+#aia-lb-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  width: 100%; max-width: 1100px;
+}
+@media (max-width: 900px) { #aia-lb-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 500px) { #aia-lb-grid { grid-template-columns: repeat(2, 1fr); gap: .75rem; } }
+.aia-lb-card {
+  display: flex; flex-direction: column; align-items: center; gap: .6rem;
+}
+.aia-lb-img-wrap {
+  position: relative; width: 100%;
+  aspect-ratio: 420 / 594;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0,0,0,.7), 0 20px 60px rgba(0,0,0,.5);
+  background: var(--paper);
+}
+.aia-lb-img-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+  display: block;
+}
+.aia-lb-card-num {
+  position: absolute; top: .5rem; left: .5rem;
+  background: var(--accent); color: #fff;
+  font-family: var(--font-display); font-size: .55rem;
+  letter-spacing: .2em; padding: 2px 7px;
+}
+.aia-lb-card-info {
+  font-size: .65rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--mid);
+}
+#aia-lb-badge {
+  font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(255,255,255,.2); margin-top: .25rem;
+}
+</style>
 
 <!-- LIGHTBOX — full sheet viewer -->
 <div id="lightbox">
@@ -1543,10 +1676,15 @@ function initMesa() {
   window.addEventListener('touchend', e => {
     if (e.touches.length < 2) pinching = false;
     if (touchSheetEl) {
+      const isAIA = touchSheetEl.dataset && touchSheetEl.dataset.aiaMulti === '1';
       touchSheetEl.classList.remove('is-dragging');
       if (!touchMoved) {
-        // tap = open lightbox
-        openLightbox(touchSheetEl);
+        // tap = open lightbox (o AIA multi-lightbox)
+        if (isAIA) {
+          openAIALightbox();
+        } else {
+          openLightbox(touchSheetEl);
+        }
       }
       touchSheetEl = null;
     }
@@ -1629,11 +1767,16 @@ function onMouseMove(e) {
 
 function onMouseUp(e) {
   if (sheetDragging) {
+    const isAIA = sheetDragging.dataset && sheetDragging.dataset.aiaMulti === '1';
     sheetDragging.classList.remove('is-dragging');
     sheetDragging.style.zIndex = '';
     if (!dragMoved) {
-      // click (no drag) → open lightbox
-      openLightbox(sheetDragging);
+      if (isAIA) {
+        // click en sheet AIA → lightbox multi con 4 variantes
+        openAIALightbox();
+      } else {
+        openLightbox(sheetDragging);
+      }
     }
     sheetDragging = null;
     dragMoved = false;
@@ -1760,6 +1903,79 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape')      closeLightbox();
   if (e.key === 'ArrowLeft')   document.getElementById('lb-prev').click();
   if (e.key === 'ArrowRight')  document.getElementById('lb-next').click();
+});
+
+/* ══════════════════════════════════════════
+   AIA SLIDER — rotación automática entre 4 variantes
+══════════════════════════════════════════ */
+(function initAIASlider() {
+  const aiaSheet = document.querySelector('.aia-multi-sheet');
+  if (!aiaSheet) return;
+
+  const slides = aiaSheet.querySelectorAll('.aia-slide');
+  const dots   = aiaSheet.querySelectorAll('.aia-dot');
+  const badge  = aiaSheet.querySelector('.aia-variant-badge');
+  let current  = 0;
+  let timer    = null;
+
+  function showSlide(idx) {
+    slides.forEach((s, i) => {
+      s.style.opacity = i === idx ? '1' : '0';
+      s.style.zIndex  = i === idx ? '2' : '1';
+    });
+    dots.forEach((d, i) => {
+      if (i === idx) {
+        d.style.width      = '18px';
+        d.style.background = 'rgba(232,77,28,1)';
+      } else {
+        d.style.width      = '6px';
+        d.style.background = 'rgba(255,255,255,0.4)';
+      }
+    });
+    if (badge) badge.textContent = 'V' + (idx + 1) + ' / 4';
+    current = idx;
+  }
+
+  function nextSlide() { showSlide((current + 1) % slides.length); }
+
+  function startTimer() { timer = setInterval(nextSlide, 2200); }
+  function stopTimer()  { if (timer) { clearInterval(timer); timer = null; } }
+
+  // Pausa el slider al hacer hover sobre el cartel
+  aiaSheet.addEventListener('mouseenter', stopTimer);
+  aiaSheet.addEventListener('mouseleave', startTimer);
+
+  showSlide(0);
+  startTimer();
+})();
+
+/* ══════════════════════════════════════════
+   AIA LIGHTBOX MULTI — abre las 4 variantes
+══════════════════════════════════════════ */
+const aiaLightbox   = document.getElementById('aia-lightbox');
+const aiaLbBackdrop = document.getElementById('aia-lb-backdrop');
+const aiaLbClose    = document.getElementById('aia-lb-close');
+
+function openAIALightbox() {
+  aiaLightbox.classList.add('open');
+  gsap.fromTo('#aia-lb-stage',
+    { y: 40, opacity: 0 },
+    { y: 0, opacity: 1, duration: .4, ease: 'power3.out' }
+  );
+}
+
+function closeAIALightbox() {
+  gsap.to(aiaLightbox, { opacity: 0, duration: .25, ease: 'power2.in', onComplete: () => {
+    aiaLightbox.classList.remove('open');
+    gsap.set(aiaLightbox, { clearProps: 'opacity' });
+  }});
+}
+
+if (aiaLbClose)    aiaLbClose.addEventListener('click', closeAIALightbox);
+if (aiaLbBackdrop) aiaLbBackdrop.addEventListener('click', closeAIALightbox);
+
+document.addEventListener('keydown', e => {
+  if (aiaLightbox.classList.contains('open') && e.key === 'Escape') closeAIALightbox();
 });
 </script>
 </body>

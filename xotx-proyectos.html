@@ -811,353 +811,30 @@
       color: var(--paper); letter-spacing: .06em;
     }
 
+    .rot-panel-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
     /* ── ESCENA 1: Escaparate ── */
-    .rot-scene-escaparate {
-      background: linear-gradient(180deg, #1a1610 0%, #100e0a 100%);
-    }
-    .esc-wall {
-      position: absolute; inset: 0;
-      background: repeating-linear-gradient(90deg,
-        rgba(255,255,255,.012) 0, rgba(255,255,255,.012) 1px,
-        transparent 1px, transparent 60px);
-    }
-    .esc-floor {
-      position: absolute; bottom: 0; left: 0; right: 0; height: 20%;
-      background: linear-gradient(180deg, #0d0b08 0%, #0a0806 100%);
-      border-top: 1px solid rgba(255,255,255,.06);
-    }
-    .esc-awning {
-      position: absolute; top: 8%; left: 20%; right: 20%; height: 12%;
-      background: linear-gradient(180deg, #e84d1c 0%, #c83d0c 100%);
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
-    }
-    .esc-awning-stripe {
-      position: absolute; inset: 0;
-      background: repeating-linear-gradient(90deg,
-        rgba(0,0,0,.15) 0, rgba(0,0,0,.15) 12px,
-        transparent 12px, transparent 24px);
-    }
-    .esc-awning-text {
-      font-family: var(--font-display);
-      font-size: clamp(.35rem, 1.2vw, .7rem);
-      letter-spacing: .18em; color: rgba(255,255,255,.85);
-      position: relative; z-index: 2;
-    }
-    .esc-door-frame {
-      position: absolute; top: 20%; bottom: 20%; left: 22%; right: 22%;
-      border: 2px solid rgba(180,160,120,.2);
-      background: rgba(255,255,255,.02);
-    }
-    .esc-glass {
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,.04) 0%, rgba(255,255,255,.01) 100%);
-    }
-    .esc-vinyl-wrap {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-    }
-    .esc-vinyl-logo {
-      font-family: var(--font-display);
-      font-size: clamp(1.2rem, 4vw, 2.2rem);
-      color: rgba(244,240,232,.85);
-      letter-spacing: .2em;
-    }
-    .esc-vinyl-line {
-      height: 1px; background: rgba(232,77,28,.6);
-      margin: .3rem 0;
-    }
-    .esc-vinyl-sub {
-      font-size: clamp(.3rem, .9vw, .55rem);
-      letter-spacing: .24em; color: rgba(200,180,140,.5);
-      text-transform: uppercase;
-    }
-    .esc-reflection {
-      position: absolute; top: 0; left: 10%; width: 8%; bottom: 0;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.04), transparent);
-    }
-    .esc-sign {
-      position: absolute; bottom: 23%; right: 24%;
-      background: rgba(232,77,28,.9); padding: .15rem .5rem;
-    }
-    .esc-sign span {
-      font-size: clamp(.3rem, .8vw, .5rem);
-      letter-spacing: .2em; color: #fff; text-transform: uppercase;
-    }
+    /* Estilos de escenas CSS removidos - Ahora usa imágenes reales */
 
     /* ── ESCENA 2: Rótulo luminoso ── */
-    .rot-scene-rotulo {
-      background: #080808;
-    }
-    .rot-bk { position: absolute; inset: 0; background: #0a0a0a; }
-    .rot-wall-tex {
-      position: absolute; inset: 0;
-      background: repeating-linear-gradient(0deg,
-        rgba(255,255,255,.008) 0, rgba(255,255,255,.008) 1px,
-        transparent 1px, transparent 30px);
-    }
-    .rot-bracket {
-      position: absolute; top: 8%; bottom: 38%;
-      width: 2px; background: rgba(255,255,255,.1);
-    }
-    .rot-bracket-l { left: 22%; }
-    .rot-bracket-r { right: 22%; }
-    .rot-cajafuz {
-      position: absolute; top: 22%; bottom: 30%;
-      left: 18%; right: 18%;
-      background: #111;
-      border: 1px solid rgba(255,255,255,.08);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: .2rem;
-    }
-    .rot-cajafuz-border {
-      position: absolute; inset: 5px;
-      border: 1px solid rgba(232,77,28,.45);
-      box-shadow: inset 0 0 15px rgba(232,77,28,.08), 0 0 15px rgba(232,77,28,.08);
-    }
-    .rot-cajafuz-text {
-      font-family: var(--font-display);
-      font-size: clamp(1rem, 3.5vw, 2rem);
-      letter-spacing: .14em; color: #fff; text-align: center;
-      text-shadow: 0 0 12px rgba(232,77,28,.9), 0 0 30px rgba(232,77,28,.4);
-      position: relative; z-index: 2; line-height: .95;
-    }
-    .rot-cajafuz-sub {
-      font-size: clamp(.28rem, .8vw, .48rem);
-      letter-spacing: .2em; color: rgba(232,77,28,.6);
-      text-transform: uppercase; position: relative; z-index: 2;
-    }
-    .rot-cajafuz-glow {
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 50% 50%, rgba(232,77,28,.08) 0%, transparent 70%);
-    }
-    .rot-floor-shadow {
-      position: absolute; bottom: 28%; left: 18%; right: 18%;
-      height: 6%; background: rgba(232,77,28,.04);
-      filter: blur(10px);
-    }
-    .rot-ambient {
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 50% 40%, rgba(232,77,28,.04) 0%, transparent 60%);
-      pointer-events: none;
-    }
+    /* Estilos de escenas CSS removidos - Ahora usa imágenes reales */
 
     /* ── ESCENA 3: Señalética ── */
-    .rot-scene-senal {
-      background: #f4f0e8;
-    }
-    .senal-bg { position: absolute; inset: 0; background: #ede9e1; }
-    .senal-strip {
-      position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
-      background: var(--accent);
-    }
-    .senal-floor {
-      position: absolute; bottom: 0; left: 0; right: 0; height: 15%;
-      background: #e0dcd4; border-top: 1px solid rgba(0,0,0,.06);
-    }
-    .senal-placa {
-      position: absolute;
-      width: 68%; height: 14%;
-      background: var(--ink);
-      left: 16%;
-      display: flex; align-items: center;
-      padding: 0 .75rem;
-      gap: .5rem;
-      box-shadow: 2px 2px 0 rgba(0,0,0,.12);
-    }
-    .senal-placa--1 { top: 18%; }
-    .senal-placa--2 { top: 38%; }
-    .senal-placa--3 { top: 58%; }
-    .senal-placa-bar {
-      width: 3px; align-self: stretch;
-      background: var(--accent); flex-shrink: 0;
-    }
-    .senal-placa-num {
-      font-family: var(--font-display);
-      font-size: clamp(.8rem, 2.2vw, 1.3rem);
-      color: var(--accent); min-width: 1.8rem;
-    }
-    .senal-placa-name {
-      font-family: var(--font-display);
-      font-size: clamp(.5rem, 1.3vw, .8rem);
-      color: var(--paper); letter-spacing: .1em;
-    }
+    /* Estilos de escenas CSS removidos - Ahora usa imágenes reales */
 
     /* ── ESCENA 4: Lona ── */
-    .rot-scene-lona {
-      background: linear-gradient(180deg, #1c1c1a 0%, #111 60%, #0a0a0a 100%);
-    }
-    .lona-sky {
-      position: absolute; top: 0; left: 0; right: 0; height: 50%;
-      background: linear-gradient(180deg, #1a1916 0%, transparent 100%);
-    }
-    .lona-post {
-      position: absolute; top: 8%; bottom: 20%; width: 3px;
-      background: rgba(255,255,255,.12);
-    }
-    .lona-post-l { left: 15%; }
-    .lona-post-r { right: 15%; }
-    .lona-cable {
-      position: absolute; top: 8%; height: 2px; width: 15%;
-      background: rgba(255,255,255,.1);
-    }
-    .lona-cable-l { left: 15%; top: 8%; }
-    .lona-cable-r { right: 15%; top: 8%; }
-    .lona-tela {
-      position: absolute; top: 10%; bottom: 22%; left: 15%; right: 15%;
-      background: var(--accent);
-      display: flex; flex-direction: column;
-      box-shadow: 0 4px 20px rgba(232,77,28,.25);
-    }
-    .lona-tela-top-holes, .lona-tela-bot-holes {
-      display: flex; justify-content: space-between;
-      padding: 0 4%; flex-shrink: 0;
-    }
-    .lona-tela-top-holes { padding-top: 3px; }
-    .lona-tela-bot-holes { padding-bottom: 3px; }
-    .lona-tela-top-holes span, .lona-tela-bot-holes span {
-      display: block; width: 5px; height: 5px;
-      background: rgba(0,0,0,.3); border-radius: 50%;
-    }
-    .lona-tela-content {
-      flex: 1; display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      padding: .5rem; gap: .15rem;
-    }
-    .lona-tela-overline {
-      font-size: clamp(.28rem, .75vw, .45rem);
-      letter-spacing: .3em; color: rgba(255,255,255,.7);
-      text-transform: uppercase;
-    }
-    .lona-tela-title {
-      font-family: var(--font-display);
-      font-size: clamp(.9rem, 3vw, 1.8rem);
-      color: #fff; letter-spacing: .06em; text-align: center; line-height: .9;
-    }
-    .lona-tela-date {
-      font-size: clamp(.28rem, .8vw, .48rem);
-      letter-spacing: .22em; color: rgba(255,255,255,.7);
-    }
-    .lona-tela-logo {
-      font-family: var(--font-display);
-      font-size: clamp(.5rem, 1.4vw, .85rem);
-      color: rgba(255,255,255,.4); letter-spacing: .2em;
-      margin-top: .2rem;
-    }
-    .lona-ground-line {
-      position: absolute; bottom: 20%; left: 0; right: 0;
-      height: 1px; background: rgba(255,255,255,.04);
-    }
+    /* Estilos de escenas CSS removidos - Ahora usa imágenes reales */
 
     /* ── ESCENA 5: Vinilo escaparate grande ── */
-    .rot-scene-vinilo {
-      background: #f2ede5;
-    }
-    .vc-wall { position: absolute; inset: 0; background: #eee9e1; }
-    .vc-floor {
-      position: absolute; bottom: 0; left: 0; right: 0; height: 18%;
-      background: #e5e0d8; border-top: 1px solid rgba(0,0,0,.06);
-    }
-    .vc-glass {
-      position: absolute; top: 12%; bottom: 18%; left: 14%; right: 14%;
-      border: 2px solid rgba(0,0,0,.1);
-      background: rgba(255,255,255,.4);
-    }
-    .vc-glass-frame {
-      position: absolute; inset: 0;
-      box-shadow: inset 0 0 0 6px rgba(255,255,255,.3);
-    }
-    .vc-glass-inner {
-      position: absolute; inset: 0;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: .3rem;
-    }
-    .vc-circle-big {
-      position: absolute; width: 65%; aspect-ratio: 1;
-      border: 1px solid rgba(0,0,0,.07); border-radius: 50%;
-      top: 50%; left: 50%; transform: translate(-50%, -50%);
-    }
-    .vc-circle-mid {
-      position: absolute; width: 44%; aspect-ratio: 1;
-      border: 1px solid rgba(0,0,0,.05); border-radius: 50%;
-      top: 50%; left: 50%; transform: translate(-50%, -50%);
-    }
-    .vc-logo-wrap {
-      display: flex; align-items: center; gap: .4rem; position: relative; z-index: 2;
-    }
-    .vc-logo-cross {
-      font-family: var(--font-display); font-size: clamp(.8rem, 2.5vw, 1.4rem);
-      color: var(--accent); line-height: 1;
-    }
-    .vc-logo-name {
-      font-family: var(--font-display);
-      font-size: clamp(.5rem, 1.5vw, .9rem);
-      color: var(--ink); letter-spacing: .1em; line-height: 1.1;
-    }
-    .vc-tagline {
-      font-size: clamp(.28rem, .8vw, .48rem);
-      letter-spacing: .18em; color: rgba(0,0,0,.35);
-      text-transform: uppercase; position: relative; z-index: 2;
-    }
-    .vc-ref {
-      position: absolute; top: 0; left: 20%; width: 5%; bottom: 0;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
-    }
+    /* Estilos de escenas CSS removidos - Ahora usa imágenes reales */
 
     /* ── ESCENA 6: Placa corporativa ── */
-    .rot-scene-placa {
-      background: #f0ece4;
-    }
-    .placa-wall { position: absolute; inset: 0; background: #ece8e0; }
-    .placa-body {
-      position: absolute; top: 18%; bottom: 18%; left: 16%; right: 16%;
-      background: #1c1c1c;
-      display: flex; flex-direction: column;
-      padding: clamp(.6rem, 2vw, 1.2rem);
-      gap: .4rem;
-      box-shadow: 3px 3px 0 rgba(0,0,0,.15), 6px 6px 0 rgba(0,0,0,.06);
-    }
-    .placa-logo-row {
-      display: flex; align-items: center; gap: .6rem;
-    }
-    .placa-mark {
-      width: clamp(16px, 3vw, 22px); aspect-ratio: 1;
-      background: var(--accent); flex-shrink: 0;
-    }
-    .placa-brand {
-      font-family: var(--font-display);
-      font-size: clamp(.55rem, 1.6vw, 1rem);
-      color: var(--paper); letter-spacing: .1em; line-height: 1.1;
-    }
-    .placa-brand span { color: rgba(244,240,232,.4); font-size: .8em; }
-    .placa-divider {
-      height: 1px; background: rgba(255,255,255,.1); margin: .15rem 0;
-    }
-    .placa-address {
-      font-size: clamp(.3rem, .9vw, .55rem);
-      letter-spacing: .12em; color: rgba(244,240,232,.4);
-      text-transform: uppercase;
-    }
-    .placa-tel {
-      font-family: var(--font-display);
-      font-size: clamp(.5rem, 1.4vw, .85rem);
-      color: var(--accent); letter-spacing: .1em;
-    }
-    .placa-screws {
-      position: absolute; inset: 6px;
-      pointer-events: none;
-    }
-    .placa-screws span {
-      position: absolute; width: 5px; height: 5px;
-      background: #2a2a2a; border-radius: 50%;
-      border: 1px solid rgba(255,255,255,.06);
-    }
-    .placa-screws span:nth-child(1) { top: 0; left: 0; }
-    .placa-screws span:nth-child(2) { top: 0; right: 0; }
-    .placa-screws span:nth-child(3) { bottom: 0; left: 0; }
-    .placa-screws span:nth-child(4) { bottom: 0; right: 0; }
+    /* Estilos de escenas CSS removidos - Ahora usa imágenes reales */
 
     /* Servicios strip */
     .rot-services-strip {
@@ -1254,54 +931,69 @@
       padding: .2rem .6rem;
     }
 
-    /* ── ABANICO STORIES ── */
+    /* ── ABANICO STORIES VERTICAL ── */
     .rrss-fan-wrap {
-      padding-bottom: 3rem;
       border-bottom: 1px solid rgba(255,255,255,.06);
+      position: relative;
+    }
+
+    /* Scroll zone — la altura define cuánto hay que scrollear para abrir el abanico */
+    .rrss-fan-scroll-zone {
+      height: 280vh;
+      position: relative;
+    }
+    /* Sticky: la vista del abanico queda fija mientras se scrollea la zona */
+    .rrss-fan-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
     }
+
     .rrss-fan {
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      padding: 2rem 2rem 1rem;
-      gap: 0;
       position: relative;
-      min-height: 340px;
+      width: clamp(180px, 30vw, 280px);
+      height: clamp(320px, 55vw, 498px);
     }
-    @media (max-width: 600px) {
-      .rrss-fan { min-height: 260px; }
-    }
+
     .rrss-fan-hint {
       text-align: center; font-size: .6rem; letter-spacing: .18em;
       text-transform: uppercase; color: rgba(255,255,255,.2);
-      padding-bottom: .5rem;
+      padding: 1rem 0 1.5rem;
+      white-space: nowrap;
     }
 
     /* Story card — proporción 9:16 */
     .story-card {
-      flex-shrink: 0;
-      width: clamp(80px, 14vw, 140px);
+      position: absolute;
+      width: 100%;
       aspect-ratio: 9 / 16;
       border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 8px 30px rgba(0,0,0,.6), 0 2px 6px rgba(0,0,0,.4);
       cursor: pointer;
-      transition: transform .4s cubic-bezier(.34,1.56,.64,1), box-shadow .3s, z-index 0s;
-      position: relative;
-      transform-origin: bottom center;
+      transition: box-shadow .3s;
+      transform-origin: top center;
+      will-change: transform;
+      top: 0; left: 0;
     }
-    /* Abanico: rotate each card */
-    .story-card--0 { transform: rotate(-16deg) translateX(40px); z-index: 1; }
-    .story-card--1 { transform: rotate(-8deg) translateX(20px); z-index: 2; }
-    .story-card--2 { transform: rotate(0deg); z-index: 5; margin: 0 6px; }
-    .story-card--3 { transform: rotate(8deg) translateX(-20px); z-index: 2; }
-    .story-card--4 { transform: rotate(16deg) translateX(-40px); z-index: 1; }
+
+    /* Abanico vertical inicial — apiladas con rotación */
+    .story-card--0 { z-index: 1; transform: translateY(60%) rotate(-5deg) scale(0.78); }
+    .story-card--1 { z-index: 2; transform: translateY(44%) rotate(-2.5deg) scale(0.84); }
+    .story-card--2 { z-index: 3; transform: translateY(28%) rotate(0deg) scale(0.90); }
+    .story-card--3 { z-index: 4; transform: translateY(14%) rotate(2.5deg) scale(0.95); }
+    .story-card--4 { z-index: 5; transform: translateY(0%) rotate(0deg) scale(1); }
 
     .story-card:hover {
-      transform: rotate(0deg) translateY(-16px) scale(1.08) !important;
-      z-index: 10 !important;
       box-shadow: 0 20px 60px rgba(0,0,0,.7), 0 4px 12px rgba(0,0,0,.4);
+    }
+    .story-card.story-active {
+      box-shadow: 0 24px 70px rgba(0,0,0,.8), 0 6px 20px rgba(232,77,28,.2) !important;
     }
 
     .story-inner {
@@ -1727,7 +1419,7 @@
   </div>
 </div>
 
-     <div class="sheet sheet-a2 aia-multi-sheet" style="left:600px; top:100px; transform:rotate(-1.5deg)" data-format="a2" data-cat="carteleria" data-title="[Propuesta] Cartel Subida AIA 2026" data-desc="4 variantes de diseño para la Subida AIA 2026" data-open="2" data-aia-multi="1">
+     <div class="sheet sheet-a2 aia-multi-sheet" style="left:0px; top:100px; transform:rotate(-1.5deg)" data-format="a2" data-cat="carteleria" data-title="[Propuesta] Cartel Subida AIA 2026" data-desc="4 variantes de diseño para la Subida AIA 2026" data-open="2" data-aia-multi="1">
   <div class="sheet-inner">
     <div class="sd-1 sheet-design">
       <div class="sd-accent"></div>
@@ -1735,7 +1427,7 @@
       <div class="aia-slider" style="width:100%; height:100%; overflow:hidden; position:relative;">
         <img class="aia-slide" src="imgs/cartel_propuesta_aia_1.png"
              style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:1;transition:opacity 0.7s ease;">
-        <img class="aia-slide" src="imgs/cartel_propuesta_aia_2.png.png"
+        <img class="aia-slide" src="imgs/cartel_propuesta_aia_2.png"
              style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity 0.7s ease;">
         <img class="aia-slide" src="imgs/cartel_propuesta_aia_3.png"
              style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity 0.7s ease;">
@@ -1787,7 +1479,7 @@
 
   </div>
 </div>
-      <div class="sheet sheet-40x50" style="left:1460px; top:60px; transform:rotate(-2deg)" data-format="40x50" data-cat="carteleria" data-title="Mercado Artesanal" data-desc="Cartel 40×50cm — Mercado artesanal navideño" data-open="4">
+     <!-- <div class="sheet sheet-40x50" style="left:1460px; top:60px; transform:rotate(-2deg)" data-format="40x50" data-cat="carteleria" data-title="Mercado Artesanal" data-desc="Cartel 40×50cm — Mercado artesanal navideño" data-open="4">
         <div class="sheet-inner">
           <div class="sd-3 sheet-design">
             <div class="sd-grid"></div>
@@ -1827,7 +1519,7 @@
       </div>
 
       <!-- SEGUNDA FILA -->
-      <div class="sheet sheet-40x50" style="left:260px; top:700px; transform:rotate(2deg)" data-format="40x50" data-cat="carteleria" data-title="Peluquería Ane — Promoción" data-desc="Cartel 40×50cm — Oferta especial de temporada" data-open="6">
+      <!--<div class="sheet sheet-40x50" style="left:260px; top:700px; transform:rotate(2deg)" data-format="40x50" data-cat="carteleria" data-title="Peluquería Ane — Promoción" data-desc="Cartel 40×50cm — Oferta especial de temporada" data-open="6">
         <div class="sheet-inner">
           <div class="sd-5 sheet-design">
             <div class="sd-photo"><div class="sd-photo-lines"></div></div>
@@ -1920,7 +1612,7 @@
       </div>
 
       <!-- TERCERA FILA -->
-      <div class="sheet sheet-a2" style="left:120px; top:1280px; transform:rotate(.5deg)" data-format="a2" data-cat="carteleria" data-title="Semana Grande Bilbao" data-desc="Cartel A2 — Programa de fiestas" data-open="11">
+     <!-- <div class="sheet sheet-a2" style="left:120px; top:1280px; transform:rotate(.5deg)" data-format="a2" data-cat="carteleria" data-title="Semana Grande Bilbao" data-desc="Cartel A2 — Programa de fiestas" data-open="11">
         <div class="sheet-inner">
           <div class="sd-4 sheet-design" style="background:#c8880e">
             <div class="sd-slash" style="background:rgba(0,0,0,.15)"></div>
@@ -1974,7 +1666,7 @@
             <div class="sheet-overlay-sub">A2 · 420×594mm</div>
           </div>
         </div>
-      </div>
+      </div>-->
 
     </div>
 
@@ -2007,166 +1699,76 @@
       <p class="rot-header-desc">Vinilos de corte, escaparates, señalética interior y rótulos comerciales. Cada soporte es una oportunidad de comunicar con impacto.</p>
     </div>
 
-    <!-- Expositor tipo showroom: paneles en perspectiva -->
+    <!-- Galería de imágenes - Rotulaciones -->
     <div class="rot-showroom">
 
-      <!-- Panel 1: Escaparate vinilo -->
-      <div class="rot-panel" data-label="Escaparate · Vinilo de corte" data-project="Peluquería Noa — Bilbao">
-        <div class="rot-panel-scene rot-scene-escaparate">
-          <div class="esc-wall"></div>
-          <div class="esc-floor"></div>
-          <div class="esc-door-frame">
-            <div class="esc-glass">
-              <div class="esc-vinyl-wrap">
-                <div class="esc-vinyl-logo">NOA</div>
-                <div class="esc-vinyl-line"></div>
-                <div class="esc-vinyl-sub">Peluquería · Bilbao</div>
-              </div>
-              <div class="esc-reflection"></div>
-            </div>
-          </div>
-          <div class="esc-awning">
-            <div class="esc-awning-stripe"></div>
-            <div class="esc-awning-text">PELUQUERÍA NOA</div>
-          </div>
-          <div class="esc-sign">
-            <span>ABIERTO</span>
-          </div>
+      <!-- Panel 1: Imagen rotulación -->
+      <div class="rot-panel">
+        <div class="rot-panel-scene">
+          <img src="imgs/coche_3.png" alt="Rotulación 1" class="rot-panel-img">
         </div>
         <div class="rot-panel-info">
-          <span class="rot-panel-type">Escaparate · Vinilo</span>
-          <span class="rot-panel-name">Peluquería Noa</span>
+          <span class="rot-panel-type">ROTULACIÓN</span>
+          <span class="rot-panel-name">Propuesta 200SX</span>
         </div>
       </div>
 
-      <!-- Panel 2: Rótulo luminoso -->
-      <div class="rot-panel rot-panel--featured" data-label="Rótulo · Caja de luz" data-project="Bar Txoko — Getxo">
-        <div class="rot-panel-scene rot-scene-rotulo">
-          <div class="rot-bk"></div>
-          <div class="rot-wall-tex"></div>
-          <div class="rot-bracket rot-bracket-l"></div>
-          <div class="rot-bracket rot-bracket-r"></div>
-          <div class="rot-cajafuz">
-            <div class="rot-cajafuz-border"></div>
-            <div class="rot-cajafuz-text">BAR<br>TXOKO</div>
-            <div class="rot-cajafuz-sub">BILBAO · GETXO</div>
-            <div class="rot-cajafuz-glow"></div>
-          </div>
-          <div class="rot-floor-shadow"></div>
-          <div class="rot-ambient"></div>
+      <!-- Panel 2: Imagen rotulación -->
+      <div class="rot-panel">
+        <div class="rot-panel-scene">
+          <img src="imgs/coche_1.png" alt="Rotulación 2" class="rot-panel-img">
         </div>
         <div class="rot-panel-info">
-          <span class="rot-panel-type">Rótulo · Luminoso</span>
-          <span class="rot-panel-name">Bar Txoko</span>
+         <span class="rot-panel-type">ROTULACIÓN</span>
+          <span class="rot-panel-name">Toyota Yaris RALLY2</span>
         </div>
       </div>
 
-      <!-- Panel 3: Señalética interior -->
-      <div class="rot-panel" data-label="Señalética · Interior" data-project="Coworking Bilbao Centro">
-        <div class="rot-panel-scene rot-scene-senal">
-          <div class="senal-bg"></div>
-          <div class="senal-strip"></div>
-          <!-- Placas -->
-          <div class="senal-placa senal-placa--1">
-            <div class="senal-placa-bar"></div>
-            <div class="senal-placa-num">01</div>
-            <div class="senal-placa-name">RECEPCIÓN</div>
-          </div>
-          <div class="senal-placa senal-placa--2">
-            <div class="senal-placa-bar"></div>
-            <div class="senal-placa-num">02</div>
-            <div class="senal-placa-name">SALAS</div>
-          </div>
-          <div class="senal-placa senal-placa--3">
-            <div class="senal-placa-bar"></div>
-            <div class="senal-placa-num">03</div>
-            <div class="senal-placa-name">OFICINAS</div>
-          </div>
-          <div class="senal-floor"></div>
+      <!-- Panel 3: Imagen rotulación -->
+      <div class="rot-panel">
+        <div class="rot-panel-scene">
+          <img src="imgs/coche_4.jpg" alt="Rotulación 3" class="rot-panel-img">
         </div>
         <div class="rot-panel-info">
-          <span class="rot-panel-type">Señalética · Interior</span>
-          <span class="rot-panel-name">Coworking Bilbao</span>
+                  <span class="rot-panel-type">ROTULACIÓN</span>
+          <span class="rot-panel-name">Peugeot 206 | Alain Acillona</span>
         </div>
       </div>
 
-      <!-- Panel 4: Lona exterior -->
-      <div class="rot-panel" data-label="Lona · Gran formato" data-project="Inauguración Comercial 2025">
-        <div class="rot-panel-scene rot-scene-lona">
-          <div class="lona-sky"></div>
-          <div class="lona-post lona-post-l"></div>
-          <div class="lona-post lona-post-r"></div>
-          <div class="lona-cable lona-cable-l"></div>
-          <div class="lona-cable lona-cable-r"></div>
-          <div class="lona-tela">
-            <div class="lona-tela-top-holes">
-              <span></span><span></span><span></span><span></span><span></span>
-            </div>
-            <div class="lona-tela-content">
-              <div class="lona-tela-overline">GRAN APERTURA</div>
-              <div class="lona-tela-title">INAUGU<br>RACIÓN</div>
-              <div class="lona-tela-date">15 · FEB · 2025</div>
-              <div class="lona-tela-logo">XOTX</div>
-            </div>
-            <div class="lona-tela-bot-holes">
-              <span></span><span></span><span></span><span></span><span></span>
-            </div>
-          </div>
-          <div class="lona-ground-line"></div>
+      <!-- Panel 4: Imagen rotulación -->
+      <div class="rot-panel">
+        <div class="rot-panel-scene">
+          <img src="imgs/coche_5.jpg" alt="Rotulación 4" class="rot-panel-img">
         </div>
         <div class="rot-panel-info">
-          <span class="rot-panel-type">Lona · Gran formato</span>
-          <span class="rot-panel-name">Inauguración Comercial</span>
+                 <span class="rot-panel-type">ROTULACIÓN</span>
+                <span class="rot-panel-name">BMW E36 | Mikel Carmona</span>
         </div>
       </div>
 
-      <!-- Panel 5: Vinilo de corte -->
-      <div class="rot-panel" data-label="Vinilo · Escaparate grande" data-project="Clínica Dental — Barakaldo">
-        <div class="rot-panel-scene rot-scene-vinilo">
-          <div class="vc-wall"></div>
-          <div class="vc-glass">
-            <div class="vc-glass-frame"></div>
-            <div class="vc-glass-inner">
-              <div class="vc-circle-big"></div>
-              <div class="vc-circle-mid"></div>
-              <div class="vc-logo-wrap">
-                <div class="vc-logo-cross">+</div>
-                <div class="vc-logo-name">DENT<br>CLÍNICA</div>
-              </div>
-              <div class="vc-tagline">Tu sonrisa, nuestra misión</div>
-            </div>
-            <div class="vc-ref"></div>
-          </div>
-          <div class="vc-floor"></div>
+      <!-- Panel 5: Imagen rotulación -->
+      <div class="rot-panel">
+        <div class="rot-panel-scene">
+          <img src="imgs/coche_2.jpg" alt="Rotulación 5" class="rot-panel-img">
         </div>
         <div class="rot-panel-info">
-          <span class="rot-panel-type">Vinilo · Escaparate</span>
-          <span class="rot-panel-name">Clínica Dent</span>
+           <span class="rot-panel-type">ROTULACIÓN</span>
+                <span class="rot-panel-name">BMW E36 | Mikel Artola</span>
         </div>
       </div>
 
-      <!-- Panel 6: Placa de empresa -->
-      <div class="rot-panel" data-label="Placa · Corporativa" data-project="Asesoría Aranda — Bilbao">
-        <div class="rot-panel-scene rot-scene-placa">
-          <div class="placa-wall"></div>
-          <div class="placa-body">
-            <div class="placa-logo-row">
-              <div class="placa-mark"></div>
-              <div class="placa-brand">ARANDA<br><span>ASESORES</span></div>
-            </div>
-            <div class="placa-divider"></div>
-            <div class="placa-address">Calle Gran Vía 12 · Bilbao</div>
-            <div class="placa-tel">944 000 111</div>
-          </div>
-          <div class="placa-screws">
-            <span></span><span></span><span></span><span></span>
-          </div>
+      <!-- Panel 6: Imagen rotulación -->
+      <div class="rot-panel">
+        <div class="rot-panel-scene">
+          <img src="imgs/coche_7.jpg" alt="Rotulación 6" class="rot-panel-img">
         </div>
         <div class="rot-panel-info">
-          <span class="rot-panel-type">Placa · Corporativa</span>
-          <span class="rot-panel-name">Asesoría Aranda</span>
+                   <span class="rot-panel-type">ROTULACIÓN</span>
+          <span class="rot-panel-name">Toyota Yaris N4 GR CUP | Iker Etxeberria </span>
         </div>
       </div>
+		
+		
 
     </div><!-- /rot-showroom -->
 
@@ -2212,13 +1814,15 @@
       <button class="rrss-tab" data-rrss="all">Todo</button>
     </div>
 
-    <!-- ABANICO STORIES -->
+    <!-- ABANICO STORIES VERTICAL -->
     <div class="rrss-fan-wrap" id="rrss-stories-fan">
       <div class="rrss-fan-label">
         <span class="rrss-fan-label-tag">STORIES</span>
         <span class="rrss-fan-label-size">1080 × 1920 px</span>
       </div>
-      <div class="rrss-fan" id="stories-fan">
+      <div class="rrss-fan-scroll-zone" id="stories-scroll-zone">
+        <div class="rrss-fan-sticky">
+          <div class="rrss-fan" id="stories-fan">
 
         <div class="story-card story-card--0" data-idx="0">
           <div class="story-inner story-s1">
@@ -2298,8 +1902,10 @@
           </div>
         </div>
 
-      </div><!-- /stories-fan -->
-      <div class="rrss-fan-hint">Toca una story para ver al detalle</div>
+          </div><!-- /stories-fan -->
+        </div><!-- /rrss-fan-sticky -->
+      </div><!-- /stories-scroll-zone -->
+      <div class="rrss-fan-hint">↕ Scroll para desplegar las stories</div>
     </div>
 
     <!-- ABANICO POSTS -->
@@ -2697,7 +2303,12 @@ function openCatView(cat) {
   } else if (hasRotulaciones.includes(cat)) {
     if (rotSection) rotSection.style.display = 'flex';
   } else if (hasRRSS.includes(cat)) {
-    if (rrssSection) rrssSection.style.display = 'flex';
+    if (rrssSection) {
+      rrssSection.style.display = 'flex';
+      rrssSection.scrollTop = 0;
+      // Inicializar el abanico scroll la primera vez
+      setTimeout(initStoriesFanScroll, 50);
+    }
   } else {
     catPlaceholder.style.display = 'flex';
     placeholderCatName.textContent = (catNames[cat] || cat).toUpperCase();
@@ -2709,9 +2320,17 @@ function openCatView(cat) {
 }
 
 document.getElementById('view-back-btn').addEventListener('click', () => {
-  catView.classList.remove('open');
-  gsap.set(catView, { opacity: 1 }); // reset opacity for next open
-  document.body.style.overflow = '';
+  gsap.to(catView, {
+    opacity: 0, duration: .3, ease: 'power2.in',
+    onComplete: () => {
+      catView.classList.remove('open');
+      gsap.set(catView, { clearProps: 'opacity' });
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      // Restore scroll position to where user was
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+  });
   // also close hamburger if open
   if (hamburger) hamburger.classList.remove('open');
   if (navMobile) navMobile.classList.remove('open');
@@ -3162,7 +2781,73 @@ document.addEventListener('keydown', e => {
   if (aiaLightbox.classList.contains('open') && e.key === 'Escape') closeAIALightbox();
 });
 
-/* ─── RRSS TABS ─── */
+/* ══════════════════════════════════════════
+   STORIES FAN — abanico vertical con scroll parallax
+══════════════════════════════════════════ */
+let storiesFanInited = false;
+
+function initStoriesFanScroll() {
+  if (storiesFanInited) return;
+  storiesFanInited = true;
+
+  const scrollZone = document.getElementById('stories-scroll-zone');
+  const fan        = document.getElementById('stories-fan');
+  const rrssSection = document.getElementById('rrss-section');
+  if (!scrollZone || !fan || !rrssSection) return;
+
+  const cards = [...fan.querySelectorAll('.story-card')];
+  const N = cards.length;
+
+  // Estado inicial: todas apiladas (abanico cerrado desde arriba)
+  const initStates = [
+    { y:  80, rotate: -6,   scale: 0.72 },
+    { y:  52, rotate: -3,   scale: 0.80 },
+    { y:  28, rotate: -1,   scale: 0.87 },
+    { y:  10, rotate:  2,   scale: 0.93 },
+    { y:   0, rotate:  0,   scale: 1.00 },
+  ];
+  // Estado final: desplegadas de arriba a abajo
+  const openStates = [
+    { y: -110, rotate: 0, scale: 0.80 },
+    { y:  -55, rotate: 0, scale: 0.87 },
+    { y:    0, rotate: 0, scale: 0.93 },
+    { y:   55, rotate: 0, scale: 1.00 },
+    { y:  110, rotate: 0, scale: 1.06 },
+  ];
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function applyFan(progress) {
+    const p = Math.max(0, Math.min(1, progress));
+    cards.forEach((card, i) => {
+      const s = initStates[i];
+      const o = openStates[i];
+      const y  = lerp(s.y,      o.y,      p);
+      const r  = lerp(s.rotate, o.rotate, p);
+      const sc = lerp(s.scale,  o.scale,  p);
+      card.style.transform = `translateY(${y}%) rotate(${r}deg) scale(${sc})`;
+      // Opacidad: las de atrás ganan opacidad al abrirse
+      const baseOpacity = lerp(0.5 + i * 0.1, 1, p);
+      card.style.opacity = Math.min(1, baseOpacity);
+    });
+  }
+
+  function onRrssScroll() {
+    const zoneTop = scrollZone.offsetTop;
+    const zoneH   = scrollZone.offsetHeight;
+    const viewH   = rrssSection.clientHeight;
+    const scrollTop = rrssSection.scrollTop;
+
+    const start = Math.max(0, zoneTop - viewH * 0.2);
+    const end   = zoneTop + zoneH - viewH * 0.8;
+    const raw   = (scrollTop - start) / Math.max(1, end - start);
+    applyFan(raw);
+  }
+
+  rrssSection.addEventListener('scroll', onRrssScroll, { passive: true });
+  applyFan(0);
+}
+
 document.querySelectorAll('.rrss-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.rrss-tab').forEach(t => t.classList.remove('active'));
